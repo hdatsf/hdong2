@@ -8,76 +8,76 @@ public class SysDict implements Serializable {
      *
      * @mbg.generated
      */
-    private String app;
+    private String dictApp;
 
     /**
      * 类型,对应枚举类名
      *
      * @mbg.generated
      */
-    private String type;
+    private String dictType;
 
     /**
      * 值，对应枚举val
      *
      * @mbg.generated
      */
-    private String val;
+    private String dictVal;
 
     /**
-     * 描述
+     * 对应枚举名字
      *
      * @mbg.generated
      */
-    private String name;
+    private String dictName;
 
     /**
      * 描述，对应枚举的desc
      *
      * @mbg.generated
      */
-    private String desc;
+    private String dictDesc;
 
     private static final long serialVersionUID = 1L;
 
-    public String getApp() {
-        return app;
+    public String getDictApp() {
+        return dictApp;
     }
 
-    public void setApp(String app) {
-        this.app = app;
+    public void setDictApp(String dictApp) {
+        this.dictApp = dictApp;
     }
 
-    public String getType() {
-        return type;
+    public String getDictType() {
+        return dictType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setDictType(String dictType) {
+        this.dictType = dictType;
     }
 
-    public String getVal() {
-        return val;
+    public String getDictVal() {
+        return dictVal;
     }
 
-    public void setVal(String val) {
-        this.val = val;
+    public void setDictVal(String dictVal) {
+        this.dictVal = dictVal;
     }
 
-    public String getName() {
-        return name;
+    public String getDictName() {
+        return dictName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDictName(String dictName) {
+        this.dictName = dictName;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDictDesc() {
+        return dictDesc;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDictDesc(String dictDesc) {
+        this.dictDesc = dictDesc;
     }
 
     @Override
@@ -86,11 +86,11 @@ public class SysDict implements Serializable {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", app=").append(app);
-        sb.append(", type=").append(type);
-        sb.append(", val=").append(val);
-        sb.append(", name=").append(name);
-        sb.append(", desc=").append(desc);
+        sb.append(", dictApp=").append(dictApp);
+        sb.append(", dictType=").append(dictType);
+        sb.append(", dictVal=").append(dictVal);
+        sb.append(", dictName=").append(dictName);
+        sb.append(", dictDesc=").append(dictDesc);
         sb.append("]");
         return sb.toString();
     }
@@ -107,22 +107,22 @@ public class SysDict implements Serializable {
             return false;
         }
         SysDict other = (SysDict) that;
-        return (this.getApp() == null ? other.getApp() == null : this.getApp().equals(other.getApp()))
-            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()))
-            && (this.getVal() == null ? other.getVal() == null : this.getVal().equals(other.getVal()))
-            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getDesc() == null ? other.getDesc() == null : this.getDesc().equals(other.getDesc()));
+        return (this.getDictApp() == null ? other.getDictApp() == null : this.getDictApp().equals(other.getDictApp()))
+            && (this.getDictType() == null ? other.getDictType() == null : this.getDictType().equals(other.getDictType()))
+            && (this.getDictVal() == null ? other.getDictVal() == null : this.getDictVal().equals(other.getDictVal()))
+            && (this.getDictName() == null ? other.getDictName() == null : this.getDictName().equals(other.getDictName()))
+            && (this.getDictDesc() == null ? other.getDictDesc() == null : this.getDictDesc().equals(other.getDictDesc()));
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((getApp() == null) ? 0 : getApp().hashCode());
-        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
-        result = prime * result + ((getVal() == null) ? 0 : getVal().hashCode());
-        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getDesc() == null) ? 0 : getDesc().hashCode());
+        result = prime * result + ((getDictApp() == null) ? 0 : getDictApp().hashCode());
+        result = prime * result + ((getDictType() == null) ? 0 : getDictType().hashCode());
+        result = prime * result + ((getDictVal() == null) ? 0 : getDictVal().hashCode());
+        result = prime * result + ((getDictName() == null) ? 0 : getDictName().hashCode());
+        result = prime * result + ((getDictDesc() == null) ? 0 : getDictDesc().hashCode());
         return result;
     }
 }

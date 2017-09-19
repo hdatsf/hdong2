@@ -107,353 +107,353 @@ public class SysDictExample implements Serializable {
             criteria.add(new Criterion(condition, value1, value2));
         }
 
-        public Criteria andAppIsNull() {
-            addCriterion("app is null");
+        public Criteria andDictAppIsNull() {
+            addCriterion("dict_app is null");
             return (Criteria) this;
         }
 
-        public Criteria andAppIsNotNull() {
-            addCriterion("app is not null");
+        public Criteria andDictAppIsNotNull() {
+            addCriterion("dict_app is not null");
             return (Criteria) this;
         }
 
-        public Criteria andAppEqualTo(String value) {
-            addCriterion("app =", value, "app");
+        public Criteria andDictAppEqualTo(String value) {
+            addCriterion("dict_app =", value, "dictApp");
             return (Criteria) this;
         }
 
-        public Criteria andAppNotEqualTo(String value) {
-            addCriterion("app <>", value, "app");
+        public Criteria andDictAppNotEqualTo(String value) {
+            addCriterion("dict_app <>", value, "dictApp");
             return (Criteria) this;
         }
 
-        public Criteria andAppGreaterThan(String value) {
-            addCriterion("app >", value, "app");
+        public Criteria andDictAppGreaterThan(String value) {
+            addCriterion("dict_app >", value, "dictApp");
             return (Criteria) this;
         }
 
-        public Criteria andAppGreaterThanOrEqualTo(String value) {
-            addCriterion("app >=", value, "app");
+        public Criteria andDictAppGreaterThanOrEqualTo(String value) {
+            addCriterion("dict_app >=", value, "dictApp");
             return (Criteria) this;
         }
 
-        public Criteria andAppLessThan(String value) {
-            addCriterion("app <", value, "app");
+        public Criteria andDictAppLessThan(String value) {
+            addCriterion("dict_app <", value, "dictApp");
             return (Criteria) this;
         }
 
-        public Criteria andAppLessThanOrEqualTo(String value) {
-            addCriterion("app <=", value, "app");
+        public Criteria andDictAppLessThanOrEqualTo(String value) {
+            addCriterion("dict_app <=", value, "dictApp");
             return (Criteria) this;
         }
 
-        public Criteria andAppLike(String value) {
-            addCriterion("app like", value, "app");
+        public Criteria andDictAppLike(String value) {
+            addCriterion("dict_app like", value, "dictApp");
             return (Criteria) this;
         }
 
-        public Criteria andAppNotLike(String value) {
-            addCriterion("app not like", value, "app");
+        public Criteria andDictAppNotLike(String value) {
+            addCriterion("dict_app not like", value, "dictApp");
             return (Criteria) this;
         }
 
-        public Criteria andAppIn(List<String> values) {
-            addCriterion("app in", values, "app");
+        public Criteria andDictAppIn(List<String> values) {
+            addCriterion("dict_app in", values, "dictApp");
             return (Criteria) this;
         }
 
-        public Criteria andAppNotIn(List<String> values) {
-            addCriterion("app not in", values, "app");
+        public Criteria andDictAppNotIn(List<String> values) {
+            addCriterion("dict_app not in", values, "dictApp");
             return (Criteria) this;
         }
 
-        public Criteria andAppBetween(String value1, String value2) {
-            addCriterion("app between", value1, value2, "app");
+        public Criteria andDictAppBetween(String value1, String value2) {
+            addCriterion("dict_app between", value1, value2, "dictApp");
             return (Criteria) this;
         }
 
-        public Criteria andAppNotBetween(String value1, String value2) {
-            addCriterion("app not between", value1, value2, "app");
+        public Criteria andDictAppNotBetween(String value1, String value2) {
+            addCriterion("dict_app not between", value1, value2, "dictApp");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIsNull() {
-            addCriterion("type is null");
+        public Criteria andDictTypeIsNull() {
+            addCriterion("dict_type is null");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIsNotNull() {
-            addCriterion("type is not null");
+        public Criteria andDictTypeIsNotNull() {
+            addCriterion("dict_type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andTypeEqualTo(String value) {
-            addCriterion("type =", value, "type");
+        public Criteria andDictTypeEqualTo(String value) {
+            addCriterion("dict_type =", value, "dictType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotEqualTo(String value) {
-            addCriterion("type <>", value, "type");
+        public Criteria andDictTypeNotEqualTo(String value) {
+            addCriterion("dict_type <>", value, "dictType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThan(String value) {
-            addCriterion("type >", value, "type");
+        public Criteria andDictTypeGreaterThan(String value) {
+            addCriterion("dict_type >", value, "dictType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("type >=", value, "type");
+        public Criteria andDictTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("dict_type >=", value, "dictType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThan(String value) {
-            addCriterion("type <", value, "type");
+        public Criteria andDictTypeLessThan(String value) {
+            addCriterion("dict_type <", value, "dictType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLessThanOrEqualTo(String value) {
-            addCriterion("type <=", value, "type");
+        public Criteria andDictTypeLessThanOrEqualTo(String value) {
+            addCriterion("dict_type <=", value, "dictType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeLike(String value) {
-            addCriterion("type like", value, "type");
+        public Criteria andDictTypeLike(String value) {
+            addCriterion("dict_type like", value, "dictType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotLike(String value) {
-            addCriterion("type not like", value, "type");
+        public Criteria andDictTypeNotLike(String value) {
+            addCriterion("dict_type not like", value, "dictType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeIn(List<String> values) {
-            addCriterion("type in", values, "type");
+        public Criteria andDictTypeIn(List<String> values) {
+            addCriterion("dict_type in", values, "dictType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotIn(List<String> values) {
-            addCriterion("type not in", values, "type");
+        public Criteria andDictTypeNotIn(List<String> values) {
+            addCriterion("dict_type not in", values, "dictType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeBetween(String value1, String value2) {
-            addCriterion("type between", value1, value2, "type");
+        public Criteria andDictTypeBetween(String value1, String value2) {
+            addCriterion("dict_type between", value1, value2, "dictType");
             return (Criteria) this;
         }
 
-        public Criteria andTypeNotBetween(String value1, String value2) {
-            addCriterion("type not between", value1, value2, "type");
+        public Criteria andDictTypeNotBetween(String value1, String value2) {
+            addCriterion("dict_type not between", value1, value2, "dictType");
             return (Criteria) this;
         }
 
-        public Criteria andValIsNull() {
-            addCriterion("val is null");
+        public Criteria andDictValIsNull() {
+            addCriterion("dict_val is null");
             return (Criteria) this;
         }
 
-        public Criteria andValIsNotNull() {
-            addCriterion("val is not null");
+        public Criteria andDictValIsNotNull() {
+            addCriterion("dict_val is not null");
             return (Criteria) this;
         }
 
-        public Criteria andValEqualTo(String value) {
-            addCriterion("val =", value, "val");
+        public Criteria andDictValEqualTo(String value) {
+            addCriterion("dict_val =", value, "dictVal");
             return (Criteria) this;
         }
 
-        public Criteria andValNotEqualTo(String value) {
-            addCriterion("val <>", value, "val");
+        public Criteria andDictValNotEqualTo(String value) {
+            addCriterion("dict_val <>", value, "dictVal");
             return (Criteria) this;
         }
 
-        public Criteria andValGreaterThan(String value) {
-            addCriterion("val >", value, "val");
+        public Criteria andDictValGreaterThan(String value) {
+            addCriterion("dict_val >", value, "dictVal");
             return (Criteria) this;
         }
 
-        public Criteria andValGreaterThanOrEqualTo(String value) {
-            addCriterion("val >=", value, "val");
+        public Criteria andDictValGreaterThanOrEqualTo(String value) {
+            addCriterion("dict_val >=", value, "dictVal");
             return (Criteria) this;
         }
 
-        public Criteria andValLessThan(String value) {
-            addCriterion("val <", value, "val");
+        public Criteria andDictValLessThan(String value) {
+            addCriterion("dict_val <", value, "dictVal");
             return (Criteria) this;
         }
 
-        public Criteria andValLessThanOrEqualTo(String value) {
-            addCriterion("val <=", value, "val");
+        public Criteria andDictValLessThanOrEqualTo(String value) {
+            addCriterion("dict_val <=", value, "dictVal");
             return (Criteria) this;
         }
 
-        public Criteria andValLike(String value) {
-            addCriterion("val like", value, "val");
+        public Criteria andDictValLike(String value) {
+            addCriterion("dict_val like", value, "dictVal");
             return (Criteria) this;
         }
 
-        public Criteria andValNotLike(String value) {
-            addCriterion("val not like", value, "val");
+        public Criteria andDictValNotLike(String value) {
+            addCriterion("dict_val not like", value, "dictVal");
             return (Criteria) this;
         }
 
-        public Criteria andValIn(List<String> values) {
-            addCriterion("val in", values, "val");
+        public Criteria andDictValIn(List<String> values) {
+            addCriterion("dict_val in", values, "dictVal");
             return (Criteria) this;
         }
 
-        public Criteria andValNotIn(List<String> values) {
-            addCriterion("val not in", values, "val");
+        public Criteria andDictValNotIn(List<String> values) {
+            addCriterion("dict_val not in", values, "dictVal");
             return (Criteria) this;
         }
 
-        public Criteria andValBetween(String value1, String value2) {
-            addCriterion("val between", value1, value2, "val");
+        public Criteria andDictValBetween(String value1, String value2) {
+            addCriterion("dict_val between", value1, value2, "dictVal");
             return (Criteria) this;
         }
 
-        public Criteria andValNotBetween(String value1, String value2) {
-            addCriterion("val not between", value1, value2, "val");
+        public Criteria andDictValNotBetween(String value1, String value2) {
+            addCriterion("dict_val not between", value1, value2, "dictVal");
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNull() {
-            addCriterion("name is null");
+        public Criteria andDictNameIsNull() {
+            addCriterion("dict_name is null");
             return (Criteria) this;
         }
 
-        public Criteria andNameIsNotNull() {
-            addCriterion("name is not null");
+        public Criteria andDictNameIsNotNull() {
+            addCriterion("dict_name is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNameEqualTo(String value) {
-            addCriterion("name =", value, "name");
+        public Criteria andDictNameEqualTo(String value) {
+            addCriterion("dict_name =", value, "dictName");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotEqualTo(String value) {
-            addCriterion("name <>", value, "name");
+        public Criteria andDictNameNotEqualTo(String value) {
+            addCriterion("dict_name <>", value, "dictName");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThan(String value) {
-            addCriterion("name >", value, "name");
+        public Criteria andDictNameGreaterThan(String value) {
+            addCriterion("dict_name >", value, "dictName");
             return (Criteria) this;
         }
 
-        public Criteria andNameGreaterThanOrEqualTo(String value) {
-            addCriterion("name >=", value, "name");
+        public Criteria andDictNameGreaterThanOrEqualTo(String value) {
+            addCriterion("dict_name >=", value, "dictName");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThan(String value) {
-            addCriterion("name <", value, "name");
+        public Criteria andDictNameLessThan(String value) {
+            addCriterion("dict_name <", value, "dictName");
             return (Criteria) this;
         }
 
-        public Criteria andNameLessThanOrEqualTo(String value) {
-            addCriterion("name <=", value, "name");
+        public Criteria andDictNameLessThanOrEqualTo(String value) {
+            addCriterion("dict_name <=", value, "dictName");
             return (Criteria) this;
         }
 
-        public Criteria andNameLike(String value) {
-            addCriterion("name like", value, "name");
+        public Criteria andDictNameLike(String value) {
+            addCriterion("dict_name like", value, "dictName");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotLike(String value) {
-            addCriterion("name not like", value, "name");
+        public Criteria andDictNameNotLike(String value) {
+            addCriterion("dict_name not like", value, "dictName");
             return (Criteria) this;
         }
 
-        public Criteria andNameIn(List<String> values) {
-            addCriterion("name in", values, "name");
+        public Criteria andDictNameIn(List<String> values) {
+            addCriterion("dict_name in", values, "dictName");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotIn(List<String> values) {
-            addCriterion("name not in", values, "name");
+        public Criteria andDictNameNotIn(List<String> values) {
+            addCriterion("dict_name not in", values, "dictName");
             return (Criteria) this;
         }
 
-        public Criteria andNameBetween(String value1, String value2) {
-            addCriterion("name between", value1, value2, "name");
+        public Criteria andDictNameBetween(String value1, String value2) {
+            addCriterion("dict_name between", value1, value2, "dictName");
             return (Criteria) this;
         }
 
-        public Criteria andNameNotBetween(String value1, String value2) {
-            addCriterion("name not between", value1, value2, "name");
+        public Criteria andDictNameNotBetween(String value1, String value2) {
+            addCriterion("dict_name not between", value1, value2, "dictName");
             return (Criteria) this;
         }
 
-        public Criteria andDescIsNull() {
-            addCriterion("desc is null");
+        public Criteria andDictDescIsNull() {
+            addCriterion("dict_desc is null");
             return (Criteria) this;
         }
 
-        public Criteria andDescIsNotNull() {
-            addCriterion("desc is not null");
+        public Criteria andDictDescIsNotNull() {
+            addCriterion("dict_desc is not null");
             return (Criteria) this;
         }
 
-        public Criteria andDescEqualTo(String value) {
-            addCriterion("desc =", value, "desc");
+        public Criteria andDictDescEqualTo(String value) {
+            addCriterion("dict_desc =", value, "dictDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotEqualTo(String value) {
-            addCriterion("desc <>", value, "desc");
+        public Criteria andDictDescNotEqualTo(String value) {
+            addCriterion("dict_desc <>", value, "dictDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescGreaterThan(String value) {
-            addCriterion("desc >", value, "desc");
+        public Criteria andDictDescGreaterThan(String value) {
+            addCriterion("dict_desc >", value, "dictDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescGreaterThanOrEqualTo(String value) {
-            addCriterion("desc >=", value, "desc");
+        public Criteria andDictDescGreaterThanOrEqualTo(String value) {
+            addCriterion("dict_desc >=", value, "dictDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescLessThan(String value) {
-            addCriterion("desc <", value, "desc");
+        public Criteria andDictDescLessThan(String value) {
+            addCriterion("dict_desc <", value, "dictDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescLessThanOrEqualTo(String value) {
-            addCriterion("desc <=", value, "desc");
+        public Criteria andDictDescLessThanOrEqualTo(String value) {
+            addCriterion("dict_desc <=", value, "dictDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescLike(String value) {
-            addCriterion("desc like", value, "desc");
+        public Criteria andDictDescLike(String value) {
+            addCriterion("dict_desc like", value, "dictDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotLike(String value) {
-            addCriterion("desc not like", value, "desc");
+        public Criteria andDictDescNotLike(String value) {
+            addCriterion("dict_desc not like", value, "dictDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescIn(List<String> values) {
-            addCriterion("desc in", values, "desc");
+        public Criteria andDictDescIn(List<String> values) {
+            addCriterion("dict_desc in", values, "dictDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotIn(List<String> values) {
-            addCriterion("desc not in", values, "desc");
+        public Criteria andDictDescNotIn(List<String> values) {
+            addCriterion("dict_desc not in", values, "dictDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescBetween(String value1, String value2) {
-            addCriterion("desc between", value1, value2, "desc");
+        public Criteria andDictDescBetween(String value1, String value2) {
+            addCriterion("dict_desc between", value1, value2, "dictDesc");
             return (Criteria) this;
         }
 
-        public Criteria andDescNotBetween(String value1, String value2) {
-            addCriterion("desc not between", value1, value2, "desc");
+        public Criteria andDictDescNotBetween(String value1, String value2) {
+            addCriterion("dict_desc not between", value1, value2, "dictDesc");
             return (Criteria) this;
         }
     }

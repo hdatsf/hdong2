@@ -73,11 +73,11 @@ $(function () {
         columns: [
 			{field: 'ck', checkbox: true},
 			{field: 'systemId', title: '编号', sortable: true, align: 'center'},
-			{field: 'icon', title: '图标', sortable: true, align: 'center', formatter: 'iconFormatter'},
+			{field: 'icon', title: '图标', sortable: true, align: 'center'},
 	    	{field: 'title', title: '系统标题'},
 			{field: 'name', title: '系统名称'},
 			{field: 'basepath', title: '根目录'},
-			{field: 'status', title: '状态', sortable: true, align: 'center'}
+			{field: 'status', title: '状态', sortable: true, align: 'center',formatter:function(name){return HdDict.getDictDesc('UPMS','SYSTEM_STATUS',name);}}
 		]
     });
 	
@@ -86,22 +86,24 @@ $(function () {
         $('#tb_departments').bootstrapTable('refresh');
     });
 	$("#toolbar #btn_create").click(function(){
-	    $.dialog({
-			animationSpeed: 100,
-			title: '系统信息新增',
+	    $.hdDialog({
+			title: '新增系统信息',
+			columnClass:'col-md-offset-2 col-md-8',//配合col-md-offset-x居中
+			//containerFluid:true,//最大化
 			content: 'url:manage/system/create',
-			onContentReady: function () {
+			onClose: function(){
+			    if(HdDialog.getValue()){
+			    	$('#tb_departments').bootstrapTable('refresh');
+			    }
 			}
 		});
     });
 	$("#toolbar #btn_update").click(function(){
 	    var rows = $('#tb_departments').bootstrapTable('getSelections');
 		if (rows.length != 1) {
-			$.confirm({
-				title: false,
+			$.hdConfirm({
 				content: '请选择一条记录！',
 				autoClose: 'cancel|3000',
-				backgroundDismiss: true,
 				buttons: {
 					cancel: {
 						text: '取消'
@@ -110,10 +112,7 @@ $(function () {
 			});
 		} else {
 		    $.hdDialog({
-				animationSpeed: 100,
 				title: '系统信息修改',
-				titleClass: 'background-color:#f1f1f1',
-				theme:'bootstrap',
 				columnClass:'col-md-offset-2 col-md-8',//配合col-md-offset-x居中
 				//containerFluid:true,//最大化
 				content: 'url:manage/system/update/' + rows[0].systemId,
@@ -125,5 +124,76 @@ $(function () {
 			});
 		}
     });
+	$("#btn_delete").click(function(){
+		var rows = $('#tb_departments').bootstrapTable('getSelections');
+		if (rows.length == 0) {
+			$.hdConfirm({
+				title: false,
+				content: '请至少选择一条记录！',
+				autoClose: 'cancel|3000',
+				backgroundDismiss: true,
+				buttons: {
+					cancel: {
+						text: '取消'
+					}
+				}
+			});
+		} else {
+			$.hdConfirm({
+				type: 'red',
+				animationSpeed: 100,
+				title: false,
+				content: '确认删除所选系统吗？',
+				buttons: {
+					confirm: {
+						text: '确认',
+						btnClass: 'btn btn-danger',
+						action: function () {
+							HdConfirm.close();
+							var ids = new Array();
+							for (var i in rows) {
+								ids.push(rows[i].systemId);
+							}
+							$.ajax({
+								type: 'get',
+								url: 'manage/system/delete/' + ids.join("-"),
+								success: function(result) {
+									if (result.code != 1) {
+										$.hdConfirm({
+											theme: 'red',
+											title: false,
+											content: result.data.errorMsg,
+											buttons: {
+												confirm: {text: '确认'}
+											}
+										});
+									} else {
+										$.hdConfirm({
+											title:false,
+											content: '删除成功!',
+											buttons: {
+												confirm: {
+													text:'确认',
+													action:function(){
+														HdConfirm.close();
+														$('#tb_departments').bootstrapTable('refresh');
+													}
+												}
+											}
+										});
+										
+									}
+								}
+							});
+						}
+					},
+					cancel: {
+						text: '取消',
+						btnClass: 'btn btn-warning'
+					}
+				}
+			});
+		}
+	});
 });
 </script>

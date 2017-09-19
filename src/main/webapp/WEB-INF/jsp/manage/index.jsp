@@ -4,11 +4,10 @@
 <html>
 <head>
 <base href="${pageContext.request.contextPath}/">
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>hdong</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8">
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<title> hdong </title>
 <!--icon-->
 <link rel="shortcut icon" type="image/x-icon" href="resources/favicon.ico" media="screen" />
 <!-- Font Awesome -->

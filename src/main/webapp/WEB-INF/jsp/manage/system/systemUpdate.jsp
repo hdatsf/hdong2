@@ -81,7 +81,7 @@ $(function () {
 	        success: function(result) {
 				if (result.code != 1) {
 					$.confirm({
-						theme: 'bootstrap',
+						theme: 'red',
 						title: false,
 						content: result.data.errorMsg,
 						buttons: {
@@ -100,15 +100,6 @@ $(function () {
 						}
 					});
 				}
-	        },
-	        error: function(XMLHttpRequest, textStatus, errorThrown) {
-				$.confirm({
-					title: false,
-					content: textStatus,
-					buttons: { 
-						confirm: { text: '确认'}
-					}
-				});
 	        }
 	    });
 	});
