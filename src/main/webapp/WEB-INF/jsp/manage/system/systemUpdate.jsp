@@ -80,15 +80,17 @@ $(function () {
 	        },
 	        success: function(result) {
 				if (result.code != 1) {
-					$.HdConfirm({
+					$.hdConfirm({
 						content: result.data.errorMsg,
 						buttons: {
 							confirm: {text: '确认'}
 						}
 					});
 				} else {
-					$.HdConfirm({
+					$.hdConfirm({
+						type:'blue',
 						content: '修改成功!',
+						autoClose: 'confirm|3000',
 						buttons: {
 							confirm: {
 								text:'确认',

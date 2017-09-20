@@ -1,18 +1,24 @@
 package com.hdong.upms.client.shiro.session;
 
-import com.hdong.common.util.RedisUtil;
-import com.hdong.upms.client.util.SerializableUtil;
-import com.hdong.upms.common.constant.UpmsConstant;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.shiro.session.Session;
-import org.apache.shiro.session.mgt.ValidatingSession;
 import org.apache.shiro.session.mgt.eis.CachingSessionDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import redis.clients.jedis.Jedis;
 
-import java.io.Serializable;
-import java.util.*;
+import com.hdong.common.util.RedisUtil;
+import com.hdong.common.util.ServletUtil;
+import com.hdong.upms.client.util.SerializableUtil;
+import com.hdong.upms.common.constant.UpmsConstant;
+
+import redis.clients.jedis.Jedis;
 
 /**
  * 基于redis的sessionDao，缓存共享session
@@ -46,16 +52,12 @@ public class UpmsSessionDao extends CachingSessionDAO {
     @Override
     protected Session doReadSession(Serializable sessionId) {
         String session = RedisUtil.get(HDONG_UPMS_SHIRO_SESSION_ID + "_" + sessionId);
-        _log.debug("doReadSession >>>>> sessionId={}", sessionId);
+        _log.debug("doReadSessionByRedis >>>>> sessionId={}", sessionId);
         return SerializableUtil.deserialize(session);
     }
 
     @Override
     protected void doUpdate(Session session) {
-        // 如果会话过期/停止 没必要再更新了
-        if(session instanceof ValidatingSession && !((ValidatingSession)session).isValid()) {
-            return;
-        }
         // 更新session的最后一次访问时间
         UpmsSession upmsSession = (UpmsSession) session;
         UpmsSession cacheUpmsSession = (UpmsSession) doReadSession(session.getId());
@@ -65,7 +67,7 @@ public class UpmsSessionDao extends CachingSessionDAO {
         }
         RedisUtil.set(HDONG_UPMS_SHIRO_SESSION_ID + "_" + session.getId(), SerializableUtil.serialize(session), (int) session.getTimeout() / 1000);
         // 更新HDONG_UPMS_SERVER_SESSION_ID、HDONG_UPMS_SERVER_CODE过期时间 
-        _log.debug("doUpdate >>>>> sessionId={}", session.getId());
+        _log.debug("doUpdateSessionByRedis >>>>> sessionId={}", session.getId());
     }
 
     @Override

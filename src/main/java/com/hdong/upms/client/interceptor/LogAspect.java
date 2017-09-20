@@ -23,6 +23,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.alibaba.fastjson.JSON;
 import com.hdong.common.util.PropertiesFileUtil;
 import com.hdong.common.util.RequestUtil;
+import com.hdong.common.util.ServletUtil;
 import com.hdong.upms.dao.model.UpmsLog;
 import com.hdong.upms.rpc.api.UpmsLogService;
 
@@ -51,9 +52,7 @@ public class LogAspect {
 	public void doBeforeInServiceLayer(JoinPoint joinPoint) {
 		startTime = System.currentTimeMillis();
 		// 获取request
-        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-        HttpServletRequest request = servletRequestAttributes.getRequest();
+        HttpServletRequest request = ServletUtil.getRequest();
         String paramStr ;
         if (request.getMethod().equalsIgnoreCase("GET")) {
             paramStr = request.getQueryString();
@@ -72,9 +71,7 @@ public class LogAspect {
 	@Around("execution(* *..controller..*.*(..))")
 	public Object doAround(ProceedingJoinPoint pjp) throws Throwable {
 		// 获取request
-		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-		HttpServletRequest request = servletRequestAttributes.getRequest();
+		HttpServletRequest request = ServletUtil.getRequest();
 
 		UpmsLog upmsLog = new UpmsLog();
 		// 从注解中获取操作名称、获取响应结果
