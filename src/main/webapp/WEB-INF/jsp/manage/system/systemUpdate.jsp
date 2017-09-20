@@ -80,17 +80,14 @@ $(function () {
 	        },
 	        success: function(result) {
 				if (result.code != 1) {
-					$.confirm({
-						theme: 'red',
-						title: false,
+					$.HdConfirm({
 						content: result.data.errorMsg,
 						buttons: {
 							confirm: {text: '确认'}
 						}
 					});
 				} else {
-					$.confirm({
-						title:false,
+					$.HdConfirm({
 						content: '修改成功!',
 						buttons: {
 							confirm: {

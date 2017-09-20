@@ -13,6 +13,7 @@ import org.apache.ibatis.type.JdbcType;
  *
  * @param <E>
  */
+@SuppressWarnings("rawtypes")
 public class DbEnumTypeHandler<E extends Enum<?> & BaseEnum> extends BaseTypeHandler<BaseEnum> {
 
     private Class<E> type;

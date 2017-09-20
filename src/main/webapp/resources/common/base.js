@@ -1,18 +1,23 @@
 //div加载页面
 function loadPage(url, container) {
-	if (!container)
-	container = "#mainDiv";
+	if (!container){
+		container = "#mainDiv";
+	}
 	$(container).load(url, function(response, status, xhr) {
-		if (status == "success") {
+		if (status == "error") {
 			if (response) {
 				try {
 					var result = jQuery.parseJSON(response);
-					if (result.code == 100) {
-					jQuery(container).html("");
-					alert(result.data);
+					if (result.code != 1) {
+						$.HdConfirm({
+							content: result.data.errorMsg,
+							buttons: {
+								confirm: {text: '确认'}
+							}
+						});
 					}
 				} catch (e) {
-					return response;
+					$(container).html(response);
 				}
 			}
 		}
