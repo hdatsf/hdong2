@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <div class="panel panel-default">
 	<div class="panel-heading">系统管理</div>
 	<div class="panel-body" style="padding-left:0px;padding-right:15px">
@@ -39,7 +41,7 @@
 <script>
 $(function () {
 	$('#tb_departments').bootstrapTable({
-        url: 'manage/system/list',         //请求后台的URL（*）
+        url: '${basePath}/manage/system/list',         //请求后台的URL（*）
         method: 'get',                      //请求方式（*）
         toolbar: '#toolbar',                //工具按钮用哪个容器
         toolbarAlign:"right",
@@ -58,8 +60,8 @@ $(function () {
         showRefresh: false,                  //是否显示刷新按钮
         minimumCountColumns: 2,             //最少允许的列数
         clickToSelect: true,                //是否启用点击选中行
-        height: '100%',                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-        uniqueId: "systemId",                     //每一行的唯一标识，一般为主键列
+        height: '500',                      //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        uniqueId: "systemId",               //每一行的唯一标识，一般为主键列
         showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
         cardView: false,                    //是否显示详细视图
         detailView: false,                   //是否显示父子表
@@ -90,7 +92,7 @@ $(function () {
 			title: '新增系统信息',
 			columnClass:'col-md-offset-2 col-md-8',//配合col-md-offset-x居中
 			//containerFluid:true,//最大化
-			content: 'url:manage/system/create',
+			content: 'url:${basePath}/manage/system/create',
 			onClose: function(){
 			    if(HdDialog.getValue()){
 			    	$('#tb_departments').bootstrapTable('refresh');
@@ -115,7 +117,7 @@ $(function () {
 				title: '系统信息修改',
 				columnClass:'col-md-offset-2 col-md-8',//配合col-md-offset-x居中
 				//containerFluid:true,//最大化
-				content: 'url:manage/system/update/' + rows[0].systemId,
+				content: 'url:${basePath}/manage/system/update/' + rows[0].systemId,
 				onClose: function(){
 				    if(HdDialog.getValue()){
 				    	$('#tb_departments').bootstrapTable('refresh');
@@ -156,7 +158,7 @@ $(function () {
 							}
 							$.ajax({
 								type: 'get',
-								url: 'manage/system/delete/' + ids.join("-"),
+								url: '${basePath}/manage/system/delete/' + ids.join("-"),
 								success: function(result) {
 									if (result.code != 1) {
 										$.hdConfirm({

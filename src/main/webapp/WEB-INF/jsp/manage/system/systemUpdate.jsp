@@ -66,7 +66,7 @@ $(function () {
 	$("#btn_save").click(function(){
 		$.ajax({
 	        type: 'post',
-	        url: 'manage/system/update/${system.systemId}',
+	        url: '${basePath}/manage/system/update/${system.systemId}',
 	        data: $('#updateForm').serialize(),
 	        beforeSend: function() {
 	            if ($('#title').val() == '') {

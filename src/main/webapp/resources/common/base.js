@@ -136,7 +136,7 @@ var HdConfirm = new __HdConfirm();
 
 //获取字典项
 __HdDict = function(){
-	this.url = "sys/dicts";
+	this.url = basePath + "/sys/dicts";
 	this.dictMap = null;//{"app-type-name","desc"}
 	this.dictArr = null;//{"app-type",[{name:"name",desc:"desc"}]}
 };

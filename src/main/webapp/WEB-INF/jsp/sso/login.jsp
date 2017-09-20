@@ -1,30 +1,31 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
-<base href="${pageContext.request.contextPath}/">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8">
-<title>hdong | Log in</title>
-<!-- Tell the browser to be responsive to screen width -->
+<title>盯市系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
 <!--icon-->
-<link rel="shortcut icon" type="image/x-icon" href="resources/common/favicon.ico" media="screen" />
+<link rel="shortcut icon" type="image/x-icon" href="${basePath}/resources/common/favicon.ico" media="screen" />
 <!-- Bootstrap 3.3.7 -->
-<link rel="stylesheet" href="resources/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="${basePath}/resources/bootstrap/css/bootstrap.min.css">
 <!-- Font Awesome -->
-<link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="${basePath}/resources/font-awesome/css/font-awesome.min.css">
 <!-- Ionicons -->
-<link rel="stylesheet" href="resources/ionicons/css/ionicons.min.css">
+<link rel="stylesheet" href="${basePath}/resources/ionicons/css/ionicons.min.css">
 <!-- Theme style -->
-<link rel="stylesheet" href="resources/adminlte/css/AdminLTE.min.css">
+<link rel="stylesheet" href="${basePath}/resources/adminlte/css/AdminLTE.min.css">
 <!-- iCheck -->
-<link rel="stylesheet" href="resources/adminlte/plugins/iCheck/square/blue.css">
+<link rel="stylesheet" href="${basePath}/resources/adminlte/plugins/iCheck/square/blue.css">
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <script src="${basePath}/resources/ie/html5shiv.min.js"></script>
+  <script src="${basePath}/resources/ie/respond.min.js"></script>
   <![endif]-->
 </head>
 <body class="hold-transition login-page">
@@ -73,46 +74,46 @@
 	<!-- /.login-box -->
 
 	<!-- jQuery 3 -->
-	<script src="resources/jquery/jquery.min.js"></script>
+	<script src="${basePath}/resources/jquery/jquery.min.js"></script>
 	<!-- Bootstrap 3.3.7 -->
-	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${basePath}/resources/bootstrap/js/bootstrap.min.js"></script>
 	<!-- iCheck -->
-	<script src="resources/adminlte/plugins/iCheck/icheck.min.js"></script>
+	<script src="${basePath}/resources/adminlte/plugins/iCheck/icheck.min.js"></script>
 </body>
 </html>
 <script>
     $(function() {
-	$('input').iCheck({
-	    checkboxClass : 'icheckbox_square-blue',
-	    radioClass : 'iradio_square-blue',
-	    increaseArea : '20%'
-	});
-	$('#signIn').click(function() {
-	    $.ajax({
-		url : 'sso/login',
-		type : 'POST',
-		data : {
-		    username : $('#username').val(),
-		    password : $('#password').val(),
-		    rememberMe : $('#rememberMe').is(':checked')
-		},
-		success : function(json) {
-		    if (json.code == 1) {
-				location.href = 'manage/index';
-		    } else {
-				alert(json.data);
-				if (10101 == json.code) {
-				    $('#username').focus();
-				}
-				if (10102 == json.code) {
-				    $('#password').focus();
-				}
-		    }
-		},
-		error : function(error) {
-		    console.log(error);
-		}
-	    });
-	});
+		$('input').iCheck({
+		    checkboxClass : 'icheckbox_square-blue',
+		    radioClass : 'iradio_square-blue',
+		    increaseArea : '20%'
+		});
+		$('#signIn').click(function() {
+		    $.ajax({
+			url : '${basePath}/sso/login',
+			type : 'POST',
+			data : {
+			    username : $('#username').val(),
+			    password : $('#password').val(),
+			    rememberMe : $('#rememberMe').is(':checked')
+			},
+			success : function(json) {
+			    if (json.code == 1) {
+					location.href = '${basePath}/manage/index';
+			    } else {
+					alert(json.data);
+					if (10101 == json.code) {
+					    $('#username').focus();
+					}
+					if (10102 == json.code) {
+					    $('#password').focus();
+					}
+			    }
+			},
+			error : function(error) {
+			    console.log(error);
+			}
+		    });
+		});
     });
 </script>

@@ -1,4 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <div id="createDialog">
 	<form id="createForm" method="post" class="form-horizontal">
 		<div class="form-group">
@@ -63,7 +65,7 @@ $(function () {
 	$("#btn_save").click(function(){
 		$.ajax({
 	        type: 'post',
-	        url: 'manage/system/create',
+	        url: '${basePath}/manage/system/create',
 	        data: $('#createForm').serialize(),
 	        beforeSend: function() {
 	            if ($('#title').val() == '') {

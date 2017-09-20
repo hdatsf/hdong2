@@ -1,49 +1,44 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <!DOCTYPE html>
 <html>
 <head>
-<base href="${pageContext.request.contextPath}/">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8">
-<!-- Tell the browser to be responsive to screen width -->
+<title>盯市系统</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<title> hdong </title>
+<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<script> var basePath = '${basePath}';</script>
 <!--icon-->
-<link rel="shortcut icon" type="image/x-icon" href="resources/favicon.ico" media="screen" />
+<link href="${basePath}/resources/favicon.ico" media="screen" rel="shortcut icon" type="image/x-icon" />
 <!-- Font Awesome -->
-<link rel="stylesheet" href="resources/font-awesome/css/font-awesome.min.css">
+<link href="${basePath}/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet" >
 <!-- Ionicons -->
-<link rel="stylesheet" href="resources/ionicons/css/ionicons.min.css">
+<link href="${basePath}/resources/ionicons/css/ionicons.min.css" rel="stylesheet" >
 <!-- Theme style -->
-<link rel="stylesheet" href="resources/adminlte/css/AdminLTE.min.css">
-<!-- AdminLTE Skins. Choose a skin from the css/skins
-       folder instead of downloading all of them to reduce the load. -->
-<link rel="stylesheet" href="resources/adminlte/css/skins/_all-skins.min.css">
-
+<link href="${basePath}/resources/adminlte/css/AdminLTE.min.css" rel="stylesheet" >
+<!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+<link href="${basePath}/resources/adminlte/css/skins/_all-skins.min.css" rel="stylesheet" >
 <!-- Bootstrap 3.3.7 -->
-<link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-<link href="resources/bootstrap/css/bootstrap-table.min.css" rel="stylesheet" />
-
+<link href="${basePath}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<link href="${basePath}/resources/bootstrap/css/bootstrap-table.min.css" rel="stylesheet" />
 <!-- jquery confirm -->
-<link href="resources/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-
-<link src="resources/common/base.css"/>
+<link href="${basePath}/resources/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <script src="${basePath}/resources/ie/html5shiv.min.js"></script>
+  <script src="${basePath}/resources/ie/respond.min.js"></script>
   <![endif]-->
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
-
 		<header class="main-header">
-
 			<!-- Logo -->
-			<a href="#" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels --> <span class="logo-mini"><b>A</b>LT</span> <!-- logo for regular state and mobile devices -->
-				<span class="logo-lg"><b>hdong</b></span>
+			<a href="#" class="logo"> <!-- mini logo for sidebar mini 50x50 pixels --> 
+				<span class="logo-mini">盯市</span> <!-- logo for regular state and mobile devices -->
+				<span class="logo-lg"><b>盯市系统</b></span>
 			</a>
 
 			<!-- Header Navbar: style can be found in header.less -->
@@ -65,7 +60,7 @@
 									<ul class="menu">
 										<li><a href="#">
 												<div class="pull-left">
-													<img src="resources/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+													<img src="${basePath}/resources/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 												</div>
 												<h4>
 													CMRS系统 <small><i class="fa fa-clock-o"></i> 5 mins</small>
@@ -115,12 +110,12 @@
 								<li class="footer"><a href="#">查看全部</a></li>
 							</ul></li>
 						<!-- User Account: style can be found in dropdown.less -->
-						<li class="dropdown user user-menu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="${upmsUser.avatar}"
+						<li class="dropdown user user-menu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="${basePath}/${upmsUser.avatar}"
 								class="user-image" alt="User Image"> <span class="hidden-xs">${upmsUser.realname}</span>
 						</a>
 							<ul class="dropdown-menu">
 								<!-- User image -->
-								<li class="user-header"><img src="${upmsUser.avatar}" class="img-circle" alt="User Image">
+								<li class="user-header"><img src="${basePath}/${upmsUser.avatar}" class="img-circle" alt="User Image">
 									<p>
 										${upmsUser.realname} <small>${upmsUser.phone}</small><small>${upmsUser.email}</small>
 									</p></li>
@@ -130,7 +125,7 @@
 										<a href="#" class="btn btn-default btn-flat">信息修改</a>
 									</div>
 									<div class="pull-right">
-										<a href="sso/logout" class="btn btn-default btn-flat">退出</a>
+										<a href="${basePath}/sso/logout" class="btn btn-default btn-flat">退出</a>
 									</div>
 								</li>
 							</ul></li>
@@ -146,7 +141,7 @@
 				<!-- Sidebar user panel -->
 				<div class="user-panel">
 					<div class="pull-left image">
-						<img src="${upmsUser.avatar}" class="img-circle" alt="User Image">
+						<img src="${basePath}/${upmsUser.avatar}" class="img-circle" alt="User Image">
 					</div>
 					<div class="pull-left info">
 						<p>${upmsUser.realname}</p>
@@ -224,21 +219,22 @@
 	<!-- ./wrapper -->
 
 	<!-- jQuery 3 -->
-	<script src="resources/jquery/jquery.min.js"></script>
-	<script src="resources/jquery-confirm/jquery-confirm.js"></script>
+	<script src="${basePath}/resources/jquery/jquery.min.js"></script>
+	<script src="${basePath}/resources/jquery-confirm/jquery-confirm.js"></script>
+	<script src="${basePath}/resources/jquery-validate/jquery-validate.min.js"></script>
 	<!-- Bootstrap 3.3.7 -->
-	<script src="resources/bootstrap/js/bootstrap-table.min.js"></script>
-	<script src="resources/bootstrap/js/bootstrap.min.js"></script>
-	<script src="resources/bootstrap/js/bootstrap-table-zh-CN.min.js"></script>
+	<script src="${basePath}/resources/bootstrap/js/bootstrap-table.min.js"></script>
+	<script src="${basePath}/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${basePath}/resources/bootstrap/js/bootstrap-table-zh-CN.min.js"></script>
 	<!-- AdminLTE App -->
-	<script src="resources/adminlte/js/adminlte.min.js"></script>
-	<script src="resources/common/base.js"></script>
+	<script src="${basePath}/resources/adminlte/js/adminlte.min.js"></script>
+	<script src="${basePath}/resources/common/base.js"></script>
 </body>
 </html>
 <script>
 $(function(){
     $("ul.treeview-menu li a[data-url]").click(function(){
-		loadPage($(this).data("url"));
+		loadPage("${basePath}/"+$(this).data("url"));
 	    $("ul.treeview-menu li").removeClass("active");
 	    $(this).parent().addClass("active");
     });
