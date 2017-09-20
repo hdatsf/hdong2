@@ -4,7 +4,7 @@
 <head>
 <base href="${pageContext.request.contextPath}/">
 <meta http-equiv="X-UA-Compatible" content="IE=edge" charset="utf-8">
-<title>hdong | Log in</title>
+<title>盯市系统 | 登录</title>
 <!-- Tell the browser to be responsive to screen width -->
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <!--icon-->
@@ -30,14 +30,15 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<b>hdong</b> Login
+			<b>盯市系统</b> Login
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
-			<p class="login-box-msg">测试用户 test/test</p>
+		    <p class="login-box-msg">欢迎使用盯市系统</p>
+			<!-- <p class="login-box-msg">测试用户 test/123456</p>  -->
 			<form action="" method="post" id="signInForm">
 				<div class="form-group has-feedback">
-					<input type="text" class="form-control" placeholder="请输入登录邮箱/登录名" id="username"> <span
+					<input type="text" class="form-control" placeholder="请输入账号" id="username"> <span
 						class="glyphicon glyphicon-envelope form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
