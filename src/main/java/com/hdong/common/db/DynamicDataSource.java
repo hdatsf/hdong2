@@ -6,7 +6,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 /**
  * 动态数据源（数据源切换）
- * Created by hdong on 2017/1/15.
+ * Created by ZhangShuzheng on 2017/1/15.
  */
 public class DynamicDataSource extends AbstractRoutingDataSource {
 
@@ -17,7 +17,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 	@Override
 	protected Object determineCurrentLookupKey() {
 		String dataSource = getDataSource();
-		_log.debug("use db：{}", dataSource);
+		_log.info("当前操作使用的数据源：{}", dataSource);
 		return dataSource;
 	}
 

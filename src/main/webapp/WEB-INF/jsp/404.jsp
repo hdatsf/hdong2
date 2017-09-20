@@ -22,7 +22,7 @@ p, form, ol, ul, li, dl, dt, dd, h3 {margin: 0; padding: 0; list-style: none }
                     <li>请检查您访问的网址是否正确</li>
                     <li>如果您不能确认访问的网址，请重新<a href="${pageContext.request.contextPath}/sso/logout">登录</a>。</li>
                     <li>回到顶部重新发起搜索</li>
-                    <li>如有任何意见或建议，请及时我们tel:0571-88888888。</li>
+                    <li>如有任何意见或建议，请及时我们tel:0571-88888888</a>。</li>
                 </ol>
             </div>
         </div>

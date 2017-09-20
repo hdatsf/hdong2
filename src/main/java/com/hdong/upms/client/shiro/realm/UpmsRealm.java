@@ -47,7 +47,7 @@ public class UpmsRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String username = (String) principalCollection.getPrimaryPrincipal();
-        List<Set<String>> setList = upmsApiService.selectRolesPermissionsByNameByCache(username, SYSTEM_NAME);
+        List<Set<String>> setList = upmsApiService.selectRolesPermissionsByName(username, SYSTEM_NAME);
         
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         if(setList !=null && setList.size()==2) {

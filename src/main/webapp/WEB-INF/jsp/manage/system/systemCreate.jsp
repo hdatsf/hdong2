@@ -43,10 +43,10 @@
 			<label for="status" class="col-md-3 control-label">状态</label>
 			<div class="col-md-9">
 				<label class="radio-inline">
-					<input type="radio" name="status" id="status_1" value="NORMAL">正常
+					<input type="radio" name="status" id="status_1" value="1">正常
 				</label>
 				<label class="radio-inline">
-					<input type="radio" name="status" id="status_2" value="ABNORMAL">锁定
+					<input type="radio" name="status" id="status_2" value="-1">锁定
 				</label>
 			</div>
 		</div>
