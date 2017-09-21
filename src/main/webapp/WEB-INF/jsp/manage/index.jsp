@@ -221,7 +221,8 @@
 	<!-- jQuery 3 -->
 	<script src="${basePath}/resources/jquery/jquery.min.js"></script>
 	<script src="${basePath}/resources/jquery-confirm/jquery-confirm.js"></script>
-	<script src="${basePath}/resources/jquery-validate/jquery-validate.min.js"></script>
+	<script src="${basePath}/resources/jquery-validate/jquery.validate.min.js"></script>
+	<script src="${basePath}/resources/jquery-validate/messages_zh.js"></script>
 	<!-- Bootstrap 3.3.7 -->
 	<script src="${basePath}/resources/bootstrap/js/bootstrap-table.min.js"></script>
 	<script src="${basePath}/resources/bootstrap/js/bootstrap.min.js"></script>

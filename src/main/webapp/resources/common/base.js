@@ -1,3 +1,21 @@
+//验证框架
+$.validator.setDefaults({
+	showErrors: function(errorMap, errorList) {
+        $.each(this.successList, function(index, value) {
+        	return $(value).popover("hide");
+        });
+        return $.each(errorList, function(index, value) {
+        	var _popover = $(value.element).popover({
+                trigger: "manual",
+                placement: "bottom",
+                content: value.message,
+                template: '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content" style="color:red"></div></div>'
+        	});
+        	return _popover.popover("show");
+        });
+      }
+});
+
 //div加载页面
 function loadPage(url, container) {
 	if (!container){
@@ -176,4 +194,18 @@ __HdDict.prototype.getDictArr = function(app, type){
 		return my.dictArr[key];
 	}
 };
+__HdDict.prototype.init = function(){
+	var my = this;
+	if(this.dictArr == null){
+		$.ajax({
+	        type: 'get',
+	        url: this.url,
+	        success: function(result) {
+	        	my.dictMap = result.dictMap;
+	        	my.dictArr = result.dictArr;
+	        }
+	    });
+	}
+};
 var HdDict = new __HdDict();
+HdDict.init();

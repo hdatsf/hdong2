@@ -6,7 +6,7 @@
 		<div class="form-group">
 			<label for="theme" class="col-md-3 control-label">主题色</label>
 			<div class="col-md-9">
-				<input id="theme" type="color" class="form-control" name="theme" maxlength="50">
+				<input id="theme" type="color" class="form-control" name="theme" required>
 			</div>
 		</div>
 		<div class="form-group">
@@ -18,13 +18,13 @@
 		<div class="form-group">
 			<label for="title" class="col-md-3 control-label">标题</label>
 			<div class="col-md-9">
-				<input id="title" type="text" class="form-control" name="title" maxlength="20" required="true">
+				<input id="title" type="text" class="form-control" name="title" maxlength="20" required>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="name" class="col-md-3 control-label">名称</label>
 			<div class="col-md-9">
-				<input id="name" type="text" class="form-control" name="name" maxlength="20" required="true">
+				<input id="name" type="text" class="form-control" name="name" maxlength="20" required>
 			</div>
 		</div>
 		<div class="form-group">
@@ -43,7 +43,7 @@
 			<label for="status" class="col-md-3 control-label">状态</label>
 			<div class="col-md-9">
 				<label class="radio-inline">
-					<input type="radio" name="status" id="status_1" value="NORMAL">正常
+					<input type="radio" name="status" id="status_1" value="NORMAL" checked>正常
 				</label>
 				<label class="radio-inline">
 					<input type="radio" name="status" id="status_2" value="ABNORMAL">锁定
@@ -62,21 +62,13 @@
 </div>
 <script>
 $(function () {
+	$("#createForm").validate();
 	$("#btn_save").click(function(){
+		if(!$("#createForm").valid())return;
 		$.ajax({
 	        type: 'post',
 	        url: '${basePath}/manage/system/create',
 	        data: $('#createForm').serialize(),
-	        beforeSend: function() {
-	            if ($('#title').val() == '') {
-	                $('#title').focus();
-	                return false;
-	            }
-	            if ($('#name').val() == '') {
-	                $('#name').focus();
-	                return false;
-	            }
-	        },
 	        success: function(result) {
 				if (result.code != 1) {
 					$.confirm({

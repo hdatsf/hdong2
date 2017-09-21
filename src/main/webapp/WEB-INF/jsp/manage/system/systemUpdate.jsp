@@ -1,30 +1,30 @@
 <%@ page contentType="text/html; charset=utf-8"%>
-<%@taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jstl/core_rt" %>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <div id="updateDialog">
 	<form id="updateForm" method="post" class="form-horizontal">
 		<div class="form-group">
 			<label for="theme" class="col-md-3 control-label">主题色</label>
 			<div class="col-md-9">
-				<input id="theme" type="color" class="form-control" name="theme" maxlength="50" value="${system.theme}">
+				<input id="theme" type="color" class="form-control" name="theme" maxlength="50" value="${system.theme}" required>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="icon" class="col-md-3 control-label">图标</label>
 			<div class="col-md-9">
-				<input id="icon" type="text" class="form-control" name="icon" maxlength="20" value="${system.icon}">
+				<input id="icon" type="text" class="form-control" name="icon" maxlength="20" value="${system.icon}" required>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="title" class="col-md-3 control-label">标题</label>
 			<div class="col-md-9">
-				<input id="title" type="text" class="form-control" name="title" maxlength="20" value="${system.title}"  required="true">
+				<input id="title" type="text" class="form-control" name="title" maxlength="20" value="${system.title}" number="true" required >
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="name" class="col-md-3 control-label">名称</label>
 			<div class="col-md-9">
-				<input id="name" type="text" class="form-control" name="name" maxlength="20" value="${system.name}" required="true">
+				<input id="name" type="text" class="form-control" name="name" maxlength="20" value="${system.name}" required>
 			</div>
 		</div>
 		<div class="form-group">
@@ -63,21 +63,13 @@
 
 <script>
 $(function () {
+	$("#updateForm").validate();
 	$("#btn_save").click(function(){
+		if(!$("#updateForm").valid())return;
 		$.ajax({
 	        type: 'post',
 	        url: '${basePath}/manage/system/update/${system.systemId}',
 	        data: $('#updateForm').serialize(),
-	        beforeSend: function() {
-	            if ($('#title').val() == '') {
-	                $('#title').focus();
-	                return false;
-	            }
-	            if ($('#name').val() == '') {
-	                $('#name').focus();
-	                return false;
-	            }
-	        },
 	        success: function(result) {
 				if (result.code != 1) {
 					$.hdConfirm({
