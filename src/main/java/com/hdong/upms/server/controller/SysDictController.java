@@ -94,7 +94,7 @@ public class SysDictController extends BaseController {
                 if(oldKey == null) {
                     oldKey = newKey;
                 }
-                if(oldKey != newKey) {
+                if(!oldKey.equals(newKey)) {
                     dictArr.put(oldKey, list);
                     list = new ArrayList<Map<String,String>>();
                     oldKey = newKey;
@@ -104,7 +104,7 @@ public class SysDictController extends BaseController {
                 item3.put("desc", dict.getDictDesc());
                 list.add(item3);
             }
-            if(oldKey!=null) {
+            if(newKey!=null) {
                 dictArr.put(newKey, list);
             }
         }

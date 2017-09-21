@@ -208,3 +208,16 @@ __HdDict.prototype.init = function(){
 	}
 };
 var HdDict = new __HdDict();
+
+//下拉框
+$.fn.initSelectByDict=function(app, type, selected){
+	var options = HdDict.getDictArr(app, type);
+	var optionStr = '';
+	for(var i=0;i<options.length;i++){
+		var selectedStr = options[i].name == selected?"selected":"";
+		optionStr += '<option value="'+options[i].name+'" '+selectedStr+'>'+options[i].desc+'</option>' 
+	}
+	if(optionStr!=''){
+		this.html(optionStr);
+	}
+};

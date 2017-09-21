@@ -8,6 +8,8 @@
 
 `HdDict.getDictArr(app,type);//获取一类型对应的字典集合，一般用于下拉框；返回[{name:'name',desc:'desc'}]`
 
+下拉框通过$("#aaa").initSelectByDict('UPMS','SYSTEM_STATUS','ABNORMAL');来为select添加option
+
 ### 2 序列号
 
 为了兼容不同的数据库以及数据库拆分，使用redis做序列号发生器，通过`SequenceUtil.getInt(TableName.class); `
