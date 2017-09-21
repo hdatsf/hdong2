@@ -8,7 +8,19 @@
 
 `HdDict.getDictArr(app,type);//获取一类型对应的字典集合，一般用于下拉框；返回[{name:'name',desc:'desc'}]`
 
-### 2 前台校验框架：
+### 2 序列号
+
+为了兼容不同的数据库以及数据库拆分，使用redis做序列号发生器，通过`SequenceUtil.getInt(TableName.class); `
+
+`SequenceUtil.getLong(TableName.class);`来获取序列号，其中int的序列号会到达Integer.MAX_VALUE自动回滚到1重复使用。
+
+### 3 错误代码
+
+`UpmsResultConstant `
+
+`UpmsResult`，错误代码都列在*ResultConstant枚举类中(可以一个大模块建一个枚举类),前台框架通过获取result.code判断成功失败，result.msg获取信息也可以把信息封装在result.data里面。
+
+### 4 前台校验框架：
 
 使用jquery.validate, 原因好用简单。
 

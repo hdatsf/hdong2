@@ -113,10 +113,10 @@ public class SSOController extends BaseController {
         String password = request.getParameter("password");
         String rememberMe = request.getParameter("rememberMe");
         if (StringUtils.isBlank(username)) {
-            return new UpmsResult(UpmsResultConstant.EMPTY_USERNAME, "帐号不能为空！");
+            return new UpmsResult(UpmsResultConstant.EMPTY_USERNAME);
         }
         if (StringUtils.isBlank(password)) {
-            return new UpmsResult(UpmsResultConstant.EMPTY_PASSWORD, "密码不能为空！");
+            return new UpmsResult(UpmsResultConstant.EMPTY_PASSWORD);
         }
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
@@ -135,11 +135,11 @@ public class SSOController extends BaseController {
                 }
                 subject.login(usernamePasswordToken);
             } catch (UnknownAccountException e) {
-                return new UpmsResult(UpmsResultConstant.INVALID_USERNAME, "帐号不存在！");
+                return new UpmsResult(UpmsResultConstant.INVALID_USERNAME);
             } catch (IncorrectCredentialsException e) {
-                return new UpmsResult(UpmsResultConstant.INVALID_PASSWORD, "密码错误！");
+                return new UpmsResult(UpmsResultConstant.INVALID_PASSWORD);
             } catch (LockedAccountException e) {
-                return new UpmsResult(UpmsResultConstant.INVALID_ACCOUNT, "帐号已锁定！");
+                return new UpmsResult(UpmsResultConstant.INVALID_ACCOUNT);
             }
             // 更新session状态
             upmsSessionDao.updateStatus(sessionId, UpmsSession.OnlineStatus.on_line);

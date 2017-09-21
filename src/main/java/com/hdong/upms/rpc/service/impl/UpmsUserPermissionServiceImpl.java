@@ -29,6 +29,10 @@ public class UpmsUserPermissionServiceImpl extends BaseServiceImpl<UpmsUserPermi
     UpmsUserPermissionMapper upmsUserPermissionMapper;
 
     @Override
+    public Logger getLogger() {
+        return _log;
+    }
+    @Override
     public int permission(JSONArray datas, int id) {
         for (int i = 0; i < datas.size(); i ++) {
             JSONObject json = datas.getJSONObject(i);

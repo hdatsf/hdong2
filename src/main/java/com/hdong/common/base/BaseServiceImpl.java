@@ -1,23 +1,24 @@
 package com.hdong.common.base;
 
-import com.github.pagehelper.PageHelper;
-import com.hdong.common.db.DataSourceEnum;
-import com.hdong.common.db.DynamicDataSource;
-import com.hdong.common.util.SpringContextUtil;
-import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.annotations.Param;
-
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.ibatis.annotations.Param;
+
+import com.github.pagehelper.PageHelper;
+import com.hdong.common.db.DataSourceEnum;
+import com.hdong.common.db.DynamicDataSource;
+import com.hdong.common.util.SpringContextUtil;
 
 /**
  * 实现BaseService抽象类
  * Created by hdong on 2017/01/07.
  */
 public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseService<Record, Example> {
-
+    
 	public Mapper mapper;
 
 	@Override
@@ -28,13 +29,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = countByExample.invoke(mapper, example);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+		    getLogger().error("countByExample error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+		    getLogger().error("countByExample error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
+		    getLogger().error("countByExample error:", e);
+		} finally{
+		    DynamicDataSource.clearDataSource();
 		}
-		DynamicDataSource.clearDataSource();
 		return 0;
 	}
 
@@ -46,13 +48,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = deleteByExample.invoke(mapper, example);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("deleteByExample error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("deleteByExample error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("deleteByExample error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return 0;
 	}
 
@@ -64,13 +67,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = deleteByPrimaryKey.invoke(mapper, id);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("deleteByPrimaryKey error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("deleteByPrimaryKey error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("deleteByPrimaryKey error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return 0;
 	}
 
@@ -82,13 +86,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = insert.invoke(mapper, record);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("insert error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("insert error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("insert error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return 0;
 	}
 
@@ -100,13 +105,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = insertSelective.invoke(mapper, record);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("insertSelective error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("insertSelective error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("insertSelective error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return 0;
 	}
 
@@ -118,13 +124,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = selectByExampleWithBLOBs.invoke(mapper, example);
 			return (List<Record>) result;
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("selectByExampleWithBLOBs error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("selectByExampleWithBLOBs error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("selectByExampleWithBLOBs error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return null;
 	}
 
@@ -136,13 +143,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = selectByExample.invoke(mapper, example);
 			return (List<Record>) result;
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("selectByExample error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("selectByExample error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("selectByExample error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return null;
 	}
 
@@ -155,13 +163,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = selectByExampleWithBLOBs.invoke(mapper, example);
 			return (List<Record>) result;
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("selectByExampleWithBLOBsForStartPage error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("selectByExampleWithBLOBsForStartPage error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("selectByExampleWithBLOBsForStartPage error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return null;
 	}
 
@@ -174,13 +183,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = selectByExample.invoke(mapper, example);
 			return (List<Record>) result;
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("selectByExampleForStartPage error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("selectByExampleForStartPage error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("selectByExampleForStartPage error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return null;
 	}
 
@@ -193,13 +203,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = selectByExampleWithBLOBs.invoke(mapper, example);
 			return (List<Record>) result;
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("selectByExampleWithBLOBsForOffsetPage error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("selectByExampleWithBLOBsForOffsetPage error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("selectByExampleWithBLOBsForOffsetPage error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return null;
 	}
 
@@ -212,13 +223,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = selectByExample.invoke(mapper, example);
 			return (List<Record>) result;
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("selectByExampleForOffsetPage error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("selectByExampleForOffsetPage error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("selectByExampleForOffsetPage error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return null;
 	}
 
@@ -232,13 +244,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 				return result.get(0);
 			}
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("selectFirstByExample error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("selectFirstByExample error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("selectFirstByExample error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return null;
 	}
 
@@ -252,13 +265,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 				return result.get(0);
 			}
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("selectFirstByExampleWithBLOBs error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("selectFirstByExampleWithBLOBs error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("selectFirstByExampleWithBLOBs error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return null;
 	}
 
@@ -270,13 +284,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = selectByPrimaryKey.invoke(mapper, id);
 			return (Record) result;
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("selectByPrimaryKey error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("selectByPrimaryKey error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("selectByPrimaryKey error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return null;
 	}
 
@@ -288,13 +303,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = updateByExampleSelective.invoke(mapper, record, example);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("updateByExampleSelective error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("updateByExampleSelective error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("updateByExampleSelective error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return 0;
 	}
 
@@ -306,13 +322,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = updateByExampleWithBLOBs.invoke(mapper, record, example);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("updateByExampleWithBLOBs error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("updateByExampleWithBLOBs error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("updateByExampleWithBLOBs error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return 0;
 	}
 
@@ -324,13 +341,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = updateByExample.invoke(mapper, record, example);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("updateByExample error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("updateByExample error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("updateByExample error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return 0;
 	}
 
@@ -342,13 +360,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = updateByPrimaryKeySelective.invoke(mapper, record);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("updateByPrimaryKeySelective error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("updateByPrimaryKeySelective error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("updateByPrimaryKeySelective error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return 0;
 	}
 
@@ -360,13 +379,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = updateByPrimaryKeyWithBLOBs.invoke(mapper, record);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("updateByPrimaryKeyWithBLOBs error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("updateByPrimaryKeyWithBLOBs error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("updateByPrimaryKeyWithBLOBs error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return 0;
 	}
 
@@ -378,13 +398,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			Object result = updateByPrimaryKey.invoke(mapper, record);
 			return Integer.parseInt(String.valueOf(result));
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("updateByPrimaryKey error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("updateByPrimaryKey error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("updateByPrimaryKey error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return 0;
 	}
 
@@ -408,13 +429,14 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			}
 			return count;
 		} catch (IllegalAccessException e) {
-			e.printStackTrace();
+			getLogger().error("deleteByPrimaryKeys error:", e);
 		} catch (InvocationTargetException e) {
-			e.printStackTrace();
+			getLogger().error("deleteByPrimaryKeys error:", e);
 		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}
-		DynamicDataSource.clearDataSource();
+			getLogger().error("deleteByPrimaryKeys error:", e);
+		} finally{
+            DynamicDataSource.clearDataSource();
+        }
 		return 0;
 	}
 

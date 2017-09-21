@@ -29,6 +29,10 @@ public class UpmsUserOrganizationServiceImpl extends BaseServiceImpl<UpmsUserOrg
     UpmsUserOrganizationMapper upmsUserOrganizationMapper;
 
     @Override
+    public Logger getLogger() {
+        return _log;
+    }
+    @Override
     public int organization(String[] organizationIds, int id) {
         int result = 0;
         // 删除旧记录

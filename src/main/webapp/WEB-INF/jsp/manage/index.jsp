@@ -234,6 +234,7 @@
 </html>
 <script>
 $(function(){
+	HdDict.init();//初始化字典项
     $("ul.treeview-menu li a[data-url]").click(function(){
 		loadPage("${basePath}/"+$(this).data("url"));
 	    $("ul.treeview-menu li").removeClass("active");

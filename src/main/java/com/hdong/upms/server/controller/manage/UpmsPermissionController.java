@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hdong.common.base.BaseController;
+import com.hdong.common.util.SequenceUtil;
 import com.hdong.upms.common.constant.UpmsResult;
 import com.hdong.upms.common.constant.UpmsResultConstant;
 import com.hdong.upms.dao.enums.SystemStatus;
@@ -133,6 +134,7 @@ public class UpmsPermissionController extends BaseController {
         long time = System.currentTimeMillis();
         upmsPermission.setCtime(time);
         upmsPermission.setOrders(time);
+        upmsPermission.setPermissionId(SequenceUtil.getInt(UpmsPermission.class));
         int count = upmsPermissionService.insertSelective(upmsPermission);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }

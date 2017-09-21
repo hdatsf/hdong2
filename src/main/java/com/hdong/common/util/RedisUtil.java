@@ -271,5 +271,17 @@ public class RedisUtil {
 			_log.error("sadd error : " + e);
 		}
 	}
+	
+	public synchronized static long incr(String key) {
+        try {
+            Jedis jedis = RedisUtil.getJedis();
+            long num = jedis.incr(key);
+            jedis.close();
+            return num;
+        } catch (Exception e) {
+            _log.error("incr error : " + e);
+        }
+        return -1;
+    }
 
 }

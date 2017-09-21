@@ -2,7 +2,7 @@ package com.hdong.common.base;
 
 /**
  * 统一返回结果类
- * Created by shuzheng on 2017/2/18.
+ * Created by hdong on 2017/2/18.
  */
 public class BaseResult {
 
@@ -10,14 +10,14 @@ public class BaseResult {
     public int code;
 
     // 成功为success，其他为失败原因
-    public String message;
+    public String msg;
 
     // 数据结果集
     public Object data;
 
-    public BaseResult(int code, String message, Object data) {
+    public BaseResult(int code, String msg, Object data) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
         this.data = data;
     }
 
@@ -29,12 +29,12 @@ public class BaseResult {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public Object getData() {

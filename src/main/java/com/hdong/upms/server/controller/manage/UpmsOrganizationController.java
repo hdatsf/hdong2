@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hdong.common.base.BaseController;
+import com.hdong.common.util.SequenceUtil;
 import com.hdong.upms.common.constant.UpmsResult;
 import com.hdong.upms.common.constant.UpmsResultConstant;
 import com.hdong.upms.dao.model.UpmsOrganization;
@@ -88,6 +89,7 @@ public class UpmsOrganizationController extends BaseController {
     public Object create(UpmsOrganization upmsOrganization) {
         long time = System.currentTimeMillis();
         upmsOrganization.setCtime(time);
+        upmsOrganization.setOrganizationId(SequenceUtil.getInt(UpmsOrganization.class));
         int count = upmsOrganizationService.insertSelective(upmsOrganization);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }

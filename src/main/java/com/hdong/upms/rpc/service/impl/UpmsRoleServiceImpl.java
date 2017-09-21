@@ -26,4 +26,8 @@ public class UpmsRoleServiceImpl extends BaseServiceImpl<UpmsRoleMapper, UpmsRol
     @Autowired
     UpmsRoleMapper upmsRoleMapper;
 
+    @Override
+    public Logger getLogger() {
+        return _log;
+    }
 }

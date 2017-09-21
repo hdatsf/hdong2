@@ -8,6 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+<script> var basePath = '${basePath}';</script>
 <!--icon-->
 <link rel="shortcut icon" type="image/x-icon" href="${basePath}/resources/common/favicon.ico" media="screen" />
 <!-- Bootstrap 3.3.7 -->
@@ -20,6 +21,9 @@
 <link rel="stylesheet" href="${basePath}/resources/adminlte/css/AdminLTE.min.css">
 <!-- iCheck -->
 <link rel="stylesheet" href="${basePath}/resources/adminlte/plugins/iCheck/square/blue.css">
+<!-- jquery confirm -->
+<link href="${basePath}/resources/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,18 +35,18 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<b>hdong</b> Login
+			<b>盯市系统</b> 登录
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
-			<p class="login-box-msg">测试用户 test/test</p>
+			<p class="login-box-msg">测试用户 test/123456</p>
 			<form action="" method="post" id="signInForm">
 				<div class="form-group has-feedback">
-					<input type="text" class="form-control" placeholder="请输入登录邮箱/登录名" id="username"> <span
+					<input type="text" class="form-control" placeholder="请输入登录邮箱/登录名" id="username" maxlength="20" required> <span
 						class="glyphicon glyphicon-envelope form-control-feedback"></span>
 				</div>
 				<div class="form-group has-feedback">
-					<input type="password" class="form-control" placeholder="请输入密码" id="password"> <span
+					<input type="password" class="form-control" placeholder="请输入密码" id="password" maxlength="20" required> <span
 						class="glyphicon glyphicon-lock form-control-feedback"></span>
 				</div>
 				<div class="row">
@@ -72,47 +76,48 @@
 		<!-- /.login-box-body -->
 	</div>
 	<!-- /.login-box -->
-
-	<!-- jQuery 3 -->
 	<script src="${basePath}/resources/jquery/jquery.min.js"></script>
-	<!-- Bootstrap 3.3.7 -->
 	<script src="${basePath}/resources/bootstrap/js/bootstrap.min.js"></script>
-	<!-- iCheck -->
 	<script src="${basePath}/resources/adminlte/plugins/iCheck/icheck.min.js"></script>
+	<script src="${basePath}/resources/jquery-validate/jquery.validate.min.js"></script>
+	<script src="${basePath}/resources/jquery-validate/messages_zh.js"></script>
+	<script src="${basePath}/resources/jquery-confirm/jquery-confirm.js"></script>
+	<script src="${basePath}/resources/common/base.js"></script>
 </body>
 </html>
 <script>
     $(function() {
+    	$("#signInForm").validate();
 		$('input').iCheck({
 		    checkboxClass : 'icheckbox_square-blue',
 		    radioClass : 'iradio_square-blue',
 		    increaseArea : '20%'
 		});
 		$('#signIn').click(function() {
+			if(!$("#signInForm").valid())return;
 		    $.ajax({
-			url : '${basePath}/sso/login',
-			type : 'POST',
-			data : {
-			    username : $('#username').val(),
-			    password : $('#password').val(),
-			    rememberMe : $('#rememberMe').is(':checked')
-			},
-			success : function(json) {
-			    if (json.code == 1) {
-					location.href = '${basePath}/manage/index';
-			    } else {
-					alert(json.data);
-					if (10101 == json.code) {
-					    $('#username').focus();
-					}
-					if (10102 == json.code) {
-					    $('#password').focus();
-					}
-			    }
-			},
-			error : function(error) {
-			    console.log(error);
-			}
+				url : '${basePath}/sso/login',
+				type : 'POST',
+				data : {
+				    username : $('#username').val(),
+				    password : $('#password').val(),
+				    rememberMe : $('#rememberMe').is(':checked')
+				},
+				success : function(result) {
+				    if (result.code == 1) {
+						location.href = '${basePath}/manage/index';
+				    } else {
+				    	$.hdConfirm({
+							content: result.msg,
+							buttons: {
+								confirm: {text: '确认'}
+							}
+						});
+				    }
+				},
+				error : function(error) {
+				    console.log(error);
+				}
 		    });
 		});
     });

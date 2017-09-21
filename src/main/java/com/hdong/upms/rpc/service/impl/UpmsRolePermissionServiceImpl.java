@@ -32,6 +32,11 @@ public class UpmsRolePermissionServiceImpl extends BaseServiceImpl<UpmsRolePermi
     UpmsRolePermissionMapper upmsRolePermissionMapper;
 
     @Override
+    public Logger getLogger() {
+        return _log;
+    }
+    
+    @Override
     public int rolePermission(JSONArray datas, int id) {
         List<Integer> deleteIds = new ArrayList<>();
         for (int i = 0; i < datas.size(); i ++) {

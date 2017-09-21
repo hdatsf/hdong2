@@ -22,9 +22,14 @@ import com.hdong.upms.rpc.api.SysDictService;
 @BaseService
 public class SysDictServiceImpl extends BaseServiceImpl<SysDictMapper, SysDict, SysDictExample> implements SysDictService {
 
-    //private static Logger _log = LoggerFactory.getLogger(SysDictServiceImpl.class);
+    private static Logger _log = LoggerFactory.getLogger(SysDictServiceImpl.class);
 
     @Autowired
     SysDictMapper sysDictMapper;
+
+    @Override
+    public Logger getLogger() {
+        return _log;
+    }
 
 }

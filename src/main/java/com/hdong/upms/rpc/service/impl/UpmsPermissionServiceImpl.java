@@ -43,6 +43,11 @@ public class UpmsPermissionServiceImpl extends BaseServiceImpl<UpmsPermissionMap
     UpmsUserPermissionMapper upmsUserPermissionMapper;
 
     @Override
+    public Logger getLogger() {
+        return _log;
+    }
+
+    @Override
     public JSONArray getTreeByRoleId(Integer roleId) {
         // 角色已有权限
         List<UpmsRolePermission> rolePermissions = upmsApiService.selectUpmsRolePermisstionByUpmsRoleId(roleId);

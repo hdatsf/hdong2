@@ -208,4 +208,3 @@ __HdDict.prototype.init = function(){
 	}
 };
 var HdDict = new __HdDict();
-HdDict.init();

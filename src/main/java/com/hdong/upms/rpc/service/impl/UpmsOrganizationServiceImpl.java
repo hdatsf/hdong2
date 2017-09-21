@@ -26,4 +26,8 @@ public class UpmsOrganizationServiceImpl extends BaseServiceImpl<UpmsOrganizatio
     @Autowired
     UpmsOrganizationMapper upmsOrganizationMapper;
 
+    @Override
+    public Logger getLogger() {
+        return _log;
+    }
 }

@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONArray;
 import com.hdong.common.base.BaseController;
+import com.hdong.common.util.SequenceUtil;
 import com.hdong.upms.common.constant.UpmsResult;
 import com.hdong.upms.common.constant.UpmsResultConstant;
 import com.hdong.upms.dao.model.UpmsRole;
@@ -115,6 +116,7 @@ public class UpmsRoleController extends BaseController {
         long time = System.currentTimeMillis();
         upmsRole.setCtime(time);
         upmsRole.setOrders(time);
+        upmsRole.setRoleId(SequenceUtil.getInt(UpmsRole.class));
         int count = upmsRoleService.insertSelective(upmsRole);
         return new UpmsResult(UpmsResultConstant.SUCCESS, count);
     }

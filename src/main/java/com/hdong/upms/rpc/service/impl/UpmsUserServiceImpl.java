@@ -28,6 +28,10 @@ public class UpmsUserServiceImpl extends BaseServiceImpl<UpmsUserMapper, UpmsUse
   UpmsUserMapper upmsUserMapper;
 
   @Override
+  public Logger getLogger() {
+      return _log;
+  }
+  @Override
   public UpmsUser createUser(UpmsUser upmsUser) {
     UpmsUserExample upmsUserExample = new UpmsUserExample();
     upmsUserExample.createCriteria().andUsernameEqualTo(upmsUser.getUsername());

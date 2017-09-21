@@ -71,18 +71,17 @@ $(function () {
 	        data: $('#createForm').serialize(),
 	        success: function(result) {
 				if (result.code != 1) {
-					$.confirm({
-						theme: 'bootstrap',
-						title: false,
-						content: result.data.errorMsg,
+					$.hdConfirm({
+						content: result.msg,
 						buttons: {
 							confirm: {text: '确认'}
 						}
 					});
 				} else {
-					$.confirm({
-						title:false,
-						content: '保存成功!',
+					$.hdConfirm({
+						type:'blue',
+						content: '修改成功!',
+						autoClose: 'confirm|3000',
 						buttons: {
 							confirm: {
 								text:'确认',

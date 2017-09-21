@@ -85,8 +85,13 @@ public class UpmsSystemController extends BaseController {
         long time = System.currentTimeMillis();
         upmsSystem.setCtime(time);
         upmsSystem.setOrders(time);
+        upmsSystem.setSystemId(1);
         int count = upmsSystemService.insertSelective(upmsSystem);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        if(count ==1) {
+            return new UpmsResult(UpmsResultConstant.SUCCESS);
+        }else {
+            return new UpmsResult(UpmsResultConstant.FAILED);
+        }
     }
 
     @ApiOperation(value = "删除系统")
@@ -95,7 +100,11 @@ public class UpmsSystemController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         int count = upmsSystemService.deleteByPrimaryKeys(ids);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        if(count ==1) {
+            return new UpmsResult(UpmsResultConstant.SUCCESS);
+        }else {
+            return new UpmsResult(UpmsResultConstant.FAILED);
+        }
     }
 
     @ApiOperation(value = "修改系统")
@@ -114,7 +123,11 @@ public class UpmsSystemController extends BaseController {
     public Object update(@PathVariable("id") int id, UpmsSystem upmsSystem) {
         upmsSystem.setSystemId(id);
         int count = upmsSystemService.updateByPrimaryKeySelective(upmsSystem);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        if(count ==1) {
+            return new UpmsResult(UpmsResultConstant.SUCCESS);
+        }else {
+            return new UpmsResult(UpmsResultConstant.FAILED);
+        }
     }
 
 }

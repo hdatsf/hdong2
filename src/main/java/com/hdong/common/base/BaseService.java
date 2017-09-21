@@ -1,8 +1,9 @@
 package com.hdong.common.base;
 
-import org.apache.ibatis.annotations.Param;
-
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.slf4j.Logger;
 
 /**
  * BaseService接口
@@ -53,5 +54,7 @@ public interface BaseService<Record, Example> {
 	int deleteByPrimaryKeys(String ids);
 
 	void initMapper();
+	
+	Logger getLogger();
 
 }

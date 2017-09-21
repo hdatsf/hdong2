@@ -26,4 +26,8 @@ public class UpmsSystemServiceImpl extends BaseServiceImpl<UpmsSystemMapper, Upm
     @Autowired
     UpmsSystemMapper upmsSystemMapper;
 
+    @Override
+    public Logger getLogger() {
+        return _log;
+    }
 }

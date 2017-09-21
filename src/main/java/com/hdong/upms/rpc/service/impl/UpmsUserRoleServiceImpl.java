@@ -29,6 +29,10 @@ public class UpmsUserRoleServiceImpl extends BaseServiceImpl<UpmsUserRoleMapper,
     UpmsUserRoleMapper upmsUserRoleMapper;
 
     @Override
+    public Logger getLogger() {
+        return _log;
+    }
+    @Override
     public int role(String[] roleIds, int id) {
         int result = 0;
         // 删除旧记录

@@ -6,24 +6,20 @@ package com.hdong.upms.common.constant;
  */
 public enum UpmsResultConstant {
 
-    FAILED(0, "failed"),
-    SUCCESS(1, "success"),
-
-    INVALID_LENGTH(10001, "Invalid length"),
-
-    EMPTY_USERNAME(10101, "Username cannot be empty"),
-    EMPTY_PASSWORD(10102, "Password cannot be empty"),
-    INVALID_USERNAME(10103, "Account does not exist"),
-    INVALID_PASSWORD(10104, "Password error"),
-    INVALID_ACCOUNT(10105, "Invalid account");
+    FAILED(0, "操作失败"),
+    SUCCESS(1, "操作成功"),
+    EMPTY_USERNAME(10101, "用户名不能为空"),
+    EMPTY_PASSWORD(10102, "密码不能为空"),
+    INVALID_USERNAME(10103, "账号不存在"),
+    INVALID_PASSWORD(10104, "密码错误"),
+    INVALID_ACCOUNT(10105, "账号被锁");
 
     public int code;
+    public String msg;
 
-    public String message;
-
-    UpmsResultConstant(int code, String message) {
+    UpmsResultConstant(int code, String msg) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
     }
 
     public int getCode() {
@@ -34,12 +30,12 @@ public enum UpmsResultConstant {
         this.code = code;
     }
 
-    public String getMessage() {
-        return message;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
 }

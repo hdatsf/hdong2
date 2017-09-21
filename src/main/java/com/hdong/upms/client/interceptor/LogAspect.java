@@ -23,6 +23,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.alibaba.fastjson.JSON;
 import com.hdong.common.util.PropertiesFileUtil;
 import com.hdong.common.util.RequestUtil;
+import com.hdong.common.util.SequenceUtil;
 import com.hdong.common.util.ServletUtil;
 import com.hdong.upms.dao.model.UpmsLog;
 import com.hdong.upms.rpc.api.UpmsLogService;
@@ -108,6 +109,7 @@ public class LogAspect {
 	        upmsLog.setUrl(ObjectUtils.toString(request.getRequestURL()));
 	        upmsLog.setUserAgent(request.getHeader("User-Agent"));
 	        upmsLog.setUsername(ObjectUtils.toString(request.getUserPrincipal()));
+	        upmsLog.setLogId(SequenceUtil.getInt(UpmsLog.class));
 	        upmsLogService.insertSelective(upmsLog);
         }
 		return result;

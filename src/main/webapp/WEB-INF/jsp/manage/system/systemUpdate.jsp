@@ -73,7 +73,7 @@ $(function () {
 	        success: function(result) {
 				if (result.code != 1) {
 					$.hdConfirm({
-						content: result.data.errorMsg,
+						content: result.msg,
 						buttons: {
 							confirm: {text: '确认'}
 						}
