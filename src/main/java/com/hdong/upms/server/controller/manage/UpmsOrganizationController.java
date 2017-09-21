@@ -46,7 +46,7 @@ public class UpmsOrganizationController extends BaseController {
     @RequiresPermissions("upms:organization:read")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
-        return "/manage/organization/index.jsp";
+        return "/manage/organization/organizationIndex.jsp";
     }
 
     @ApiOperation(value = "组织列表")
@@ -79,7 +79,7 @@ public class UpmsOrganizationController extends BaseController {
     @RequiresPermissions("upms:organization:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create() {
-        return "/manage/organization/create.jsp";
+        return "/manage/organization/organizationCreate.jsp";
     }
 
     @ApiOperation(value = "新增组织")
@@ -91,7 +91,11 @@ public class UpmsOrganizationController extends BaseController {
         upmsOrganization.setCtime(time);
         upmsOrganization.setOrganizationId(SequenceUtil.getInt(UpmsOrganization.class));
         int count = upmsOrganizationService.insertSelective(upmsOrganization);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        if(count == 1){
+        	return new UpmsResult(UpmsResultConstant.SUCCESS);
+        }else{
+        	return new UpmsResult(UpmsResultConstant.FAILED);
+        }
     }
 
     @ApiOperation(value = "删除组织")
@@ -100,7 +104,11 @@ public class UpmsOrganizationController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         int count = upmsOrganizationService.deleteByPrimaryKeys(ids);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        if(count == 1){
+        	return new UpmsResult(UpmsResultConstant.SUCCESS);
+        } else {
+        	return new UpmsResult(UpmsResultConstant.FAILED);
+        }
     }
 
     @ApiOperation(value = "修改组织")
@@ -109,7 +117,7 @@ public class UpmsOrganizationController extends BaseController {
     public String update(@PathVariable("id") int id, ModelMap modelMap) {
         UpmsOrganization organization = upmsOrganizationService.selectByPrimaryKey(id);
         modelMap.put("organization", organization);
-        return "/manage/organization/update.jsp";
+        return "/manage/organization/organizationUpdate.jsp";
     }
 
     @ApiOperation(value = "修改组织")
@@ -119,7 +127,11 @@ public class UpmsOrganizationController extends BaseController {
     public Object update(@PathVariable("id") int id, UpmsOrganization upmsOrganization) {
         upmsOrganization.setOrganizationId(id);
         int count = upmsOrganizationService.updateByPrimaryKeySelective(upmsOrganization);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        if(count == 1){
+        	return new UpmsResult(UpmsResultConstant.SUCCESS);
+        } else {
+        	return new UpmsResult(UpmsResultConstant.FAILED);
+        }
     }
 
 }
