@@ -1,5 +1,7 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<c:set var="basePath" value="${pageContext.request.contextPath}"/>
 <div class="panel panel-default">
 	<div class="panel-heading">组织管理</div>
 	<div class="panel-body" style="padding-left: 0px; padding-right: 15px">
@@ -11,8 +13,7 @@
 				</div>
 			</div>
 		</form>
-		<div id="toolbar" class="btn-toolbar pull-right"
-			style="margin-bottom: 3px">
+		<div id="toolbar" class="btn-toolbar pull-right" style="margin-bottom: 3px">
 			<button id="btn_query" type="button" class="btn btn-primary btn-sm">
 				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>查询
 			</button>
@@ -39,7 +40,7 @@
 <script>
   $(function(){
 	 $('#tb_organizations').bootstrapTable({
-	    url:'manage/organization/list',//请求后台的URL（*）
+	    url:'${basePath}/manage/organization/list',//请求后台的URL（*）
         method: 'get',                      //请求方式（*）
         toolbar: '#toolbar',                //工具按钮用哪个容器
         toolbarAlign:"right",
@@ -58,7 +59,7 @@
         showRefresh: false,                  //是否显示刷新按钮
         minimumCountColumns: 2,             //最少允许的列数
         clickToSelect: true,                //是否启用点击选中行
-        height: '100%',                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
+        height: 'auto',                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
         uniqueId: "organizationId",                     //每一行的唯一标识，一般为主键列
         showToggle:false,                    //是否显示详细视图和列表视图的切换按钮
         cardView: false,                    //是否显示详细视图
@@ -84,23 +85,24 @@
 		 $('#tb_organizations').bootstrapTable('refresh');
 	 });
 	 $("#toolbar #btn_create").click(function(){
-		$.dialog({
-			animationSpeed:100,
-			title:'组织信息新增',
-			titleClass:'background-color:#f1f1f1',
-			theme:'bootstrap',
+		$.hdDialog({
+			title:'新增组织信息',
 			columnClass:'col-md-offset-2 col-md-8',
-			content:'url:manage/organization/create',
-			onContentReady: function(){}
+			content:'url:${basePath}/manage/organization/create',
+			onClose:function(){
+				if(HdDialog.getValue()){
+					$('#tb_organizations').bootstrapTable('refresh');
+				}
+			}
 		}); 
 	 });
 	 $("#toolbar #btn_update").click(function(){
 		 var rows = $('#tb_organizations').bootstrapTable('getSelections');
 		 if(rows.length != 1){
-			 $.confirm({
-				 title:false,
+			 $.hdConfirm({
 				 content:'请选择一条记录！',
 				 autoClose:'cancel|3000',
+				 backgroundDismiss:true,
 				 buttons:{
 					 cancel:{
 						 text:'取消'
@@ -109,15 +111,81 @@
 			 });
 		 } else {
 			 $.hdDialog({
-				 animationSpeed: 100,
 				 title:'组织信息修改',
-				 titleClass:'background-color:#f1f1f1',
-				 theme:'bootstrap',
 				 columnClass:'col-md-offset-2 col-md-8',
-				 content:'url:manage:organization/update' + rows[0].organizationId,
+				 content:'url:${basePath}/manage/organization/update/' + rows[0].organizationId,
 				 onClose: function(){
 					 if(HdDialog.getValue()){
 						 $('#tb_organizations').bootstrapTable('refresh');
+					 }
+				 }
+			 });
+		 }
+	 });
+	 
+	 $("#toolbar #btn_delete").click(function(){
+		 var rows = $('#tb_organizations').bootstrapTable('getSelections');
+		 if(rows.length == 0){
+			 $.hdConfirm({
+				 title:false,
+				 content:'请至少选择一条记录！',
+				 autoClose:'cancel|3000',
+				 backgroundDismiss:true,
+				 buttons:{
+					 cancel:{
+						 text:'取消'
+					 }
+				 }
+			 });
+		 }else{
+			 $.hdConfirm({
+				 type:'red',
+				 content:'确认删除所选组织吗？',
+				 buttons:{
+					 confirm:{
+						 text:'确认',
+						 btnClass:'btn btn-danger',
+						 action:function(){
+							 HdConfirm.close();
+							 var ids = new Array();
+							 for (var i in rows){
+								 ids.push(rows[i].organizationId);
+							 }
+							 $.ajax({
+								 type:'get',
+								 url:'${basePath}/manage/organization/delete/' + ids.join('-'),
+								 success: function(result){
+									 if(result.code != 1){
+										 $.hdConfirm({
+											 theme:'red',
+											 title:false,
+											 content: result.data.errorMsg,
+											 buttons:{
+												 confirm:{text:'确认'}
+											 }
+										 });
+									 } else {
+										 $.hdConfirm({
+											 content:'删除成功!',
+											 autoClose:'confirm|3000',
+											 buttons:{
+												 confirm:{
+													 text:'确认',
+													 action:function(){
+														 HdConfirm.close();
+														 $('#tb_organizations').bootstrapTable('refresh');
+													 }
+												 }
+											 }
+										 });
+									 }
+								 }
+							 });
+						 }
+					 },
+					 cancel:{
+						 text:'取消',
+						 btnClass:'btn btn-warning'
 					 }
 				 }
 			 });

@@ -1,25 +1,24 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <c:set var="basePath" value="${pageContext.request.contextPath}"/>
-<div id="createDialog">
-  <form id="createForm" method="post" class="form-horizontal">
+<div id="updateDialog">
+  <form id="updateForm" method="post" class="form-horizontal">
     <div class="form-group">
       <label for="name" class="col-md-3 control-label">组织名称</label>
       <div class="col-md-9">
-        <input id="name" type="text" class="form-control" name="name" maxlength="20" placeholder="请输入组织名称" required>
+        <input id="name" type="text" class="form-control" name="name" maxlength="20" value="${organization.name}" required>
       </div>
     </div>
     <div class="form-group">
       <label for="description" class="col-md-3 control-label">组织描述</label>
       <div class="col-md-9">
-        <textarea class="form-control" id="description" name="description" maxlength="1000" placeholder="请输入组织描述" rows="3" required></textarea>
-        <!-- <input id="description" type="text" class="form-control" name="description" maxlength="1000" placeholder="请输入组织描述"> -->
+        <textarea class="form-control" id="description" name="description" maxlength="1000" rows="3" required></textarea>
       </div>
     </div>
     <div class="form-group">
       <label for="pid" class="col-md-3 control-label">所属上级</label>
       <div class="col-md-9">
-        <input id="pid" type="text" class="form-control" name="pid" maxlength="20" placeholder="请输入所属上级">
+        <input id="pid" type="text" class="form-control" name="pid" maxlength="20" value="${organization.pid}">
       </div>
     </div>
     <div class="form-group">
@@ -35,15 +34,15 @@
 
 <script>
 $(function(){
-	$('#createForm').validate();
-	$("#btn_save").click(function(){
-		if(!$('#createForm').valid()) return;
+	document.getElementById("description").value="${organization.description}";
+	$("#updateForm").validate();
+    $("#btn_save").click(function(){
+    	if(!$("#updateForm").valid()) return;
 		$.ajax({
 			type:'post',
-			url:'${basePath}/manage/organization/create',
-			data:$('#createForm').serialize(),
+			url:'${basePath}/manage/organization/update/${organization.organizationId}',
+			data:$("#updateForm").serialize(),
 			success:function(result){
-				debugger;
 				if(result.code != 1){
 					$.hdConfirm({
 						content:result.msg,
@@ -53,32 +52,23 @@ $(function(){
 					});
 				} else {
 					$.hdConfirm({
-						content:'保存成功！',
-						autoClose: 'confirm|3000',
+						type:'blue',
+						content:'修改成功！',
+						autoClose:'confirm|3000',
 						buttons:{
-							confirm:{
+							confirm : {
 								text:'确认',
 								action:function(){HdDialog.close(true);}
 							}
 						}
 					});
 				}
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown){
-				$.confirm({
-					title:false,
-					content:textStatus,
-					buttons:{
-						confirm:{text:'确认'}
-					}
-				});
 			}
 		});
 	});
 	
-	$("#btn_cancel").click(function(){
-		debugger;
+	$('#btn_cancel').click(function(){
 		HdDialog.close(false);
 	});
-});
+})
 </script>
