@@ -103,7 +103,7 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      * @return
      */
     @Override
-    @Cacheable(value = "hdong-upms-rpc-service-ehcache", key = "'selectRolesPermissionsByName'+ #username + '_SystemName_' + #systemName")
+    @Cacheable(value = "market-ehcache", key = "'selectRolesPermissionsByName'+ #username + '_SystemName_' + #systemName")
     public List<Set<String>> selectRolesPermissionsByNameByCache(String username, String systemName){
         return selectRolesPermissionsByName(username, systemName);
     }

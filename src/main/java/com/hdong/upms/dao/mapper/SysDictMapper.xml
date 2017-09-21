@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hdong.upms.dao.mapper.SysDictMapper">
   <resultMap id="BaseResultMap" type="com.hdong.upms.dao.model.SysDict">
-    <id column="app" jdbcType="VARCHAR" property="app" />
-    <id column="type" jdbcType="VARCHAR" property="type" />
-    <id column="val" jdbcType="VARCHAR" property="val" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <id column="dict_app" jdbcType="VARCHAR" property="dictApp" />
+    <id column="dict_type" jdbcType="VARCHAR" property="dictType" />
+    <id column="dict_val" jdbcType="VARCHAR" property="dictVal" />
+    <result column="dict_name" jdbcType="VARCHAR" property="dictName" />
+    <result column="dict_desc" jdbcType="VARCHAR" property="dictDesc" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    app, type, val, name, desc
+    dict_app, dict_type, dict_val, dict_name, dict_desc
   </sql>
   <select id="selectByExample" parameterType="com.hdong.upms.dao.model.SysDictExample" resultMap="BaseResultMap">
     select
@@ -87,15 +87,15 @@
     select 
     <include refid="Base_Column_List" />
     from sys_dict
-    where app = #{app,jdbcType=VARCHAR}
-      and type = #{type,jdbcType=VARCHAR}
-      and val = #{val,jdbcType=VARCHAR}
+    where dict_app = #{dictApp,jdbcType=VARCHAR}
+      and dict_type = #{dictType,jdbcType=VARCHAR}
+      and dict_val = #{dictVal,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="map">
     delete from sys_dict
-    where app = #{app,jdbcType=VARCHAR}
-      and type = #{type,jdbcType=VARCHAR}
-      and val = #{val,jdbcType=VARCHAR}
+    where dict_app = #{dictApp,jdbcType=VARCHAR}
+      and dict_type = #{dictType,jdbcType=VARCHAR}
+      and dict_val = #{dictVal,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.hdong.upms.dao.model.SysDictExample">
     delete from sys_dict
@@ -104,45 +104,45 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.hdong.upms.dao.model.SysDict">
-    insert into sys_dict (app, type, val, 
-      name, desc)
-    values (#{app,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{val,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{desc,jdbcType=VARCHAR})
+    insert into sys_dict (dict_app, dict_type, dict_val, 
+      dict_name, dict_desc)
+    values (#{dictApp,jdbcType=VARCHAR}, #{dictType,jdbcType=VARCHAR}, #{dictVal,jdbcType=VARCHAR}, 
+      #{dictName,jdbcType=VARCHAR}, #{dictDesc,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hdong.upms.dao.model.SysDict">
     insert into sys_dict
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="app != null">
-        app,
+      <if test="dictApp != null">
+        dict_app,
       </if>
-      <if test="type != null">
-        type,
+      <if test="dictType != null">
+        dict_type,
       </if>
-      <if test="val != null">
-        val,
+      <if test="dictVal != null">
+        dict_val,
       </if>
-      <if test="name != null">
-        name,
+      <if test="dictName != null">
+        dict_name,
       </if>
-      <if test="desc != null">
-        desc,
+      <if test="dictDesc != null">
+        dict_desc,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="app != null">
-        #{app,jdbcType=VARCHAR},
+      <if test="dictApp != null">
+        #{dictApp,jdbcType=VARCHAR},
       </if>
-      <if test="type != null">
-        #{type,jdbcType=VARCHAR},
+      <if test="dictType != null">
+        #{dictType,jdbcType=VARCHAR},
       </if>
-      <if test="val != null">
-        #{val,jdbcType=VARCHAR},
+      <if test="dictVal != null">
+        #{dictVal,jdbcType=VARCHAR},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="dictName != null">
+        #{dictName,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        #{desc,jdbcType=VARCHAR},
+      <if test="dictDesc != null">
+        #{dictDesc,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -155,20 +155,20 @@
   <update id="updateByExampleSelective" parameterType="map">
     update sys_dict
     <set>
-      <if test="record.app != null">
-        app = #{record.app,jdbcType=VARCHAR},
+      <if test="record.dictApp != null">
+        dict_app = #{record.dictApp,jdbcType=VARCHAR},
       </if>
-      <if test="record.type != null">
-        type = #{record.type,jdbcType=VARCHAR},
+      <if test="record.dictType != null">
+        dict_type = #{record.dictType,jdbcType=VARCHAR},
       </if>
-      <if test="record.val != null">
-        val = #{record.val,jdbcType=VARCHAR},
+      <if test="record.dictVal != null">
+        dict_val = #{record.dictVal,jdbcType=VARCHAR},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.dictName != null">
+        dict_name = #{record.dictName,jdbcType=VARCHAR},
       </if>
-      <if test="record.desc != null">
-        desc = #{record.desc,jdbcType=VARCHAR},
+      <if test="record.dictDesc != null">
+        dict_desc = #{record.dictDesc,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -177,11 +177,11 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update sys_dict
-    set app = #{record.app,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=VARCHAR},
-      val = #{record.val,jdbcType=VARCHAR},
-      name = #{record.name,jdbcType=VARCHAR},
-      desc = #{record.desc,jdbcType=VARCHAR}
+    set dict_app = #{record.dictApp,jdbcType=VARCHAR},
+      dict_type = #{record.dictType,jdbcType=VARCHAR},
+      dict_val = #{record.dictVal,jdbcType=VARCHAR},
+      dict_name = #{record.dictName,jdbcType=VARCHAR},
+      dict_desc = #{record.dictDesc,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -189,23 +189,23 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.hdong.upms.dao.model.SysDict">
     update sys_dict
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="dictName != null">
+        dict_name = #{dictName,jdbcType=VARCHAR},
       </if>
-      <if test="desc != null">
-        desc = #{desc,jdbcType=VARCHAR},
+      <if test="dictDesc != null">
+        dict_desc = #{dictDesc,jdbcType=VARCHAR},
       </if>
     </set>
-    where app = #{app,jdbcType=VARCHAR}
-      and type = #{type,jdbcType=VARCHAR}
-      and val = #{val,jdbcType=VARCHAR}
+    where dict_app = #{dictApp,jdbcType=VARCHAR}
+      and dict_type = #{dictType,jdbcType=VARCHAR}
+      and dict_val = #{dictVal,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hdong.upms.dao.model.SysDict">
     update sys_dict
-    set name = #{name,jdbcType=VARCHAR},
-      desc = #{desc,jdbcType=VARCHAR}
-    where app = #{app,jdbcType=VARCHAR}
-      and type = #{type,jdbcType=VARCHAR}
-      and val = #{val,jdbcType=VARCHAR}
+    set dict_name = #{dictName,jdbcType=VARCHAR},
+      dict_desc = #{dictDesc,jdbcType=VARCHAR}
+    where dict_app = #{dictApp,jdbcType=VARCHAR}
+      and dict_type = #{dictType,jdbcType=VARCHAR}
+      and dict_val = #{dictVal,jdbcType=VARCHAR}
   </update>
 </mapper>

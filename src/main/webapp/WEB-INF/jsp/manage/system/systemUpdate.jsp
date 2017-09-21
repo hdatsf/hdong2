@@ -80,18 +80,17 @@ $(function () {
 	        },
 	        success: function(result) {
 				if (result.code != 1) {
-					$.confirm({
-						theme: 'bootstrap',
-						title: false,
+					$.hdConfirm({
 						content: result.data.errorMsg,
 						buttons: {
 							confirm: {text: '确认'}
 						}
 					});
 				} else {
-					$.confirm({
-						title:false,
+					$.hdConfirm({
+						type:'blue',
 						content: '修改成功!',
+						autoClose: 'confirm|3000',
 						buttons: {
 							confirm: {
 								text:'确认',
@@ -100,15 +99,6 @@ $(function () {
 						}
 					});
 				}
-	        },
-	        error: function(XMLHttpRequest, textStatus, errorThrown) {
-				$.confirm({
-					title: false,
-					content: textStatus,
-					buttons: { 
-						confirm: { text: '确认'}
-					}
-				});
 	        }
 	    });
 	});

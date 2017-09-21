@@ -22,7 +22,6 @@
         <mybatis-ehcache.version>1.0.0</mybatis-ehcache.version>
         <ehcache.version>2.10.0</ehcache.version>
         <shiro.version>1.3.2</shiro.version>
-        <thymeleaf.version>3.0.3.RELEASE</thymeleaf.version>
         <swagger2.version>2.7.0</swagger2.version>
     </properties>
 	<dependencies>
@@ -127,6 +126,7 @@
             <groupId>org.mybatis.generator</groupId>
             <artifactId>mybatis-generator-core</artifactId>
             <version>${mybatis-generator.version}</version>
+            <scope>provided</scope>
         </dependency>
         <!-- 缓存 -->
         <dependency>
