@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hdong.common.base.BaseController;
+import com.hdong.common.util.SequenceUtil;
 import com.hdong.upms.common.constant.UpmsResult;
 import com.hdong.upms.common.constant.UpmsResultConstant;
 import com.hdong.upms.dao.model.UpmsSystem;
@@ -85,7 +86,7 @@ public class UpmsSystemController extends BaseController {
         long time = System.currentTimeMillis();
         upmsSystem.setCtime(time);
         upmsSystem.setOrders(time);
-        upmsSystem.setSystemId(1);
+        upmsSystem.setSystemId(SequenceUtil.getInt(UpmsSystem.class));
         int count = upmsSystemService.insertSelective(upmsSystem);
         if(count ==1) {
             return new UpmsResult(UpmsResultConstant.SUCCESS);
