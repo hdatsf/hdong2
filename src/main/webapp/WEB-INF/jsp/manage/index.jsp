@@ -24,6 +24,8 @@
 <link href="${basePath}/resources/bootstrap/css/bootstrap-table.min.css" rel="stylesheet" />
 <!-- jquery confirm -->
 <link href="${basePath}/resources/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
+<link href="${basePath}/resources/common/base.css" rel="stylesheet"/>
+
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
