@@ -1,19 +1,17 @@
 //验证框架
 $.validator.setDefaults({
-	showErrors: function(errorMap, errorList) {
+    showErrors: function(errorMap, errorList) {
         $.each(this.successList, function(index, value) {
-        	return $(value).popover("hide");
+        	$(value).tooltip('destroy').removeClass('error');
         });
-        return $.each(errorList, function(index, value) {
-        	var _popover = $(value.element).popover({
-                trigger: "manual",
-                placement: "bottom",
-                content: value.message,
-                template: '<div class="popover" role="tooltip"><div class="arrow"></div><div class="popover-content" style="color:red"></div></div>'
-        	});
-        	return _popover.popover("show");
+        $.each(errorList, function(index, value) {
+        	if ($(value.element).next("div").hasClass("tooltip")) {
+        		$(value.element).attr("data-original-title",value.message).addClass('error').next("div .tooltip").find(".tooltip-inner").text(value.message);
+             } else {
+                $(value.element).attr("data-original-title",value.message).tooltip("show").addClass('error');
+            }
         });
-      }
+    }
 });
 
 //div加载页面
