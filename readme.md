@@ -22,9 +22,9 @@
 
 `UpmsResult`，错误代码都列在*ResultConstant枚举类中(可以一个大模块建一个枚举类),前台框架通过获取result.code判断成功失败，result.msg获取信息也可以把信息封装在result.data里面。
 
-### 4 前台校验框架：
+### 4 前后台校验框架：
 
-使用jquery.validate, 原因好用简单。
+前台使用jquery.validate, 原因好用简单。
 
 | 序号   | 规则                 | 描述                                       |
 | ---- | ------------------ | ---------------------------------------- |
@@ -45,3 +45,47 @@
 | 15   | range:[5,10]       | 输入值必须介于 5 和 10 之间。                       |
 | 16   | max:5              | 输入值不能大于 5。                               |
 | 17   | min:10             | 输入值不能小于 10。                              |
+
+后台使用hibernate 的 validator，demo如下：
+
+    String validStr = ValidatorUtil.validateWithHtml(upmsSystem);
+    if(StringUtils.isNotBlank(validStr)) {
+    	return new UpmsResult(UpmsResultConstant.PARAM_VALID_ERROR, validStr);
+    }
+1. @Null   被注释的元素必须为 **null**  
+
+2. @NotNull    被注释的元素必须不为 **null**  
+
+3. @AssertTrue     被注释的元素必须为 **true**  
+
+4. @AssertFalse    被注释的元素必须为 **false**  
+
+5. @Min(value)     被注释的元素必须是一个数字，其值必须大于等于指定的最小值  
+
+6. @Max(value)     被注释的元素必须是一个数字，其值必须小于等于指定的最大值  
+
+7. @DecimalMin(value)  被注释的元素必须是一个数字，其值必须大于等于指定的最小值  
+
+8. @DecimalMax(value)  被注释的元素必须是一个数字，其值必须小于等于指定的最大值  
+
+9. @Size(max=, min=)   被注释的元素的大小必须在指定的范围内  
+
+10. @Digits (integer, fraction)     被注释的元素必须是一个数字，其值必须在可接受的范围内  
+
+11. @Past   被注释的元素必须是一个过去的日期  
+
+12. @Future     被注释的元素必须是一个将来的日期  
+
+13. @Pattern(regex=,flag=)  被注释的元素必须符合指定的正则表达式  
+
+    Hibernate Validator 附加的 constraint  
+
+14. @NotBlank(message =)   验证字符串非**null**，且长度必须大于0  
+
+15. @Email  被注释的元素必须是电子邮箱地址  
+
+16. @Length(min=,max=)  被注释的字符串的大小必须在指定的范围内  
+
+17. @NotEmpty   被注释的字符串的必须非空  
+
+18. @Range(min=,max=,message=)  被注释的元素必须在合适的范围内 

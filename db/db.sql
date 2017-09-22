@@ -201,8 +201,8 @@ DROP TABLE IF EXISTS `upms_system`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `upms_system` (
   `system_id` int(10) unsigned NOT NULL COMMENT '编号',
-  `icon` varchar(50) DEFAULT NULL COMMENT '图标',
-  `theme` varchar(50) DEFAULT NULL COMMENT '主题',
+  `icon` varchar(20) DEFAULT NULL COMMENT '图标',
+  `theme` varchar(7) DEFAULT NULL COMMENT '主题',
   `basepath` varchar(100) DEFAULT NULL COMMENT '根目录',
   `status` tinyint(4) DEFAULT NULL COMMENT '状态(-1:黑名单,1:正常)',
   `name` varchar(20) DEFAULT NULL COMMENT '系统名称',
@@ -220,7 +220,7 @@ CREATE TABLE `upms_system` (
 
 LOCK TABLES `upms_system` WRITE;
 /*!40000 ALTER TABLE `upms_system` DISABLE KEYS */;
-INSERT INTO `upms_system` VALUES (1,'aaa12','#43874f','http://upms.hdong1.cn:111112',1,'market-server','权限管理系统','用户权限管理系统（RBAC细粒度用户权限、统一后台、单点登录、会话管理）',1,1),(24,'1','1','1',1,'1','1','1',1505901202101,1505901202101),(25,'1','#aaaaaa','5',1,'34','23','4',1505962517514,1505962517514);
+INSERT INTO `upms_system` VALUES (1,'aaa12','#43874f','http://upms.hdong1.cn:111112',1,'market-server','权限管理系统','用户权限管理系统（RBAC细粒度用户权限、统一后台、单点登录、会话管理）',1,1),(24,'1','1','1',1,'1','1','1',1505901202101,1505901202101),(25,'11','#aaaaaa','5',1,'我问问我我我我我我我我我我我我我我我我我','23','4',1505962517514,1505962517514);
 /*!40000 ALTER TABLE `upms_system` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -343,4 +343,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-21 14:18:09
+-- Dump completed on 2017-09-22 17:31:45

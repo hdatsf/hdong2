@@ -6,25 +6,25 @@
 		<div class="form-group">
 			<label for="theme" class="col-md-3 control-label">主题色</label>
 			<div class="col-md-9">
-				<input id="theme" type="color" class="form-control" name="theme" maxlength="50" value="${system.theme}" required>
+				<input id="theme" type="color" class="form-control" name="theme" maxlength="7" required value="${system.theme}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="icon" class="col-md-3 control-label">图标</label>
 			<div class="col-md-9">
-				<input id="icon" type="text" class="form-control" name="icon" maxlength="20" value="${system.icon}" required>
+				<input id="icon" type="text" class="form-control" name="icon" maxlength="20" required value="${system.icon}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="title" class="col-md-3 control-label">标题</label>
 			<div class="col-md-9">
-				<input id="title" type="text" class="form-control" name="title" maxlength="20" value="${system.title}" number="true" required >
+				<input id="title" type="text" class="form-control" name="title" maxlength="20" required value="${system.title}">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="name" class="col-md-3 control-label">名称</label>
 			<div class="col-md-9">
-				<input id="name" type="text" class="form-control" name="name" maxlength="20" value="${system.name}" required>
+				<input id="name" type="text" class="form-control" name="name" maxlength="20" required value="${system.name}">
 			</div>
 		</div>
 		<div class="form-group">

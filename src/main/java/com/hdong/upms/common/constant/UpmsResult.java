@@ -14,5 +14,9 @@ public class UpmsResult extends BaseResult {
     public UpmsResult(UpmsResultConstant upmsResultConstant, Object data) {
         super(upmsResultConstant.getCode(), upmsResultConstant.getMsg(), data);
     }
+    
+    public UpmsResult(UpmsResultConstant upmsResultConstant, String msg) {
+        super(upmsResultConstant.getCode(), msg, null);
+    }
 
 }

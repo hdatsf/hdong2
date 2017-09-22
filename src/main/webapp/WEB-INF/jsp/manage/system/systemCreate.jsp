@@ -6,13 +6,13 @@
 		<div class="form-group">
 			<label for="theme" class="col-md-3 control-label">主题色</label>
 			<div class="col-md-9">
-				<input id="theme" type="color" class="form-control" name="theme" required>
+				<input id="theme" type="color" class="form-control" name="theme" maxlength="7" required>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="icon" class="col-md-3 control-label">图标</label>
 			<div class="col-md-9">
-				<input id="icon" type="text" class="form-control" name="icon" maxlength="20">
+				<input id="icon" type="text" class="form-control" name="icon" maxlength="20" required>
 			</div>
 		</div>
 		<div class="form-group">
