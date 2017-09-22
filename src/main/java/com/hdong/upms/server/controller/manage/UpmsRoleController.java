@@ -53,7 +53,7 @@ public class UpmsRoleController extends BaseController {
     @RequiresPermissions("upms:role:read")
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index() {
-        return "/manage/role/index.jsp";
+        return "/manage/role/roleIndex.jsp";
     }
 
     @ApiOperation(value = "角色权限")
@@ -62,7 +62,7 @@ public class UpmsRoleController extends BaseController {
     public String permission(@PathVariable("id") int id, ModelMap modelMap) {
         UpmsRole role = upmsRoleService.selectByPrimaryKey(id);
         modelMap.put("role", role);
-        return "/manage/role/permission.jsp";
+        return "/manage/role/rolePermission.jsp";
     }
 
     @ApiOperation(value = "角色权限")
@@ -105,7 +105,7 @@ public class UpmsRoleController extends BaseController {
     @RequiresPermissions("upms:role:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create() {
-        return "/manage/role/create.jsp";
+        return "/manage/role/roleCreate.jsp";
     }
 
     @ApiOperation(value = "新增角色")
@@ -118,7 +118,11 @@ public class UpmsRoleController extends BaseController {
         upmsRole.setOrders(time);
         upmsRole.setRoleId(SequenceUtil.getInt(UpmsRole.class));
         int count = upmsRoleService.insertSelective(upmsRole);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        if(count == 1){
+        	return new UpmsResult(UpmsResultConstant.SUCCESS);
+        } else {
+        	return new UpmsResult(UpmsResultConstant.FAILED);
+        }
     }
 
     @ApiOperation(value = "删除角色")
@@ -127,7 +131,11 @@ public class UpmsRoleController extends BaseController {
     @ResponseBody
     public Object delete(@PathVariable("ids") String ids) {
         int count = upmsRoleService.deleteByPrimaryKeys(ids);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        if(count == 1){
+        	return new UpmsResult(UpmsResultConstant.SUCCESS);
+        } else {
+        	return new UpmsResult(UpmsResultConstant.FAILED);
+        }
     }
 
     @ApiOperation(value = "修改角色")
@@ -136,7 +144,7 @@ public class UpmsRoleController extends BaseController {
     public String update(@PathVariable("id") int id, ModelMap modelMap) {
         UpmsRole role = upmsRoleService.selectByPrimaryKey(id);
         modelMap.put("role", role);
-        return "/manage/role/update.jsp";
+        return "/manage/role/roleUpdate.jsp";
     }
 
     @ApiOperation(value = "修改角色")
@@ -146,7 +154,11 @@ public class UpmsRoleController extends BaseController {
     public Object update(@PathVariable("id") int id, UpmsRole upmsRole) {
         upmsRole.setRoleId(id);
         int count = upmsRoleService.updateByPrimaryKeySelective(upmsRole);
-        return new UpmsResult(UpmsResultConstant.SUCCESS, count);
+        if(count ==  1){
+        	return new UpmsResult(UpmsResultConstant.SUCCESS);
+        } else {
+        	return new UpmsResult(UpmsResultConstant.FAILED);
+        }
     }
 
 }
