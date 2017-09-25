@@ -88,7 +88,7 @@ $(function(){
 	$('#btn_create').click(function(){
 		$.hdDialog({
 			title:'新增角色信息',
-			columClass:'col-md-offset-2 col-md-8',
+			columnClass:'col-md-offset-2 col-md-8',
 			content:'url:${basePath}/manage/role/create',
 			onClose:function(){
 				if(HdDialog.getValue()){
