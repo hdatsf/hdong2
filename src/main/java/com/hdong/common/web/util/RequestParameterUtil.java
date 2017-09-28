@@ -1,4 +1,4 @@
-package com.hdong.upms.client.util;
+package com.hdong.common.web.util;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -16,6 +16,7 @@ public class RequestParameterUtil {
      * @param request
      * @return
      */
+    @SuppressWarnings("unchecked")
     public static String getParameterWithOutCode(HttpServletRequest request) {
         StringBuffer backUrl = request.getRequestURL();
         String params = "";

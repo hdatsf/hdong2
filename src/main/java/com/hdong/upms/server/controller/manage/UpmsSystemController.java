@@ -8,7 +8,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -84,7 +83,6 @@ public class UpmsSystemController extends BaseController {
     @RequiresPermissions("upms:system:create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    @Transactional
     public Object create(UpmsSystem upmsSystem) {
         long time = System.currentTimeMillis();
         upmsSystem.setCtime(time);
@@ -95,7 +93,9 @@ public class UpmsSystemController extends BaseController {
             return new UpmsResult(UpmsResultConstant.PARAM_VALID_ERROR, validStr);
         }
         int count = upmsSystemService.insertSelective(upmsSystem);
-        if(count ==1) {
+        upmsSystem.setSystemId(SequenceUtil.getInt(UpmsSystem.class));
+        count = upmsSystemService.insertSelective(upmsSystem);
+        if(count >=1) {
             return new UpmsResult(UpmsResultConstant.SUCCESS);
         }else {
             return new UpmsResult(UpmsResultConstant.FAILED);
@@ -106,10 +106,9 @@ public class UpmsSystemController extends BaseController {
     @RequiresPermissions("upms:system:delete")
     @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     @ResponseBody
-    @Transactional
     public Object delete(@PathVariable("ids") String ids) {
         int count = upmsSystemService.deleteByPrimaryKeys(ids);
-        if(count ==1) {
+        if(count >=1) {
             return new UpmsResult(UpmsResultConstant.SUCCESS);
         }else {
             return new UpmsResult(UpmsResultConstant.FAILED);
@@ -129,7 +128,6 @@ public class UpmsSystemController extends BaseController {
     @RequiresPermissions("upms:system:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    @Transactional
     public Object update(@PathVariable("id") int id, UpmsSystem upmsSystem) {
         upmsSystem.setSystemId(id);
         String validStr = ValidatorUtil.validateWithHtml(upmsSystem);

@@ -18,7 +18,7 @@
     <div class="form-group">
       <label for="description" class="col-md-3 control-label">角色描述</label>
       <div class="col-md-9">
-        <textarea class="form-control" id="description" name="description" maxlength="1000" rows="3" required></textarea>
+        <textarea class="form-control" id="description" name="description" maxlength="1000" rows="3" value="${role.description}" required></textarea>
       </div>
     </div>
     <div class="form-group">
@@ -34,7 +34,6 @@
 
 <script>
 $(function(){
-	document.getElementById("description").value="${role.description}";
 	$('#updateForm').validate();
 	$("#btn_save").click(function(){
     	if(!$("#updateForm").valid()) return;
@@ -43,14 +42,7 @@ $(function(){
 			url:'${basePath}/manage/role/update/${role.roleId}',
 			data:$("#updateForm").serialize(),
 			success:function(result){
-				if(result.code != 1){
-					$.hdConfirm({
-						content:result.msg,
-						buttons:{
-							confirm:{text:'确认'}
-						}
-					});
-				} else {
+				if(result.code == 1){
 					$.hdConfirm({
 						type:'blue',
 						content:'修改成功！',
@@ -62,6 +54,8 @@ $(function(){
 							}
 						}
 					});
+				} else {
+					$.hdErrorConfirm(result);
 				}
 			}
 		});

@@ -1,9 +1,9 @@
 package com.hdong.upms.server.controller;
 
 import com.hdong.common.base.BaseController;
+import com.hdong.common.shiro.session.UpmsSession;
+import com.hdong.common.shiro.session.UpmsSessionDao;
 import com.hdong.common.util.RedisUtil;
-import com.hdong.upms.client.shiro.session.UpmsSession;
-import com.hdong.upms.client.shiro.session.UpmsSessionDao;
 import com.hdong.upms.common.constant.UpmsResult;
 import com.hdong.upms.common.constant.UpmsResultConstant;
 import com.hdong.upms.dao.model.UpmsSystemExample;

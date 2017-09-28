@@ -1,4 +1,4 @@
-package com.hdong.upms.client.interceptor;
+package com.hdong.common.web.interceptor;
 
 import java.lang.reflect.Method;
 
@@ -16,15 +16,12 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSON;
 import com.hdong.common.util.PropertiesFileUtil;
-import com.hdong.common.util.RequestUtil;
 import com.hdong.common.util.SequenceUtil;
 import com.hdong.common.util.ServletUtil;
+import com.hdong.common.web.util.RequestUtil;
 import com.hdong.upms.dao.model.UpmsLog;
 import com.hdong.upms.rpc.api.UpmsLogService;
 

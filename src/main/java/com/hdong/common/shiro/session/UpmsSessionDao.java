@@ -1,4 +1,4 @@
-package com.hdong.upms.client.shiro.session;
+package com.hdong.common.shiro.session;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import com.hdong.common.util.PropertiesFileUtil;
 import com.hdong.common.util.RedisUtil;
-import com.hdong.upms.client.util.SerializableUtil;
+import com.hdong.common.util.SerializableUtil;
 import com.hdong.upms.common.constant.UpmsConstant;
 
 import redis.clients.jedis.Jedis;

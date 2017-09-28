@@ -1,6 +1,44 @@
 # 盯市编码规范
 
-### 1 数据库字典：
+### 1 命名约定
+
+约定优于配置(convention over configuration)，此框架约定了很多编程规范，下面一一列举：
+
+```
+- service类，需要在叫名`service`的包下，并以`Service`结尾，如`UpmsSystemServiceImpl`
+
+- controller类，需要在以`controller`结尾的包下，类名以Controller结尾，如`UpmsSystemController.java`，并继承`BaseController`
+
+- spring task类，需要在叫名`task`的包下，并以`Task`结尾，如`TestTask.java`
+
+- mapper.xml，需要在名叫`mapper`的包下，并以`Mapper.xml`结尾，如`UpmsSystemMapper.xml`
+
+- mapper接口，需要在名叫`mapper`的包下，并以`Mapper`结尾，如`UpmsSystemMapper.java`
+
+- model实体类，需要在名叫`model`的包下，命名规则为数据表转驼峰规则，如`UpmsSystem.java`
+
+- spring配置文件，命名规则为`applicationContext-*.xml`
+
+- 类名：首字母大写驼峰规则；方法名：首字母小写驼峰规则；常量：全大写；变量：首字母小写驼峰规则，尽量非缩写
+- 数据表命名为：`子系统`_`表`，如`upms_system`
+
+- springmvc配置加到对应模块的`springMVC-servlet.xml`文件里
+
+- 配置文件放到`src/main/resources`目录下
+
+- 静态资源文件放到`src/main/webapp/resources`目录下
+
+- jsp文件，需要在`/WEB-INF/jsp`目录下
+
+- `RequestMapping`和返回物理试图路径的url尽量写全路径，如：`@RequestMapping("/manage")`、`return "/manage/index"`
+
+- `RequestMapping`指定method
+
+- 模块命名为`项目`-`子项目`-`业务`，如`hdong-upms-web`
+
+```
+
+### 2 数据库字典：
 
 需要在sys_dict表中维护，然后java层转换为枚举。java层只用枚举，前台只用枚举的name，不需要关心code。前台枚举转换公共方法：
 
@@ -10,19 +48,19 @@
 
 下拉框通过$("#aaa").initSelectByDict('UPMS','SYSTEM_STATUS','ABNORMAL');来为select添加option
 
-### 2 序列号
+### 3 序列号
 
 为了兼容不同的数据库以及数据库拆分，使用redis做序列号发生器，通过`SequenceUtil.getInt(TableName.class); `
 
 `SequenceUtil.getLong(TableName.class);`来获取序列号，其中int的序列号会到达Integer.MAX_VALUE自动回滚到1重复使用。
 
-### 3 错误代码
+### 4 错误代码
 
 `UpmsResultConstant `
 
 `UpmsResult`，错误代码都列在*ResultConstant枚举类中(可以一个大模块建一个枚举类),前台框架通过获取result.code判断成功失败，result.msg获取信息也可以把信息封装在result.data里面。
 
-### 4 前后台校验框架：
+### 5 前后台校验框架：
 
 前台使用jquery.validate, 原因好用简单。
 

@@ -71,15 +71,8 @@ $(function () {
 	        url: '${basePath}/manage/system/update/${system.systemId}',
 	        data: $('#updateForm').serialize(),
 	        success: function(result) {
-				if (result.code != 1) {
-					$.hdConfirm({
-						content: result.msg,
-						buttons: {
-							confirm: {text: '确认'}
-						}
-					});
-				} else {
-					$.hdConfirm({
+				if(result.code == 1){
+	        		$.hdConfirm({
 						type:'blue',
 						content: '修改成功!',
 						autoClose: 'confirm|3000',
@@ -90,7 +83,9 @@ $(function () {
 							}
 						}
 					});
-				}
+	        	}else{
+	        		$.hdErrorConfirm(result);
+	        	}
 	        }
 	    });
 	});

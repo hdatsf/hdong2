@@ -16,11 +16,10 @@ p, form, ol, ul, li, dl, dt, dd, h3 {margin: 0; padding: 0; list-style: none }
     <div id="content_left">
         <div class="nors">
             <div class="norsSuggest">
-                <h3 class="norsTitle">很抱歉，您没有权限访问该功能！</h3>
+                <h3 class="norsTitle">很抱歉，您的登录已经过期！</h3>
                 <p class="norsTitle2">温馨提示：</p>
                 <ol>
-                    <li>请联系管理员为您开通该权限！</li>
-                    <li>开通后需要5分钟后才能生效！</li>
+                	<li>请重新<a href="${pageContext.request.contextPath}/sso/logout">登录</a>。</li>
                     <li>如有任何意见或建议，请及时我们tel:0571-88888888。</li>
                 </ol>
             </div>

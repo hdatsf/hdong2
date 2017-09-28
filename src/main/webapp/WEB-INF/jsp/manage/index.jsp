@@ -226,7 +226,7 @@
 	<script src="${basePath}/resources/jquery-validate/jquery.validate.min.js"></script>
 	<script src="${basePath}/resources/jquery-validate/messages_zh.js"></script>
 	<!-- Bootstrap 3.3.7 -->
-	<script src="${basePath}/resources/bootstrap/js/bootstrap-table.min.js"></script>
+	<script src="${basePath}/resources/bootstrap/js/bootstrap-table.js"></script>
 	<script src="${basePath}/resources/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${basePath}/resources/bootstrap/js/bootstrap-table-zh-CN.min.js"></script>
 	<!-- AdminLTE App -->

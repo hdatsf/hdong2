@@ -70,17 +70,10 @@ $(function () {
 	        url: '${basePath}/manage/system/create',
 	        data: $('#createForm').serialize(),
 	        success: function(result) {
-				if (result.code != 1) {
-					$.hdConfirm({
-						content: result.msg,
-						buttons: {
-							confirm: {text: '确认'}
-						}
-					});
-				} else {
-					$.hdConfirm({
+	        	if(result.code == 1){
+	        		$.hdConfirm({
 						type:'blue',
-						content: '修改成功!',
+						content: '创建成功!',
 						autoClose: 'confirm|3000',
 						buttons: {
 							confirm: {
@@ -89,16 +82,9 @@ $(function () {
 							}
 						}
 					});
-				}
-	        },
-	        error: function(XMLHttpRequest, textStatus, errorThrown) {
-				$.confirm({
-					title: false,
-					content: textStatus,
-					buttons: { 
-						confirm: { text: '确认'}
-					}
-				});
+	        	}else{
+	        		$.hdErrorConfirm(result);
+	        	}
 	        }
 	    });
 	});

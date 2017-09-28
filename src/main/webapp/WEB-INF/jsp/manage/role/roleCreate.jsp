@@ -42,15 +42,7 @@ $(function(){
 			url:'${basePath}/manage/role/create',
 			data:$('#createForm').serialize(),
 			success:function(result){
-				debugger;
-				if(result.code != 1){
-					$.hdConfirm({
-						content:result.msg,
-						buttons:{
-							confirm:{text:'确认'}
-						}
-					});
-				} else {
+				if(result.code == 1){
 					$.hdConfirm({
 						content:'保存成功！',
 						autoClose: 'confirm|3000',
@@ -61,22 +53,14 @@ $(function(){
 							}
 						}
 					});
+				} else {
+					$.hdErrorConfirm(result);
 				}
-			},
-			error: function(XMLHttpRequest, textStatus, errorThrown){
-				$.confirm({
-					title:false,
-					content:textStatus,
-					buttons:{
-						confirm:{text:'确认'}
-					}
-				});
 			}
 		});
 	});
 	
 	$("#btn_cancel").click(function(){
-		debugger;
 		HdDialog.close(false);
 	});
 });

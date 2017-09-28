@@ -1,4 +1,4 @@
-package com.hdong.upms.client.util;
+package com.hdong.common.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

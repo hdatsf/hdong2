@@ -150,6 +150,23 @@ __HdConfirm.prototype.getValue = function(){
 };
 var HdConfirm = new __HdConfirm();
 
+$.hdErrorConfirm = function(result){
+	if(result.code!=undefined){
+		$.hdConfirm({
+			type: 'red',
+			content: result.msg,
+			buttons: {confirm: {text: '确认'}}
+		});
+	}else{
+		$.hdConfirm({
+			type: 'red',
+			columnClass:'col-md-offset-2 col-md-8',
+			content: result,
+			buttons: {confirm: {text: '确认'}}
+		});
+	}
+};
+
 //获取字典项
 __HdDict = function(){
 	this.url = basePath + "/sys/dicts";

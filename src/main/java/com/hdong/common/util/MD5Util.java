@@ -1,7 +1,6 @@
 package com.hdong.common.util;
 
 import java.security.MessageDigest;
-import java.util.UUID;
 
 /**
  * Created by hdong on 2017/1/19.

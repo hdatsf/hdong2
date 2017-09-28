@@ -31,7 +31,8 @@ public class JdbcUtil {
 	}
 
 	// 更新数据
-	public boolean updateByParams(String sql, List params) throws SQLException {
+	@SuppressWarnings("rawtypes")
+    public boolean updateByParams(String sql, List params) throws SQLException {
 		// 影响行数
 		int result = -1;
 		pstmt = conn.prepareStatement(sql);
@@ -47,7 +48,8 @@ public class JdbcUtil {
 	}
 
 	// 查询多条记录
-	public List<Map> selectByParams(String sql, List params) throws SQLException {
+	@SuppressWarnings({"rawtypes", "unchecked"})
+    public List<Map> selectByParams(String sql, List params) throws SQLException {
 		List<Map> list = new ArrayList<> ();
 		int index = 1;
 		pstmt = conn.prepareStatement(sql);

@@ -1,4 +1,4 @@
-package com.hdong.upms.client.shiro.realm;
+package com.hdong.common.shiro.realm;
 
 import java.util.List;
 import java.util.Set;
@@ -69,10 +69,6 @@ public class UpmsRealm extends AuthorizingRealm {
         String password = new String((char[]) authenticationToken.getCredentials());
         // client无密认证
         String upmsType = PropertiesFileUtil.getInstance().get("hdong.upms.type");
-        if ("client".equals(upmsType)) {
-            return new SimpleAuthenticationInfo(username, password, getName());
-        }
-
         // 查询用户信息
         UpmsUserExample userExample = new UpmsUserExample();
         userExample.createCriteria().andUsernameEqualTo(username);
@@ -81,13 +77,15 @@ public class UpmsRealm extends AuthorizingRealm {
         if (null == upmsUser) {
             throw new UnknownAccountException();
         }
-        if (!upmsUser.getPassword().equals(MD5Util.MD5(password + upmsUser.getSalt()))) {
-            throw new IncorrectCredentialsException();
-        }
         if (upmsUser.getLocked() == 1) {
             throw new LockedAccountException();
         }
-
+        if ("client".equals(upmsType)) {
+            return new SimpleAuthenticationInfo(username, password, getName());
+        }
+        if (!upmsUser.getPassword().equals(MD5Util.MD5(password + upmsUser.getSalt()))) {
+            throw new IncorrectCredentialsException();
+        }
         return new SimpleAuthenticationInfo(username, password, getName());
     }
 

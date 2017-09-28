@@ -77,7 +77,8 @@ $(function(){
 			{field: 'name', title: '角色名称'},
 			{field: 'title', title: '角色标题'},
 			{field: 'description', title: '角色描述'}
-		]
+		],
+		onLoadError : function(status, result){$.hdErrorConfirm(result.responseText);}
 	});
 	
 	//初始化页面上面的按钮事件
@@ -157,16 +158,7 @@ $(function(){
 								 type:'get',
 								 url:'${basePath}/manage/role/delete/' + ids.join('-'),
 								 success: function(result){
-									 if(result.code != 1){
-										 $.hdConfirm({
-											 theme:'red',
-											 title:false,
-											 content: result.msg,
-											 buttons:{
-												 confirm:{text:'确认'}
-											 }
-										 });
-									 } else {
+									 if(result.code == 1){
 										 $.hdConfirm({
 											 content:'删除成功!',
 											 autoClose:'confirm|3000',
@@ -180,6 +172,8 @@ $(function(){
 												 }
 											 }
 										 });
+									 } else {
+										 $.hdErrorConfirm(result);
 									 }
 								 }
 							 });

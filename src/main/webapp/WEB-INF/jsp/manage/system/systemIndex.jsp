@@ -80,7 +80,8 @@ $(function () {
 			{field: 'name', title: '系统名称'},
 			{field: 'basepath', title: '根目录'},
 			{field: 'status', title: '状态', sortable: true, align: 'center',formatter:function(name){return HdDict.getDictDesc('UPMS','SYSTEM_STATUS',name);}}
-		]
+		],
+		onLoadError : function(status, result){$.hdErrorConfirm(result.responseText);}
     });
 	
 	//初始化页面上面的按钮事件
@@ -160,16 +161,7 @@ $(function () {
 								type: 'get',
 								url: '${basePath}/manage/system/delete/' + ids.join("-"),
 								success: function(result) {
-									if (result.code != 1) {
-										$.hdConfirm({
-											theme: 'red',
-											title: false,
-											content: result.data.errorMsg,
-											buttons: {
-												confirm: {text: '确认'}
-											}
-										});
-									} else {
+									if (result.code == 1) {
 										$.hdConfirm({
 											title:false,
 											content: '删除成功!',
@@ -183,7 +175,8 @@ $(function () {
 												}
 											}
 										});
-										
+									} else {
+										$.hdErrorConfirm(result);
 									}
 								}
 							});

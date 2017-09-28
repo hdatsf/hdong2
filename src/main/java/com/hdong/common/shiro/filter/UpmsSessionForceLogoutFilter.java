@@ -1,4 +1,4 @@
-package com.hdong.upms.client.shiro.filter;
+package com.hdong.common.shiro.filter;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.web.filter.AccessControlFilter;

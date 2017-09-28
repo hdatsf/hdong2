@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hdong.common.base.BaseController;
-import com.hdong.upms.client.shiro.session.UpmsSessionDao;
+import com.hdong.common.shiro.session.UpmsSessionDao;
 import com.hdong.upms.common.constant.UpmsResult;
 import com.hdong.upms.common.constant.UpmsResultConstant;
 

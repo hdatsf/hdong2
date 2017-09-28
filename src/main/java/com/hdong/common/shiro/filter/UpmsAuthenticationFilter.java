@@ -1,12 +1,15 @@
-package com.hdong.upms.client.shiro.filter;
+package com.hdong.common.shiro.filter;
 
-import com.alibaba.fastjson.JSONObject;
-import com.hdong.common.util.PropertiesFileUtil;
-import com.hdong.common.util.RedisUtil;
-import com.hdong.common.util.RequestUtil;
-import com.hdong.upms.client.shiro.session.UpmsSessionDao;
-import com.hdong.upms.client.util.RequestParameterUtil;
-import com.hdong.upms.common.constant.UpmsConstant;
+import java.io.IOException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -26,16 +29,15 @@ import org.apache.shiro.web.util.WebUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import redis.clients.jedis.Jedis;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
+import com.alibaba.fastjson.JSONObject;
+import com.hdong.common.shiro.session.UpmsSessionDao;
+import com.hdong.common.util.PropertiesFileUtil;
+import com.hdong.common.util.RedisUtil;
+import com.hdong.common.web.util.RequestParameterUtil;
+import com.hdong.upms.common.constant.UpmsConstant;
+
+import redis.clients.jedis.Jedis;
 
 /**
  * 重写authc过滤器

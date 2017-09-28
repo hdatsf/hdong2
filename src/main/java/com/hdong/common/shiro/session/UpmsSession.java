@@ -1,4 +1,4 @@
-package com.hdong.upms.client.shiro.session;
+package com.hdong.common.shiro.session;
 
 import org.apache.shiro.session.mgt.SimpleSession;
 
@@ -7,6 +7,11 @@ import org.apache.shiro.session.mgt.SimpleSession;
  * Created by hdong on 2017/2/27.
  */
 public class UpmsSession extends SimpleSession {
+
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -9067549347909152923L;
 
     public static enum OnlineStatus {
         on_line("在线"), off_line("离线"), force_logout("强制退出");

@@ -1,4 +1,4 @@
-package com.hdong.upms.client.shiro.listener;
+package com.hdong.common.shiro.listener;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.SessionListener;

@@ -37,10 +37,10 @@
     </bean>
 
     <!-- 重写authc过滤器 -->
-    <bean id="upmsAuthenticationFilter" class="com.hdong.upms.client.shiro.filter.UpmsAuthenticationFilter"/>
+    <bean id="upmsAuthenticationFilter" class="com.hdong.common.shiro.filter.UpmsAuthenticationFilter"/>
 
     <!-- 强制退出会话过滤器 -->
-    <bean id="upmsSessionForceLogout" class="com.hdong.upms.client.shiro.filter.UpmsSessionForceLogoutFilter"/>
+    <bean id="upmsSessionForceLogout" class="com.hdong.common.shiro.filter.UpmsSessionForceLogoutFilter"/>
 
     <!-- 安全管理器 -->
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
@@ -52,7 +52,7 @@
     </bean>
 
     <!-- realm实现，继承自AuthorizingRealm -->
-    <bean id="upmsRealm" class="com.hdong.upms.client.shiro.realm.UpmsRealm"></bean>
+    <bean id="upmsRealm" class="com.hdong.common.shiro.realm.UpmsRealm"></bean>
 
     <!-- 会话管理器 -->
     <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
@@ -70,7 +70,7 @@
     </bean>
 
     <!-- 会话DAO，可重写，持久化session -->
-    <bean id="sessionDAO" class="com.hdong.upms.client.shiro.session.UpmsSessionDao"/>
+    <bean id="sessionDAO" class="com.hdong.common.shiro.session.UpmsSessionDao"/>
 
     <!-- 会话Cookie模板 -->
     <bean id="sessionIdCookie" class="org.apache.shiro.web.servlet.SimpleCookie">
@@ -83,10 +83,10 @@
     </bean>
 
     <!-- 会话监听器 -->
-    <bean id="sessionListener" class="com.hdong.upms.client.shiro.listener.UpmsSessionListener"/>
+    <bean id="sessionListener" class="com.hdong.common.shiro.listener.UpmsSessionListener"/>
 
     <!-- session工厂 -->
-    <bean id="sessionFactory" class="com.hdong.upms.client.shiro.session.UpmsSessionFactory"/>
+    <bean id="sessionFactory" class="com.hdong.common.shiro.session.UpmsSessionFactory"/>
 
     <!-- rememberMe管理器 -->
     <bean id="rememberMeManager" class="org.apache.shiro.web.mgt.CookieRememberMeManager">

@@ -73,12 +73,10 @@
         <property name="resolveLazily" value="true"/>
     </bean>
     
-    <!-- 启动aop注解基于类的代理（这时需要cglib库），如果proxy-target-class属值被设置为false或者这个属性被省略，那么标准的JDK 基于接口的代理将起作用 -->
-    <aop:config proxy-target-class="true"/>
-    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <aop:aspectj-autoproxy/>
 
     <!-- 日志记录AOP实现 -->
-    <bean class="com.hdong.upms.client.interceptor.LogAspect"/>
+    <bean class="com.hdong.common.web.interceptor.LogAspect"/>
     
 	
 </beans>

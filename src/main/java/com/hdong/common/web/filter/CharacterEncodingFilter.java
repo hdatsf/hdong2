@@ -1,4 +1,4 @@
-package com.hdong.upms.server;
+package com.hdong.common.web.filter;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.annotation.WebFilter;

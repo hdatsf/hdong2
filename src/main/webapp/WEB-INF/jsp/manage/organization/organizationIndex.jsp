@@ -77,7 +77,8 @@
 			{field: 'pid', title: '所属上级'},
 			{field: 'name', title: '组织名称'},
 			{field: 'description', title: '组织描述'}
-		]
+		],
+		onLoadError : function(status, result){$.hdErrorConfirm(result.responseText);}
 	 });
 	 
 	 //初始化页面上面的按钮事件
@@ -157,15 +158,6 @@
 								 success: function(result){
 									 if(result.code != 1){
 										 $.hdConfirm({
-											 theme:'red',
-											 title:false,
-											 content: result.msg,
-											 buttons:{
-												 confirm:{text:'确认'}
-											 }
-										 });
-									 } else {
-										 $.hdConfirm({
 											 content:'删除成功!',
 											 autoClose:'confirm|3000',
 											 buttons:{
@@ -178,6 +170,8 @@
 												 }
 											 }
 										 });
+									 } else {
+										 $.hdErrorConfirm(result);
 									 }
 								 }
 							 });

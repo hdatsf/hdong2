@@ -1,4 +1,4 @@
-package com.hdong.upms.server;
+package com.hdong.common.shiro.filter;
 
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.annotation.WebInitParam;

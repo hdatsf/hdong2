@@ -1,4 +1,4 @@
-package com.hdong.upms.client.shiro.session;
+package com.hdong.common.shiro.session;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.SessionContext;
