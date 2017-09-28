@@ -156,7 +156,7 @@
 								 type:'get',
 								 url:'${basePath}/manage/organization/delete/' + ids.join('-'),
 								 success: function(result){
-									 if(result.code != 1){
+									 if(result.code == 1){
 										 $.hdConfirm({
 											 content:'删除成功!',
 											 autoClose:'confirm|3000',
