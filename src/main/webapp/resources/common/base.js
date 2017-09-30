@@ -236,3 +236,16 @@ $.fn.initSelectByDict=function(app, type, selected){
 		this.html(optionStr);
 	}
 };
+//新增jquery小数位数校验，用法为minNumber="2",代表最多2位小数
+jQuery.validator.addMethod("minNumber", function(value, element, param){
+	var returnVal = true;
+	inputZ = value;
+	var ArrMen = inputZ.split(".");
+	if(ArrMen.length == 2) {
+		if(ArrMen[1].length > param) {
+			returnVal = false;
+			return false;
+		}
+	}
+	return returnVal;
+}, "小数点后最多为{0}位");
