@@ -52,14 +52,6 @@
     <!-- 配置静态资源，不被DispatcherServlet处理，增加缓存时间10秒 -->
     <mvc:resources mapping="/favicon.ico" location="/favicon.ico"/>
     <mvc:resources mapping="/resources/**" location="/resources/" cache-period="10"/>
-    <!-- 拦截器 -->
-    <mvc:interceptors>
-        <!-- 获取登录信息 -->
-        <mvc:interceptor>
-            <mvc:mapping path="/manage/**"/>
-            <bean class="com.hdong.upms.server.interceptor.UpmsInterceptor"></bean>
-        </mvc:interceptor>
-    </mvc:interceptors>
     
     <!-- swagger 接口测试 -->
     <bean class="com.hdong.common.swagger.SwaggerConfig"/>
@@ -77,6 +69,4 @@
 
     <!-- 日志记录AOP实现 -->
     <bean class="com.hdong.common.web.interceptor.LogAspect"/>
-    
-	
 </beans>

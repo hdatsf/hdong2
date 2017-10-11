@@ -1,5 +1,7 @@
 package com.hdong.upms.dao.model;
 
+import com.hdong.upms.dao.enums.UserLocked;
+import com.hdong.upms.dao.enums.UserSex;
 import java.io.Serializable;
 
 public class UpmsUser implements Serializable {
@@ -64,14 +66,14 @@ public class UpmsUser implements Serializable {
      *
      * @mbg.generated
      */
-    private Byte sex;
+    private UserSex sex;
 
     /**
      * 状态(0:正常,1:锁定)
      *
      * @mbg.generated
      */
-    private Byte locked;
+    private UserLocked locked;
 
     /**
      * 创建时间
@@ -146,19 +148,19 @@ public class UpmsUser implements Serializable {
         this.email = email;
     }
 
-    public Byte getSex() {
+    public UserSex getSex() {
         return sex;
     }
 
-    public void setSex(Byte sex) {
+    public void setSex(UserSex sex) {
         this.sex = sex;
     }
 
-    public Byte getLocked() {
+    public UserLocked getLocked() {
         return locked;
     }
 
-    public void setLocked(Byte locked) {
+    public void setLocked(UserLocked locked) {
         this.locked = locked;
     }
 

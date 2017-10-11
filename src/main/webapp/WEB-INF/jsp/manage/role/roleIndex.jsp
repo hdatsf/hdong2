@@ -7,9 +7,9 @@
   <div class="panel-body" style="padding-left: 0px; padding-right: 15px">
     <form id="formSearch" class="form-horizontal">
       <div class="form-group form-group-sm">
-        <label class="control-label col-sm-1" for="txt_role_name">角色名称</label>
+        <label class="control-label col-sm-1" for="query_roleName">角色名称</label>
 		<div class="col-sm-3">
-			<input type="text" class="form-control" id="txt_role_name">
+			<input type="text" class="form-control" id="query_roleName">
 		</div>
       </div>
     </form>
@@ -25,6 +25,11 @@
 		<shiro:hasPermission name="upms:role:update">
 			<button id="btn_update" type="button" class="btn btn-primary btn-sm">
 				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+			</button>
+		</shiro:hasPermission>
+		<shiro:hasPermission name="upms:role:permission">
+			<button id="btn_permission" type="button" class="btn btn-primary btn-sm">
+				<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>角色权限
 			</button>
 		</shiro:hasPermission>
 		<shiro:hasPermission name="upms:role:delete">
@@ -51,7 +56,7 @@ $(function(){
         sortOrder: "asc",                   //排序方式
         sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
         pageNumber:1,                       //初始化加载第一页，默认第一页
-        pageSize: 20,                       //每页的记录行数（*）
+        pageSize: 10,                       //每页的记录行数（*）
         pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
         search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
         strictSearch: false,
@@ -68,14 +73,13 @@ $(function(){
             return {
                 limit: params.limit,   //页面大小
                 offset: params.offset,  //页码
-                search: $("#txt_role_name").val()
+                name: $("#query_roleName").val()
             };
         },
         columns: [
 			{field: 'ck', checkbox: true},
 			{field: 'roleId', title: '角色编号', sortable: true, align: 'center'},
 			{field: 'name', title: '角色名称'},
-			{field: 'title', title: '角色标题'},
 			{field: 'description', title: '角色描述'}
 		],
 		onLoadError : function(status, result){$.hdErrorConfirm(result.responseText);}
@@ -98,6 +102,33 @@ $(function(){
 			}
 		});
 	});
+	
+	$("#toolbar #btn_permission").click(function(){
+		 var rows = $('#tb_roles').bootstrapTable('getSelections');
+		 if(rows.length != 1){
+			 $.hdConfirm({
+				 content:'请选择一条记录！',
+				 autoClose:'cancel|3000',
+				 backgroundDismiss:true,
+				 buttons:{
+					 cancel:{
+						 text:'取消'
+					 }
+				 }
+			 });
+		 } else {
+			 $.hdDialog({
+				 title:'角色权限信息修改',
+				 columnClass:'col-md-offset-4 col-md-4',
+				 content:'url:${basePath}/manage/role/permission/' + rows[0].roleId,
+				 onClose: function(){
+					 if(HdDialog.getValue()){
+						 //$('#tb_roles').bootstrapTable('refresh');
+					 }
+				 }
+			 });
+		 }
+	 });
 	
 	$("#toolbar #btn_update").click(function(){
 		 var rows = $('#tb_roles').bootstrapTable('getSelections');

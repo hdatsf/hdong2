@@ -2,6 +2,7 @@ package com.hdong.upms.rpc.service.impl;
 
 import com.hdong.common.annotation.BaseService;
 import com.hdong.common.base.BaseServiceImpl;
+import com.hdong.common.util.SequenceUtil;
 import com.hdong.upms.dao.mapper.UpmsUserRoleMapper;
 import com.hdong.upms.dao.model.UpmsUserRole;
 import com.hdong.upms.dao.model.UpmsUserRoleExample;
@@ -15,9 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
-* UpmsUserRoleService实现
-* Created by hdong on 2017/3/20.
-*/
+ * UpmsUserRoleService实现 Created by hdong on 2017/3/20.
+ */
 @Service
 @Transactional
 @BaseService
@@ -32,13 +32,13 @@ public class UpmsUserRoleServiceImpl extends BaseServiceImpl<UpmsUserRoleMapper,
     public Logger getLogger() {
         return _log;
     }
+
     @Override
     public int role(String[] roleIds, int id) {
         int result = 0;
         // 删除旧记录
         UpmsUserRoleExample upmsUserRoleExample = new UpmsUserRoleExample();
-        upmsUserRoleExample.createCriteria()
-                .andUserIdEqualTo(id);
+        upmsUserRoleExample.createCriteria().andUserIdEqualTo(id);
         upmsUserRoleMapper.deleteByExample(upmsUserRoleExample);
         // 增加新记录
         if (null != roleIds) {
@@ -49,6 +49,7 @@ public class UpmsUserRoleServiceImpl extends BaseServiceImpl<UpmsUserRoleMapper,
                 UpmsUserRole upmsUserRole = new UpmsUserRole();
                 upmsUserRole.setUserId(id);
                 upmsUserRole.setRoleId(NumberUtils.toInt(roleId));
+                upmsUserRole.setUserRoleId(SequenceUtil.getInt(UpmsUserRole.class));
                 result = upmsUserRoleMapper.insertSelective(upmsUserRole);
             }
         }

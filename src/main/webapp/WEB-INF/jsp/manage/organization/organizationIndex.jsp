@@ -2,45 +2,57 @@
 <%@taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <c:set var="basePath" value="${pageContext.request.contextPath}"/>
-<div class="panel panel-default">
+<div class="panel panel-default" style="margin-bottom:0px">
 	<div class="panel-heading">组织管理</div>
 	<div class="panel-body" style="padding-left: 0px; padding-right: 15px">
-		<form id="formSearch" class="form-horizontal">
-			<div class="form-group form-group-sm">
-				<label class="control-label col-sm-1" for="txt_organization_name">组织名称</label>
-				<div class="col-sm-3">
-					<input type="text" class="form-control" id="txt_organization_name">
+		<div class="row">
+		  	<div class="col-md-3">
+		  		<ul id="query_orgTree" class="ztree" style="overflow:auto"></ul>
+		  	</div>
+		  	<div class="col-md-9">
+				<form id="query_form" class="form-horizontal">
+					<div class="form-group form-group-sm">
+						<label class="control-label col-sm-1" for="query_name">组织名称</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="query_name">
+						</div>
+						<label class="control-label col-sm-1" for="query_pname">所属上级</label>
+						<div class="col-sm-3">
+							<input type="text" class="form-control" id="query_pname" readonly>
+							<input type="hidden" id="query_pid">
+						</div>
+					</div>
+				</form>
+				<div id="toolbar" class="btn-toolbar pull-right" style="margin-bottom: 3px">
+					<button id="btn_query" type="button" class="btn btn-primary btn-sm">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>查询
+					</button>
+					<shiro:hasPermission name="upms:organization:create">
+						<button id="btn_create" type="button" class="btn btn-primary btn-sm">
+							<span class="glyphicon glyphicon-plus" aria-hidden="hidden"></span>新增
+						</button>
+					</shiro:hasPermission>
+					<shiro:hasPermission name="upms:organization:update">
+						<button id="btn_update" type="button" class="btn btn-primary btn-sm">
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
+						</button>
+					</shiro:hasPermission>
+					<shiro:hasPermission name="upms:organization:delete">
+						<button id="btn_delete" type="button" class="btn btn-primary btn-sm">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
+						</button>
+					</shiro:hasPermission>
 				</div>
+				<table id="tb_organizations"></table>
 			</div>
-		</form>
-		<div id="toolbar" class="btn-toolbar pull-right" style="margin-bottom: 3px">
-			<button id="btn_query" type="button" class="btn btn-primary btn-sm">
-				<span class="glyphicon glyphicon-search" aria-hidden="true"></span>查询
-			</button>
-			<shiro:hasPermission name="upms:organization:create">
-				<button id="btn_create" type="button" class="btn btn-primary btn-sm">
-					<span class="glyphicon glyphicon-plus" aria-hidden="hidden"></span>新增
-				</button>
-			</shiro:hasPermission>
-			<shiro:hasPermission name="upms:organization:update">
-				<button id="btn_update" type="button" class="btn btn-primary btn-sm">
-					<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>修改
-				</button>
-			</shiro:hasPermission>
-			<shiro:hasPermission name="upms:organization:delete">
-				<button id="btn_delete" type="button" class="btn btn-primary btn-sm">
-					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>删除
-				</button>
-			</shiro:hasPermission>
 		</div>
-		<table id="tb_organizations"></table>
 	</div>
 </div>
 
 <script>
   $(function(){
 	 $('#tb_organizations').bootstrapTable({
-	    url:'${basePath}/manage/organization/list',//请求后台的URL（*）
+	    url:'',//请求后台的URL（*）
         method: 'get',                      //请求方式（*）
         toolbar: '#toolbar',                //工具按钮用哪个容器
         toolbarAlign:"right",
@@ -51,7 +63,7 @@
         sortOrder: "asc",                   //排序方式
         sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
         pageNumber:1,                       //初始化加载第一页，默认第一页
-        pageSize: 20,                       //每页的记录行数（*）
+        pageSize: 10,                       //每页的记录行数（*）
         pageList: [10, 25, 50, 100],        //可供选择的每页的行数（*）
         search: false,                       //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
         strictSearch: false,
@@ -68,31 +80,33 @@
             return {
                 limit: params.limit,   //页面大小
                 offset: params.offset,  //页码
-                search: $("#txt_organization_name").val()
+                name:$("#query_name").val(),
+                pid:$("#query_pid").val()
             };
         },
         columns: [
 			{field: 'ck', checkbox: true},
 			{field: 'organizationId', title: '组织编号', sortable: true, align: 'center'},
-			{field: 'pid', title: '所属上级'},
 			{field: 'name', title: '组织名称'},
 			{field: 'description', title: '组织描述'}
 		],
 		onLoadError : function(status, result){$.hdErrorConfirm(result.responseText);}
 	 });
 	 
+	 
+	 
 	 //初始化页面上面的按钮事件
 	 $("#toolbar #btn_query").click(function(){
-		 $('#tb_organizations').bootstrapTable('refresh');
+		 $('#tb_organizations').bootstrapTable('refresh',{url:'${basePath}/manage/organization/list'});
 	 });
 	 $("#toolbar #btn_create").click(function(){
 		$.hdDialog({
 			title:'新增组织信息',
 			columnClass:'col-md-offset-2 col-md-8',
-			content:'url:${basePath}/manage/organization/create',
+			content:'url:${basePath}/manage/organization/create?pid='+$('#query_pid').val()+'&pname='+encodeURI($('#query_pname').val()),
 			onClose:function(){
 				if(HdDialog.getValue()){
-					$('#tb_organizations').bootstrapTable('refresh');
+					$.fn.zTree.init($('#query_orgTree'), setting);
 				}
 			}
 		}); 
@@ -117,7 +131,7 @@
 				 content:'url:${basePath}/manage/organization/update/' + rows[0].organizationId,
 				 onClose: function(){
 					 if(HdDialog.getValue()){
-						 $('#tb_organizations').bootstrapTable('refresh');
+						 $.fn.zTree.init($('#query_orgTree'), setting);
 					 }
 				 }
 			 });
@@ -158,6 +172,7 @@
 								 success: function(result){
 									 if(result.code == 1){
 										 $.hdConfirm({
+											 type : 'blue',
 											 content:'删除成功!',
 											 autoClose:'confirm|3000',
 											 buttons:{
@@ -165,7 +180,7 @@
 													 text:'确认',
 													 action:function(){
 														 HdConfirm.close();
-														 $('#tb_organizations').bootstrapTable('refresh');
+														 $.fn.zTree.init($('#query_orgTree'), setting);
 													 }
 												 }
 											 }
@@ -185,7 +200,43 @@
 			 });
 		 }
 	 });
-	
-  });
+	 
+	 $("#query_orgTree").height(HD_CONTENT.treeHeight);
+	 var setting = {
+		async : {
+			enable : true,
+			url : '${basePath}/manage/organization/treeData'
+		},
+		data : {
+			simpleData : {
+				enable : true
+			}
+		},
+		callback : {
+			onClick: function(e, treeId, node){
+				 if($("#query_pid").val() == node.id){
+					 $("#query_pname").val('');
+					 $("#query_pid").val('');
+					 $.fn.zTree.getZTreeObj(treeId).cancelSelectedNode();
+				 }else{
+					 $("#query_pname").val(node.name);
+					 $("#query_pid").val(node.id);
+				 }
+				 $("#toolbar #btn_query").click();
+			 },
+			 onAsyncSuccess:function(e, treeId, node){
+				 if($("#query_pid").val() == ""){
+					 $("#toolbar #btn_query").click();
+				 }else{
+					 var zTreeObj = $.fn.zTree.getZTreeObj(treeId);
+					 var selectNode = zTreeObj.getNodeByTId($("#query_pid").val());
+					 zTreeObj.selectNode(selectNode);
+					 $("#toolbar #btn_query").click();
+				 }
+			 }
+		}
+	};
+	$.fn.zTree.init($('#query_orgTree'), setting);
+});
 
 </script>

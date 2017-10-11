@@ -1,8 +1,7 @@
 package com.hdong.upms.server.controller.manage;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hdong.common.base.BaseController;
+import com.hdong.common.base.BasePageResult;
 import com.hdong.common.util.SequenceUtil;
 import com.hdong.common.util.ValidatorUtil;
 import com.hdong.upms.common.constant.UpmsResult;
@@ -51,7 +51,7 @@ public class UpmsSystemController extends BaseController {
     @RequiresPermissions("upms:system:read")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @ResponseBody
-    public Object list(@RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
+    public BasePageResult<UpmsSystem> list(@RequestParam(required = false, defaultValue = "0", value = "offset") int offset,
             @RequestParam(required = false, defaultValue = "10", value = "limit") int limit,
             @RequestParam(required = false, defaultValue = "", value = "systemName") String systemName,
             @RequestParam(required = false, value = "sort") String sort, @RequestParam(required = false, value = "order") String order) {
@@ -60,16 +60,13 @@ public class UpmsSystemController extends BaseController {
         if (StringUtils.isNotBlank(systemName)) {
             upmsSystemExample.or().andTitleLike("%" + systemName + "%");
         }
-        long total = upmsSystemService.countByExample(upmsSystemExample);
+        int total = upmsSystemService.countByExample(upmsSystemExample);
         
         if (!StringUtils.isBlank(sort) && !StringUtils.isBlank(order)) {
             upmsSystemExample.setOrderByClause(sort + " " + order);
         }
         List<UpmsSystem> rows = upmsSystemService.selectByExampleForOffsetPage(upmsSystemExample, offset, limit);
-        Map<String, Object> result = new HashMap<>();
-        result.put("rows", rows);
-        result.put("total", total);
-        return result;
+        return new BasePageResult<UpmsSystem>(total, rows);
     }
 
     @ApiOperation(value = "新增系统")
@@ -83,7 +80,7 @@ public class UpmsSystemController extends BaseController {
     @RequiresPermissions("upms:system:create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
-    public Object create(UpmsSystem upmsSystem) {
+    public UpmsResult create(UpmsSystem upmsSystem) {
         long time = System.currentTimeMillis();
         upmsSystem.setCtime(time);
         upmsSystem.setOrders(time);
@@ -93,26 +90,23 @@ public class UpmsSystemController extends BaseController {
             return new UpmsResult(UpmsResultConstant.PARAM_VALID_ERROR, validStr);
         }
         int count = upmsSystemService.insertSelective(upmsSystem);
-        upmsSystem.setSystemId(SequenceUtil.getInt(UpmsSystem.class));
-        count = upmsSystemService.insertSelective(upmsSystem);
-        if(count >=1) {
-            return new UpmsResult(UpmsResultConstant.SUCCESS);
-        }else {
-            return new UpmsResult(UpmsResultConstant.FAILED);
-        }
+        return new UpmsResult(count==1);
     }
 
     @ApiOperation(value = "删除系统")
     @RequiresPermissions("upms:system:delete")
     @RequestMapping(value = "/delete/{ids}", method = RequestMethod.GET)
     @ResponseBody
-    public Object delete(@PathVariable("ids") String ids) {
-        int count = upmsSystemService.deleteByPrimaryKeys(ids);
-        if(count >=1) {
-            return new UpmsResult(UpmsResultConstant.SUCCESS);
-        }else {
-            return new UpmsResult(UpmsResultConstant.FAILED);
+    public UpmsResult delete(@PathVariable("ids") String ids) {
+        String[] idArr = ids.split("-");
+        List<Integer> idList = new ArrayList<Integer>();
+        for(String idStr : idArr) {
+            idList.add(Integer.parseInt(idStr));
         }
+        UpmsSystemExample ex = new UpmsSystemExample();
+        ex.createCriteria().andSystemIdIn(idList);
+        int count = upmsSystemService.deleteByExample(ex);
+        return new UpmsResult(count>=1);
     }
 
     @ApiOperation(value = "修改系统")
@@ -128,18 +122,14 @@ public class UpmsSystemController extends BaseController {
     @RequiresPermissions("upms:system:update")
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
-    public Object update(@PathVariable("id") int id, UpmsSystem upmsSystem) {
+    public UpmsResult update(@PathVariable("id") int id, UpmsSystem upmsSystem) {
         upmsSystem.setSystemId(id);
         String validStr = ValidatorUtil.validateWithHtml(upmsSystem);
         if(StringUtils.isNotBlank(validStr)) {
             return new UpmsResult(UpmsResultConstant.PARAM_VALID_ERROR, validStr);
         }
         int count = upmsSystemService.updateByPrimaryKeySelective(upmsSystem);
-        if(count ==1) {
-            return new UpmsResult(UpmsResultConstant.SUCCESS);
-        }else {
-            return new UpmsResult(UpmsResultConstant.FAILED);
-        }
+        return new UpmsResult(count==1);
     }
 
 }

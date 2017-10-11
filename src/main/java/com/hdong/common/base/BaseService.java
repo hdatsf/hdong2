@@ -51,8 +51,6 @@ public interface BaseService<Record, Example> {
 
 	int updateByPrimaryKey(Record record);
 
-	int deleteByPrimaryKeys(String ids);
-
 	void initMapper();
 	
 	Logger getLogger();

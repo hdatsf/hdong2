@@ -1,5 +1,7 @@
 package com.hdong.upms.dao.model;
 
+import com.hdong.upms.dao.enums.UserLocked;
+import com.hdong.upms.dao.enums.UserSex;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -667,52 +669,52 @@ public class UpmsUserExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andSexEqualTo(Byte value) {
+        public Criteria andSexEqualTo(UserSex value) {
             addCriterion("sex =", value, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexNotEqualTo(Byte value) {
+        public Criteria andSexNotEqualTo(UserSex value) {
             addCriterion("sex <>", value, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexGreaterThan(Byte value) {
+        public Criteria andSexGreaterThan(UserSex value) {
             addCriterion("sex >", value, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexGreaterThanOrEqualTo(Byte value) {
+        public Criteria andSexGreaterThanOrEqualTo(UserSex value) {
             addCriterion("sex >=", value, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexLessThan(Byte value) {
+        public Criteria andSexLessThan(UserSex value) {
             addCriterion("sex <", value, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexLessThanOrEqualTo(Byte value) {
+        public Criteria andSexLessThanOrEqualTo(UserSex value) {
             addCriterion("sex <=", value, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexIn(List<Byte> values) {
+        public Criteria andSexIn(List<UserSex> values) {
             addCriterion("sex in", values, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexNotIn(List<Byte> values) {
+        public Criteria andSexNotIn(List<UserSex> values) {
             addCriterion("sex not in", values, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexBetween(Byte value1, Byte value2) {
+        public Criteria andSexBetween(UserSex value1, UserSex value2) {
             addCriterion("sex between", value1, value2, "sex");
             return (Criteria) this;
         }
 
-        public Criteria andSexNotBetween(Byte value1, Byte value2) {
+        public Criteria andSexNotBetween(UserSex value1, UserSex value2) {
             addCriterion("sex not between", value1, value2, "sex");
             return (Criteria) this;
         }
@@ -727,52 +729,52 @@ public class UpmsUserExample implements Serializable {
             return (Criteria) this;
         }
 
-        public Criteria andLockedEqualTo(Byte value) {
+        public Criteria andLockedEqualTo(UserLocked value) {
             addCriterion("locked =", value, "locked");
             return (Criteria) this;
         }
 
-        public Criteria andLockedNotEqualTo(Byte value) {
+        public Criteria andLockedNotEqualTo(UserLocked value) {
             addCriterion("locked <>", value, "locked");
             return (Criteria) this;
         }
 
-        public Criteria andLockedGreaterThan(Byte value) {
+        public Criteria andLockedGreaterThan(UserLocked value) {
             addCriterion("locked >", value, "locked");
             return (Criteria) this;
         }
 
-        public Criteria andLockedGreaterThanOrEqualTo(Byte value) {
+        public Criteria andLockedGreaterThanOrEqualTo(UserLocked value) {
             addCriterion("locked >=", value, "locked");
             return (Criteria) this;
         }
 
-        public Criteria andLockedLessThan(Byte value) {
+        public Criteria andLockedLessThan(UserLocked value) {
             addCriterion("locked <", value, "locked");
             return (Criteria) this;
         }
 
-        public Criteria andLockedLessThanOrEqualTo(Byte value) {
+        public Criteria andLockedLessThanOrEqualTo(UserLocked value) {
             addCriterion("locked <=", value, "locked");
             return (Criteria) this;
         }
 
-        public Criteria andLockedIn(List<Byte> values) {
+        public Criteria andLockedIn(List<UserLocked> values) {
             addCriterion("locked in", values, "locked");
             return (Criteria) this;
         }
 
-        public Criteria andLockedNotIn(List<Byte> values) {
+        public Criteria andLockedNotIn(List<UserLocked> values) {
             addCriterion("locked not in", values, "locked");
             return (Criteria) this;
         }
 
-        public Criteria andLockedBetween(Byte value1, Byte value2) {
+        public Criteria andLockedBetween(UserLocked value1, UserLocked value2) {
             addCriterion("locked between", value1, value2, "locked");
             return (Criteria) this;
         }
 
-        public Criteria andLockedNotBetween(Byte value1, Byte value2) {
+        public Criteria andLockedNotBetween(UserLocked value1, UserLocked value2) {
             addCriterion("locked not between", value1, value2, "locked");
             return (Criteria) this;
         }

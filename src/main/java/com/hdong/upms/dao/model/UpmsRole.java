@@ -2,12 +2,17 @@ package com.hdong.upms.dao.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 public class UpmsRole implements Serializable {
     /**
      * 编号
      *
      * @mbg.generated
      */
+    @NotNull(message="角色编号不能为空")
     private Integer roleId;
 
     /**
@@ -15,14 +20,9 @@ public class UpmsRole implements Serializable {
      *
      * @mbg.generated
      */
+    @NotNull(message="角色名称不能为空")
+    @Length(max=20, message="角色名称长度不能超过20")
     private String name;
-
-    /**
-     * 角色标题
-     *
-     * @mbg.generated
-     */
-    private String title;
 
     /**
      * 角色描述
@@ -63,14 +63,6 @@ public class UpmsRole implements Serializable {
         this.name = name;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -103,7 +95,6 @@ public class UpmsRole implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", roleId=").append(roleId);
         sb.append(", name=").append(name);
-        sb.append(", title=").append(title);
         sb.append(", description=").append(description);
         sb.append(", ctime=").append(ctime);
         sb.append(", orders=").append(orders);
@@ -125,7 +116,6 @@ public class UpmsRole implements Serializable {
         UpmsRole other = (UpmsRole) that;
         return (this.getRoleId() == null ? other.getRoleId() == null : this.getRoleId().equals(other.getRoleId()))
             && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
-            && (this.getTitle() == null ? other.getTitle() == null : this.getTitle().equals(other.getTitle()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()))
             && (this.getCtime() == null ? other.getCtime() == null : this.getCtime().equals(other.getCtime()))
             && (this.getOrders() == null ? other.getOrders() == null : this.getOrders().equals(other.getOrders()));
@@ -137,7 +127,6 @@ public class UpmsRole implements Serializable {
         int result = 1;
         result = prime * result + ((getRoleId() == null) ? 0 : getRoleId().hashCode());
         result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
-        result = prime * result + ((getTitle() == null) ? 0 : getTitle().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         result = prime * result + ((getCtime() == null) ? 0 : getCtime().hashCode());
         result = prime * result + ((getOrders() == null) ? 0 : getOrders().hashCode());

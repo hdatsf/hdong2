@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.hdong.upms.dao.model.UpmsPermission;
-import com.hdong.upms.dao.model.UpmsRolePermission;
 
 /**
  * upms系统接口
@@ -35,11 +34,4 @@ public interface UpmsApiService {
      */
     List<UpmsPermission> selectMenuByUpmsUserIdAndSystemId(Integer systemId, Integer upmsUserId);
     
-    /**
-     * 根据角色id获取所拥有的权限
-     * @param upmsRoleId
-     * @return
-     */
-    List<UpmsRolePermission> selectUpmsRolePermisstionByUpmsRoleId(Integer upmsRoleId);
-
 }

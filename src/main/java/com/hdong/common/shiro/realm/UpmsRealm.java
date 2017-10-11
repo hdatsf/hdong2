@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hdong.common.util.MD5Util;
 import com.hdong.common.util.PropertiesFileUtil;
+import com.hdong.upms.dao.enums.UserLocked;
 import com.hdong.upms.dao.model.UpmsUser;
 import com.hdong.upms.dao.model.UpmsUserExample;
 import com.hdong.upms.rpc.api.UpmsApiService;
@@ -77,7 +78,7 @@ public class UpmsRealm extends AuthorizingRealm {
         if (null == upmsUser) {
             throw new UnknownAccountException();
         }
-        if (upmsUser.getLocked() == 1) {
+        if (upmsUser.getLocked() == UserLocked.LOCKED) {
             throw new LockedAccountException();
         }
         if ("client".equals(upmsType)) {
@@ -86,7 +87,7 @@ public class UpmsRealm extends AuthorizingRealm {
         if (!upmsUser.getPassword().equals(MD5Util.MD5(password + upmsUser.getSalt()))) {
             throw new IncorrectCredentialsException();
         }
-        return new SimpleAuthenticationInfo(username, password, getName());
+        return new SimpleAuthenticationInfo(username, password, upmsUser.getRealname());
     }
 
 }

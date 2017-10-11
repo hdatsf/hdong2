@@ -22,9 +22,12 @@
 <!-- Bootstrap 3.3.7 -->
 <link href="${basePath}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <link href="${basePath}/resources/bootstrap/css/bootstrap-table.min.css" rel="stylesheet" />
+<link href="${basePath}/resources/bootstrap/css/bootstrap-multiselect.css" rel="stylesheet" />
 <!-- jquery confirm -->
 <link href="${basePath}/resources/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
 <link href="${basePath}/resources/common/base.css" rel="stylesheet"/>
+<!-- ztree -->
+<link href="${basePath}/resources/ztree/css/ztree_bootstrap.css" rel="stylesheet"/>
 
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -226,15 +229,19 @@
 	<script src="${basePath}/resources/jquery-validate/jquery.validate.min.js"></script>
 	<script src="${basePath}/resources/jquery-validate/messages_zh.js"></script>
 	<!-- Bootstrap 3.3.7 -->
-	<script src="${basePath}/resources/bootstrap/js/bootstrap-table.js"></script>
 	<script src="${basePath}/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script src="${basePath}/resources/bootstrap/js/bootstrap-table.js"></script>
+	<script src="${basePath}/resources/bootstrap/js/bootstrap-multiselect.js"></script>
 	<script src="${basePath}/resources/bootstrap/js/bootstrap-table-zh-CN.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="${basePath}/resources/adminlte/js/adminlte.min.js"></script>
 	<script src="${basePath}/resources/common/base.js"></script>
+	<script src="${basePath}/resources/ztree/js/jquery.ztree.all.min.js"></script>
 </body>
 </html>
 <script>
+var HD_CONTENT = {};//内容区域属性
+
 $(function(){
 	HdDict.init();//初始化字典项
     $("ul.treeview-menu li a[data-url]").click(function(){
@@ -242,6 +249,12 @@ $(function(){
 	    $("ul.treeview-menu li").removeClass("active");
 	    $(this).parent().addClass("active");
     });
+	//初始化
+    HD_CONTENT.fullHeight = $(".content-wrapper").height();
+	HD_CONTENT.title = 41;
+	HD_CONTENT.padding = 30;
+	HD_CONTENT.height = HD_CONTENT.fullHeight - HD_CONTENT.title - HD_CONTENT.padding -4;
+	HD_CONTENT.treeHeight = HD_CONTENT.height -10;
 });
 
 </script>

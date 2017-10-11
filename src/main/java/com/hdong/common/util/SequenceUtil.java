@@ -39,6 +39,6 @@ public class SequenceUtil {
      * @param num
      */
     public static void set(Class<?> tableName, long num) {
-        RedisUtil.set(tableName.getSimpleName(), String.valueOf(num));
+        RedisUtil.set("sequence:"+tableName.getSimpleName(), String.valueOf(num));
     }
 }

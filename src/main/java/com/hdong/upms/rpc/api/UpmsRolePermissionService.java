@@ -10,13 +10,9 @@ import com.hdong.upms.dao.model.UpmsRolePermissionExample;
 * Created by hdong on 2017/3/20.
 */
 public interface UpmsRolePermissionService extends BaseService<UpmsRolePermission, UpmsRolePermissionExample> {
+    
+    JSONArray getRolePermissionTreeByRoleId(Integer roleId);
 
-    /**
-     * 角色权限
-     * @param datas 权限数据
-     * @param id 角色id
-     * @return
-     */
-    int rolePermission(JSONArray datas, int id);
+    int rolePermissionSave(JSONArray datas, int id);
 
 }

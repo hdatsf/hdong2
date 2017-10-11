@@ -10,15 +10,9 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="title" class="col-md-3 control-label">角色标题</label>
-      <div class="col-md-9">
-        <input id="title" type="text" class="form-control" name="title" maxlength="20" value="${role.title}" required>
-      </div>
-    </div>
-    <div class="form-group">
       <label for="description" class="col-md-3 control-label">角色描述</label>
       <div class="col-md-9">
-        <textarea class="form-control" id="description" name="description" maxlength="1000" rows="3" value="${role.description}" required></textarea>
+        <textarea class="form-control" id="description" name="description" maxlength="1000" rows="3" required>${role.description}</textarea>
       </div>
     </div>
     <div class="form-group">

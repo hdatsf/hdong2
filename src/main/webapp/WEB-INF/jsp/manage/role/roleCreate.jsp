@@ -6,19 +6,13 @@
     <div class="form-group">
       <label for="name" class="col-md-3 control-label">角色名称</label>
       <div class="col-md-9">
-        <input id="name" type="text" class="form-control" name="name" maxlength="20" placeholder="请输入角色名称" required>
-      </div>
-    </div>
-    <div class="form-group">
-      <label for="title" class="col-md-3 control-label">角色标题</label>
-      <div class="col-md-9">
-        <input id="title" type="text" class="form-control" name="title" maxlength="20" placeholder="请输入角色标题" required>
+        <input id="name" type="text" class="form-control" name="name" maxlength="20" required>
       </div>
     </div>
     <div class="form-group">
       <label for="description" class="col-md-3 control-label">角色描述</label>
       <div class="col-md-9">
-        <textarea class="form-control" id="description" name="description" maxlength="1000" placeholder="请输入角色描述" rows="3" required></textarea>
+        <textarea class="form-control" id="description" name="description" maxlength="1000" rows="3" required></textarea>
       </div>
     </div>
     <div class="form-group">
@@ -44,6 +38,7 @@ $(function(){
 			success:function(result){
 				if(result.code == 1){
 					$.hdConfirm({
+						type : 'blue',
 						content:'保存成功！',
 						autoClose: 'confirm|3000',
 						buttons:{

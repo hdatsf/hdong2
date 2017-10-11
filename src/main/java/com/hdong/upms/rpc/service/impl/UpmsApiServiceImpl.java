@@ -13,14 +13,13 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hdong.upms.dao.enums.UserLocked;
 import com.hdong.upms.dao.mapper.UpmsApiMapper;
 import com.hdong.upms.dao.mapper.UpmsRolePermissionMapper;
 import com.hdong.upms.dao.mapper.UpmsSystemMapper;
 import com.hdong.upms.dao.mapper.UpmsUserMapper;
 import com.hdong.upms.dao.model.UpmsPermission;
 import com.hdong.upms.dao.model.UpmsRole;
-import com.hdong.upms.dao.model.UpmsRolePermission;
-import com.hdong.upms.dao.model.UpmsRolePermissionExample;
 import com.hdong.upms.dao.model.UpmsSystem;
 import com.hdong.upms.dao.model.UpmsSystemExample;
 import com.hdong.upms.dao.model.UpmsUser;
@@ -116,7 +115,7 @@ public class UpmsApiServiceImpl implements UpmsApiService {
     private List<UpmsPermission> selectUpmsPermissionByUpmsUserIdAndSystemId(Integer systemId, Integer upmsUserId) {
         // 用户不存在或锁定状态
         UpmsUser upmsUser = upmsUserMapper.selectByPrimaryKey(upmsUserId);
-        if (null == upmsUser || 1 == upmsUser.getLocked()) {
+        if (null == upmsUser || UserLocked.LOCKED == upmsUser.getLocked()) {
             _log.info("selectUpmsPermissionByUpmsUserId : upmsUserId={}", upmsUserId);
             return null;
         }
@@ -132,7 +131,7 @@ public class UpmsApiServiceImpl implements UpmsApiService {
     @Override
     public List<UpmsPermission> selectMenuByUpmsUserIdAndSystemId(Integer systemId, Integer upmsUserId){
         UpmsUser upmsUser = upmsUserMapper.selectByPrimaryKey(upmsUserId);
-        if (null == upmsUser || 1 == upmsUser.getLocked()) {
+        if (null == upmsUser || UserLocked.LOCKED == upmsUser.getLocked()) {
             _log.info("selectUpmsPermissionByUpmsUserId : upmsUserId={}", upmsUserId);
             return null;
         }
@@ -148,25 +147,11 @@ public class UpmsApiServiceImpl implements UpmsApiService {
     private List<UpmsRole> selectUpmsRoleByUpmsUserId(Integer upmsUserId) {
         // 用户不存在或锁定状态
         UpmsUser upmsUser = upmsUserMapper.selectByPrimaryKey(upmsUserId);
-        if (null == upmsUser || 1 == upmsUser.getLocked()) {
+        if (null == upmsUser || UserLocked.LOCKED == upmsUser.getLocked()) {
             _log.info("selectUpmsRoleByUpmsUserId : upmsUserId={}", upmsUserId);
             return null;
         }
         List<UpmsRole> upmsRoles = upmsApiMapper.selectUpmsRoleByUpmsUserId(upmsUserId);
         return upmsRoles;
-    }
-
-    /**
-     * 根据角色id获取所拥有的权限
-     * @param upmsRoleId
-     * @return
-     */
-    @Override
-    public List<UpmsRolePermission> selectUpmsRolePermisstionByUpmsRoleId(Integer upmsRoleId) {
-        UpmsRolePermissionExample upmsRolePermissionExample = new UpmsRolePermissionExample();
-        upmsRolePermissionExample.createCriteria()
-                .andRoleIdEqualTo(upmsRoleId);
-        List<UpmsRolePermission> upmsRolePermissions = upmsRolePermissionMapper.selectByExample(upmsRolePermissionExample);
-        return upmsRolePermissions;
     }
 }

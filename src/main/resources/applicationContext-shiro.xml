@@ -19,25 +19,14 @@
         <property name="loginUrl" value="${hdong.upms.sso.server.url}"/>
         <property name="successUrl" value="${hdong.upms.successUrl}"/>
         <property name="unauthorizedUrl" value="${hdong.upms.unauthorizedUrl}"/>
-        <property name="filters">
-            <util:map>
-                <entry key="authc" value-ref="upmsAuthenticationFilter"/>
-            </util:map>
-        </property>
         <property name="filterChainDefinitions">
             <value>
                 /manage/** = upmsSessionForceLogout,authc
-                /manage/index = user
                 /druid/** = user
-                /swagger-ui.html = user
-                /resources/** = anon
                 /** = anon
             </value>
         </property>
     </bean>
-
-    <!-- 重写authc过滤器 -->
-    <bean id="upmsAuthenticationFilter" class="com.hdong.common.shiro.filter.UpmsAuthenticationFilter"/>
 
     <!-- 强制退出会话过滤器 -->
     <bean id="upmsSessionForceLogout" class="com.hdong.common.shiro.filter.UpmsSessionForceLogoutFilter"/>

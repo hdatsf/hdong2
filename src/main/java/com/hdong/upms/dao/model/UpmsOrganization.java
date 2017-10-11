@@ -2,12 +2,17 @@ package com.hdong.upms.dao.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 public class UpmsOrganization implements Serializable {
     /**
      * 编号
      *
      * @mbg.generated
      */
+    @NotNull(message="组织编号不能为空")
     private Integer organizationId;
 
     /**
@@ -22,6 +27,8 @@ public class UpmsOrganization implements Serializable {
      *
      * @mbg.generated
      */
+    @NotNull(message="组织名称不能为空")
+    @Length(max=20, message="组织名称长度不能超过20")
     private String name;
 
     /**
@@ -29,6 +36,7 @@ public class UpmsOrganization implements Serializable {
      *
      * @mbg.generated
      */
+    @Length(max=1000, message="组织描述长度不能超过7")
     private String description;
 
     /**

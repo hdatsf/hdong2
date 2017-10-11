@@ -12,7 +12,6 @@
 		<result column="permission_value" jdbcType="VARCHAR" property="permissionValue" />
 		<result column="uri" jdbcType="VARCHAR" property="uri" />
 		<result column="icon" jdbcType="VARCHAR" property="icon" />
-		<result column="status" jdbcType="TINYINT" property="status" />
 		<result column="ctime" jdbcType="BIGINT" property="ctime" />
 		<result column="orders" jdbcType="BIGINT" property="orders" />
 	</resultMap>
@@ -21,7 +20,6 @@
 	<resultMap id="UpmsRoleResultMap" type="com.hdong.upms.dao.model.UpmsRole">
 		<id column="role_id" jdbcType="INTEGER" property="roleId" />
 		<result column="name" jdbcType="VARCHAR" property="name" />
-		<result column="title" jdbcType="VARCHAR" property="title" />
 		<result column="description" jdbcType="VARCHAR" property="description" />
 		<result column="ctime" jdbcType="BIGINT" property="ctime" />
 		<result column="orders" jdbcType="BIGINT" property="orders" />
@@ -29,12 +27,12 @@
 
 	<!-- 权限字段 -->
 	<sql id="UpmsPermission_Column_List">
-		permission_id, system_id, pid, name, type, permission_value, uri, icon, status, ctime, orders
+		permission_id, system_id, pid, name, type, permission_value, uri, icon, ctime, orders
 	</sql>
 
 	<!-- 角色字段 -->
 	<sql id="UpmsRole_Column_List">
-		role_id, name, title, description, ctime, orders
+		role_id, name, description, ctime, orders
 	</sql>
 
 	<!-- 根据用户获取所拥有的权限 -->
@@ -42,8 +40,7 @@
 		select
 			<include refid="UpmsPermission_Column_List" />
 		from upms_permission up 
-		where up.`status`=1 
-		  and up.system_id=#{systemId,jdbcType=INTEGER} 
+		where up.system_id=#{systemId,jdbcType=INTEGER} 
 		  and up.permission_id in (
 			select permission_id from upms_role_permission urp where urp.role_id in (
 				select uur.role_id role_id from upms_user_role uur where uur.user_id=#{upmsUserId,jdbcType=INTEGER}
@@ -61,8 +58,7 @@
 		select
 			<include refid="UpmsPermission_Column_List" />
 		from upms_permission up 
-		where up.`status`=1 
-		  and up.system_id=#{systemId,jdbcType=INTEGER} 
+		where up.system_id=#{systemId,jdbcType=INTEGER} 
 		  and up.type in (1, 2)
 		  and up.permission_id in (
 			select permission_id from upms_role_permission urp where urp.role_id in (
@@ -84,8 +80,5 @@
 			select uur.role_id from upms_user_role uur where uur.user_id=#{upmsUserId,jdbcType=INTEGER}
 		)
 	</select>
-
-	<!-- 缓存 -->
-	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" />
 
 </mapper>

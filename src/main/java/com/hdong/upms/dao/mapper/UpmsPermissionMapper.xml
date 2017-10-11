@@ -10,7 +10,6 @@
     <result column="permission_value" jdbcType="VARCHAR" property="permissionValue" />
     <result column="uri" jdbcType="VARCHAR" property="uri" />
     <result column="icon" jdbcType="VARCHAR" property="icon" />
-    <result column="status" jdbcType="TINYINT" property="status" />
     <result column="ctime" jdbcType="BIGINT" property="ctime" />
     <result column="orders" jdbcType="BIGINT" property="orders" />
   </resultMap>
@@ -73,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    permission_id, system_id, pid, name, type, permission_value, uri, icon, status, ctime, 
+    permission_id, system_id, pid, name, type, permission_value, uri, icon, ctime, 
     orders
   </sql>
   <select id="selectByExample" parameterType="com.hdong.upms.dao.model.UpmsPermissionExample" resultMap="BaseResultMap">
@@ -109,11 +108,11 @@
   <insert id="insert" parameterType="com.hdong.upms.dao.model.UpmsPermission">
     insert into upms_permission (permission_id, system_id, pid, 
       name, type, permission_value, 
-      uri, icon, status, 
+      uri, icon, 
       ctime, orders)
     values (#{permissionId,jdbcType=INTEGER}, #{systemId,jdbcType=INTEGER}, #{pid,jdbcType=INTEGER}, 
       #{name,jdbcType=VARCHAR}, #{type,jdbcType=TINYINT}, #{permissionValue,jdbcType=VARCHAR}, 
-      #{uri,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, 
+      #{uri,jdbcType=VARCHAR}, #{icon,jdbcType=VARCHAR}, 
       #{ctime,jdbcType=BIGINT}, #{orders,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.hdong.upms.dao.model.UpmsPermission">
@@ -142,9 +141,6 @@
       </if>
       <if test="icon != null">
         icon,
-      </if>
-      <if test="status != null">
-        status,
       </if>
       <if test="ctime != null">
         ctime,
@@ -177,9 +173,6 @@
       </if>
       <if test="icon != null">
         #{icon,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null">
-        #{status,jdbcType=TINYINT},
       </if>
       <if test="ctime != null">
         #{ctime,jdbcType=BIGINT},
@@ -222,9 +215,6 @@
       <if test="record.icon != null">
         icon = #{record.icon,jdbcType=VARCHAR},
       </if>
-      <if test="record.status != null">
-        status = #{record.status,jdbcType=TINYINT},
-      </if>
       <if test="record.ctime != null">
         ctime = #{record.ctime,jdbcType=BIGINT},
       </if>
@@ -246,7 +236,6 @@
       permission_value = #{record.permissionValue,jdbcType=VARCHAR},
       uri = #{record.uri,jdbcType=VARCHAR},
       icon = #{record.icon,jdbcType=VARCHAR},
-      status = #{record.status,jdbcType=TINYINT},
       ctime = #{record.ctime,jdbcType=BIGINT},
       orders = #{record.orders,jdbcType=BIGINT}
     <if test="_parameter != null">
@@ -277,9 +266,6 @@
       <if test="icon != null">
         icon = #{icon,jdbcType=VARCHAR},
       </if>
-      <if test="status != null">
-        status = #{status,jdbcType=TINYINT},
-      </if>
       <if test="ctime != null">
         ctime = #{ctime,jdbcType=BIGINT},
       </if>
@@ -298,7 +284,6 @@
       permission_value = #{permissionValue,jdbcType=VARCHAR},
       uri = #{uri,jdbcType=VARCHAR},
       icon = #{icon,jdbcType=VARCHAR},
-      status = #{status,jdbcType=TINYINT},
       ctime = #{ctime,jdbcType=BIGINT},
       orders = #{orders,jdbcType=BIGINT}
     where permission_id = #{permissionId,jdbcType=INTEGER}

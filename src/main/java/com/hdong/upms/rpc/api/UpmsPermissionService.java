@@ -1,5 +1,7 @@
 package com.hdong.upms.rpc.api;
 
+import java.util.List;
+
 import com.alibaba.fastjson.JSONArray;
 import com.hdong.common.base.BaseService;
 import com.hdong.upms.dao.model.UpmsPermission;
@@ -11,8 +13,8 @@ import com.hdong.upms.dao.model.UpmsPermissionExample;
 */
 public interface UpmsPermissionService extends BaseService<UpmsPermission, UpmsPermissionExample> {
 
-    JSONArray getTreeByRoleId(Integer roleId);
-
-    JSONArray getTreeByUserId(Integer usereId, Byte type);
+    JSONArray getPermissionTree();
+    
+    int deleteByPermissionIds(List<Integer> ids);
 
 }

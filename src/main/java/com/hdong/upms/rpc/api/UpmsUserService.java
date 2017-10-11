@@ -1,5 +1,7 @@
 package com.hdong.upms.rpc.api;
 
+import java.util.List;
+
 import com.hdong.common.base.BaseService;
 import com.hdong.upms.dao.model.UpmsUser;
 import com.hdong.upms.dao.model.UpmsUserExample;
@@ -9,5 +11,7 @@ import com.hdong.upms.dao.model.UpmsUserExample;
 * Created by hdong on 2017/8/15.
 */
 public interface UpmsUserService extends BaseService<UpmsUser, UpmsUserExample> {
-  public UpmsUser createUser(UpmsUser upmsUser);
+    UpmsUser createUser(UpmsUser upmsUser, Integer organizationId);
+    
+    int deleteUser(List<Integer> ids);
 }

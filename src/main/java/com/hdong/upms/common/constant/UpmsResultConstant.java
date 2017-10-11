@@ -16,8 +16,8 @@ public enum UpmsResultConstant {
     INVALID_ACCOUNT(10105, "账号被锁");
     
 
-    public int code;
-    public String msg;
+    private int code;
+    private String msg;
 
     UpmsResultConstant(int code, String msg) {
         this.code = code;

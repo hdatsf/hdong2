@@ -1,5 +1,6 @@
 package com.hdong.upms.dao.model;
 
+import com.hdong.upms.dao.enums.UserPermissionType;
 import java.io.Serializable;
 
 public class UpmsUserPermission implements Serializable {
@@ -29,7 +30,7 @@ public class UpmsUserPermission implements Serializable {
      *
      * @mbg.generated
      */
-    private Byte type;
+    private UserPermissionType type;
 
     private static final long serialVersionUID = 1L;
 
@@ -57,11 +58,11 @@ public class UpmsUserPermission implements Serializable {
         this.permissionId = permissionId;
     }
 
-    public Byte getType() {
+    public UserPermissionType getType() {
         return type;
     }
 
-    public void setType(Byte type) {
+    public void setType(UserPermissionType type) {
         this.type = type;
     }
 

@@ -39,20 +39,35 @@
 
         <!-- Mapper接口生成 -->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.hdong.upms.dao.mapper" targetProject="D:\workspace\hdong\hdong-upms\hdong-upms-dao\src\main\java\"/>
-
-        <!-- 需要映射的表 -->
+		
+		<table tableName="upms_user_permission" domainObjectName="UpmsUserPermission"> 
+			<columnOverride column="type" javaType="com.hdong.upms.dao.enums.UserPermissionType" />
+        </table>
+        
+        
+		<!-- 需要映射的表 
+		
+		<table tableName="upms_user" domainObjectName="UpmsUser"> 
+			<columnOverride column="sex" javaType="com.hdong.upms.dao.enums.UserSex" />
+			<columnOverride column="locked" javaType="com.hdong.upms.dao.enums.UserLocked" />
+        </table>
+        
         <table tableName="upms_system" domainObjectName="UpmsSystem">
         	<columnOverride column="status" javaType="com.hdong.upms.dao.enums.SystemStatus" />
         </table>
         <table tableName="sys_dict" domainObjectName="SysDict"/> 
 		<table tableName="upms_log" domainObjectName="UpmsLog"/> 
 		<table tableName="upms_organization" domainObjectName="UpmsOrganization"/> 
-		<table tableName="upms_permission" domainObjectName="UpmsPermission"/> 
+		-->
+		
+		<!--
 		<table tableName="upms_role" domainObjectName="UpmsRole"/> 
+		
 		<table tableName="upms_role_permission" domainObjectName="UpmsRolePermission"/> 
 		<table tableName="upms_user" domainObjectName="UpmsUser"/> 
 		<table tableName="upms_user_organization" domainObjectName="UpmsUserOrganization"/> 
-		<table tableName="upms_user_permission" domainObjectName="UpmsUserPermission"/> 
+		
 		<table tableName="upms_user_role" domainObjectName="UpmsUserRole"/>
+		-->
 	</context>
 </generatorConfiguration>

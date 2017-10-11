@@ -76,7 +76,7 @@ public class SysDictController extends BaseController {
     
     private void getDict() {
         SysDictExample example = new SysDictExample();
-        example.setOrderByClause(" dict_app , dict_type, dict_name desc ");
+        example.setOrderByClause(" dict_app , dict_type, dict_val asc ");
         List<SysDict> dicts = sysDictService.selectByExample(example);
         if(dicts.size()!= 0) {
             //组装 key value，用于找名称{"app-type-name","desc"}

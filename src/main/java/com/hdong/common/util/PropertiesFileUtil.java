@@ -1,7 +1,9 @@
 package com.hdong.common.util;
 
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
@@ -82,6 +84,18 @@ public class PropertiesFileUtil {
 
     public Date getLoadTime() {
         return loadTime;
+    }
+    /**
+     * 获取所有key-value集合
+     * @return
+     */
+    public Map<String, String> getMap(){
+        Map<String,String> retMap = new HashMap<String, String>();
+        for (Enumeration<String> e = resourceBundle.getKeys(); e.hasMoreElements();) {
+            String key = e.nextElement();
+            retMap.put(key, resourceBundle.getString(key));
+        }
+        return retMap;
     }
 
 }

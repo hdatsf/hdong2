@@ -1,6 +1,11 @@
 package com.hdong.upms.dao.model;
 
+import com.hdong.upms.dao.enums.PermissionType;
 import java.io.Serializable;
+
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 
 public class UpmsPermission implements Serializable {
     /**
@@ -8,6 +13,7 @@ public class UpmsPermission implements Serializable {
      *
      * @mbg.generated
      */
+    @NotNull(message="权限编号不能为空")
     private Integer permissionId;
 
     /**
@@ -15,6 +21,7 @@ public class UpmsPermission implements Serializable {
      *
      * @mbg.generated
      */
+    @NotNull(message="所属系统不能为空")
     private Integer systemId;
 
     /**
@@ -22,6 +29,7 @@ public class UpmsPermission implements Serializable {
      *
      * @mbg.generated
      */
+    @NotNull(message="所属上级不能为空")
     private Integer pid;
 
     /**
@@ -29,6 +37,8 @@ public class UpmsPermission implements Serializable {
      *
      * @mbg.generated
      */
+    @NotNull(message="权限名称不能为空")
+    @Length(max=20, message="权限名称长度不能超过20")
     private String name;
 
     /**
@@ -36,7 +46,8 @@ public class UpmsPermission implements Serializable {
      *
      * @mbg.generated
      */
-    private Byte type;
+    @NotNull(message="类型不能为空")
+    private PermissionType type;
 
     /**
      * 权限值
@@ -58,13 +69,6 @@ public class UpmsPermission implements Serializable {
      * @mbg.generated
      */
     private String icon;
-
-    /**
-     * 状态(0:禁止,1:正常)
-     *
-     * @mbg.generated
-     */
-    private Byte status;
 
     /**
      * 创建时间
@@ -114,11 +118,11 @@ public class UpmsPermission implements Serializable {
         this.name = name;
     }
 
-    public Byte getType() {
+    public PermissionType getType() {
         return type;
     }
 
-    public void setType(Byte type) {
+    public void setType(PermissionType type) {
         this.type = type;
     }
 
@@ -144,14 +148,6 @@ public class UpmsPermission implements Serializable {
 
     public void setIcon(String icon) {
         this.icon = icon;
-    }
-
-    public Byte getStatus() {
-        return status;
-    }
-
-    public void setStatus(Byte status) {
-        this.status = status;
     }
 
     public Long getCtime() {
@@ -184,7 +180,6 @@ public class UpmsPermission implements Serializable {
         sb.append(", permissionValue=").append(permissionValue);
         sb.append(", uri=").append(uri);
         sb.append(", icon=").append(icon);
-        sb.append(", status=").append(status);
         sb.append(", ctime=").append(ctime);
         sb.append(", orders=").append(orders);
         sb.append("]");
@@ -211,7 +206,6 @@ public class UpmsPermission implements Serializable {
             && (this.getPermissionValue() == null ? other.getPermissionValue() == null : this.getPermissionValue().equals(other.getPermissionValue()))
             && (this.getUri() == null ? other.getUri() == null : this.getUri().equals(other.getUri()))
             && (this.getIcon() == null ? other.getIcon() == null : this.getIcon().equals(other.getIcon()))
-            && (this.getStatus() == null ? other.getStatus() == null : this.getStatus().equals(other.getStatus()))
             && (this.getCtime() == null ? other.getCtime() == null : this.getCtime().equals(other.getCtime()))
             && (this.getOrders() == null ? other.getOrders() == null : this.getOrders().equals(other.getOrders()));
     }
@@ -228,7 +222,6 @@ public class UpmsPermission implements Serializable {
         result = prime * result + ((getPermissionValue() == null) ? 0 : getPermissionValue().hashCode());
         result = prime * result + ((getUri() == null) ? 0 : getUri().hashCode());
         result = prime * result + ((getIcon() == null) ? 0 : getIcon().hashCode());
-        result = prime * result + ((getStatus() == null) ? 0 : getStatus().hashCode());
         result = prime * result + ((getCtime() == null) ? 0 : getCtime().hashCode());
         result = prime * result + ((getOrders() == null) ? 0 : getOrders().hashCode());
         return result;

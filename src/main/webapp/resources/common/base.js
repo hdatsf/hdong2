@@ -72,11 +72,9 @@ $.hdDialog=function (options, option2) {
 };
 __HdDialog = function(){
 	this.dialogs = new Array();
-	this.lastDialog = null;
 	this.value = null;
 };
 __HdDialog.prototype.push = function(dialog){
-	this.lastDialog = dialog;
 	this.value = null;
 	return this.dialogs.push(dialog);
 };
@@ -88,8 +86,8 @@ __HdDialog.prototype.pop = function(){
 };
 __HdDialog.prototype.close = function(value){
 	this.value = value;
-	if(this.lastDialog !=null){
-		this.lastDialog.close();
+	if(this.dialogs.length>0){
+		this.dialogs[this.dialogs.length-1].close();
 	}
 };
 __HdDialog.prototype.getValue = function(){
@@ -125,11 +123,9 @@ $.hdConfirm=function (options, option2) {
 };
 __HdConfirm = function(){
 	this.dialogs = new Array();
-	this.lastDialog = null;
 	this.value = null;
 };
 __HdConfirm.prototype.push = function(dialog){
-	this.lastDialog = dialog;
 	this.value = null;
 	return this.dialogs.push(dialog);
 };
@@ -141,8 +137,8 @@ __HdConfirm.prototype.pop = function(){
 };
 __HdConfirm.prototype.close = function(value){
 	this.value = value;
-	if(this.lastDialog !=null){
-		this.lastDialog.close();
+	if(this.dialogs.length>0){
+		this.dialogs[this.dialogs.length-1].close();
 	}
 };
 __HdConfirm.prototype.getValue = function(){
@@ -192,7 +188,7 @@ __HdDict.prototype.getDictDesc = function(app, type, name){
 	}
 };
 //获取集合，一般用于下拉框[{name:"name",desc:"desc"}]
-__HdDict.prototype.getDictArr = function(app, type){
+__HdDict.prototype.initSelect = function(app, type, selectObj, selectedName){
 	var key = app+"-"+type;
 	var my = this;
 	if(this.dictArr == null){
@@ -202,12 +198,27 @@ __HdDict.prototype.getDictArr = function(app, type){
 	        success: function(result) {
 	        	my.dictMap = result.dictMap;
 	        	my.dictArr = result.dictArr;
-	        	return my.dictArr[key];
+	        	my.initOption(my.dictArr[key], selectObj, selectedName);
 	        }
 	    });
 	}else{
-		return my.dictArr[key];
+		my.initOption(my.dictArr[key], selectObj, selectedName);
 	}
+};
+__HdDict.prototype.initOption = function(arr, selectObj, selectedName){
+	if(!(selectObj instanceof jQuery)){
+		throw new Error('selectObj is not a jquery object');
+	}
+	var option = [];
+	for(var i=0;i<arr.length;i++){
+		var item = arr[i];
+		if(selectedName!=undefined && selectedName == item.name){
+			option.push('<option value="'+item.name+'" selected="selected">'+item.desc+'</option>');
+		}else{
+			option.push('<option value="'+item.name+'">'+item.desc+'</option>');
+		}
+	}
+	selectObj.append(option.join(""));
 };
 __HdDict.prototype.init = function(){
 	var my = this;

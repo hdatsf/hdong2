@@ -18,5 +18,16 @@ public class UpmsResult extends BaseResult {
     public UpmsResult(UpmsResultConstant upmsResultConstant, String msg) {
         super(upmsResultConstant.getCode(), msg, null);
     }
+    
+    public UpmsResult(boolean success) {
+        super();
+        if(success) {
+            this.setCode(UpmsResultConstant.SUCCESS.getCode());
+            this.setMsg(UpmsResultConstant.SUCCESS.getMsg());
+        }else {
+            this.setCode(UpmsResultConstant.FAILED.getCode());
+            this.setMsg(UpmsResultConstant.FAILED.getMsg());
+        }
+    }
 
 }

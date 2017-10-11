@@ -5,7 +5,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.annotations.Param;
 
 import com.github.pagehelper.PageHelper;
@@ -403,37 +402,6 @@ public abstract class BaseServiceImpl<Mapper, Record, Example> implements BaseSe
 			getLogger().error("updateByPrimaryKey error:", e);
 		} catch (NoSuchMethodException e) {
 			getLogger().error("updateByPrimaryKey error:", e);
-		} finally{
-            DynamicDataSource.clearDataSource();
-        }
-		return 0;
-	}
-
-	@Override
-	public int deleteByPrimaryKeys(String ids) {
-		try {
-			if (StringUtils.isBlank(ids)) {
-				return 0;
-			}
-			DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
-			String[] idArray = ids.split("-");
-			int count = 0;
-			for (String idStr : idArray) {
-				if (StringUtils.isBlank(idStr)) {
-					continue;
-				}
-				Integer id = Integer.parseInt(idStr);
-				Method deleteByPrimaryKey = mapper.getClass().getDeclaredMethod("deleteByPrimaryKey", id.getClass());
-				Object result = deleteByPrimaryKey.invoke(mapper, id);
-				count += Integer.parseInt(String.valueOf(result));
-			}
-			return count;
-		} catch (IllegalAccessException e) {
-			getLogger().error("deleteByPrimaryKeys error:", e);
-		} catch (InvocationTargetException e) {
-			getLogger().error("deleteByPrimaryKeys error:", e);
-		} catch (NoSuchMethodException e) {
-			getLogger().error("deleteByPrimaryKeys error:", e);
 		} finally{
             DynamicDataSource.clearDataSource();
         }
