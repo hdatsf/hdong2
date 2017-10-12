@@ -13,6 +13,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hdong.common.annotation.BaseService;
 import com.hdong.common.base.BaseServiceImpl;
+import com.hdong.common.db.DataSource;
+import com.hdong.common.db.DataSourceEnum;
 import com.hdong.common.util.SequenceUtil;
 import com.hdong.upms.dao.mapper.UpmsUserOrganizationMapper;
 import com.hdong.upms.dao.mapper.UpmsUserPermissionMapper;
@@ -25,7 +27,6 @@ import com.hdong.upms.rpc.api.UpmsUserOrganizationService;
 * Created by hdong on 2017/3/20.
 */
 @Service
-@Transactional
 @BaseService
 public class UpmsUserOrganizationServiceImpl extends BaseServiceImpl<UpmsUserOrganizationMapper, UpmsUserOrganization, UpmsUserOrganizationExample> implements UpmsUserOrganizationService {
 
@@ -42,8 +43,10 @@ public class UpmsUserOrganizationServiceImpl extends BaseServiceImpl<UpmsUserOrg
         return _log;
     }
     @Override
+    @DataSource(name = DataSourceEnum.MASTER)
+    @Transactional
     public int userOrgizationSave(JSONArray datas, int id) {
-        List<Integer> deleteIds = new ArrayList<>();
+        List<Integer> deleteIds = new ArrayList<Integer>();
         for (int i = 0; i < datas.size(); i ++) {
             JSONObject json = datas.getJSONObject(i);
             if (!json.getBoolean("checked")) {

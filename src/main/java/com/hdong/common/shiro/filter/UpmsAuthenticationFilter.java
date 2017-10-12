@@ -133,7 +133,7 @@ public class UpmsAuthenticationFilter extends AuthenticationFilter {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpPost httpPost = new HttpPost(sso_server_url.toString() + "/sso/code");
 
-                List<NameValuePair> nameValuePairs = new ArrayList<>();
+                List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
                 nameValuePairs.add(new BasicNameValuePair("code", code));
                 httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 

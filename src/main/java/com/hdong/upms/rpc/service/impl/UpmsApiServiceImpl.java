@@ -13,6 +13,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hdong.common.db.DataSource;
+import com.hdong.common.db.DataSourceEnum;
 import com.hdong.upms.dao.enums.UserLocked;
 import com.hdong.upms.dao.mapper.UpmsApiMapper;
 import com.hdong.upms.dao.mapper.UpmsRolePermissionMapper;
@@ -27,11 +29,9 @@ import com.hdong.upms.dao.model.UpmsUserExample;
 import com.hdong.upms.rpc.api.UpmsApiService;
 
 /**
- * UpmsApiService实现
- * Created by hdong on 2016/01/19.
+ * UpmsApiService实现 Created by hdong on 2016/01/19.
  */
 @Service
-@Transactional
 public class UpmsApiServiceImpl implements UpmsApiService {
 
     private static Logger _log = LoggerFactory.getLogger(UpmsApiServiceImpl.class);
@@ -47,37 +47,40 @@ public class UpmsApiServiceImpl implements UpmsApiService {
 
     @Autowired
     UpmsSystemMapper upmsSystemMapper;
-    
+
     /**
      * 根据username、systemName获取用户角色和权限集合
+     * 
      * @param username
      * @param systemName
      * @return
      */
     @Override
-    public List<Set<String>> selectRolesPermissionsByName(String username, String systemName){
+    @Transactional
+    @DataSource(name = DataSourceEnum.SLAVE)
+    public List<Set<String>> selectRolesPermissionsByName(String username, String systemName) {
         UpmsUserExample userExample = new UpmsUserExample();
         userExample.createCriteria().andUsernameEqualTo(username);
         List<UpmsUser> userList = upmsUserMapper.selectByExample(userExample);
-        if(userList.size()==0) {
+        if (userList.size() == 0) {
             _log.error("Has not user with name:{1}", username);
             return null;
         }
         UpmsUser upmsUser = userList.get(0);
         // 当前用户所有角色
         List<UpmsRole> upmsRoles = selectUpmsRoleByUpmsUserId(upmsUser.getUserId());
-        Set<String> roles = new HashSet<>();
+        Set<String> roles = new HashSet<String>();
         for (UpmsRole upmsRole : upmsRoles) {
             if (StringUtils.isNotBlank(upmsRole.getName())) {
                 roles.add(upmsRole.getName());
             }
         }
-        Set<String> permissions = new HashSet<>();
-        //获取当前系统编号
+        Set<String> permissions = new HashSet<String>();
+        // 获取当前系统编号
         UpmsSystemExample systemExample = new UpmsSystemExample();
         systemExample.createCriteria().andNameEqualTo(systemName);
         List<UpmsSystem> systemList = upmsSystemMapper.selectByExample(systemExample);
-        if(systemList.size()==0) {
+        if (systemList.size() == 0) {
             _log.error("Has not system with name:{1}", systemName);
             return null;
         }
@@ -94,7 +97,7 @@ public class UpmsApiServiceImpl implements UpmsApiService {
         retList.add(permissions);
         return retList;
     }
-    
+
     /**
      * 根据username、systemName获取用户角色和权限集合，并缓存
      * @param username
@@ -103,12 +106,13 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      */
     @Override
     @Cacheable(value = "market-ehcache", key = "'selectRolesPermissionsByName'+ #username + '_SystemName_' + #systemName")
-    public List<Set<String>> selectRolesPermissionsByNameByCache(String username, String systemName){
+    public List<Set<String>> selectRolesPermissionsByNameByCache(String username, String systemName) {
         return selectRolesPermissionsByName(username, systemName);
     }
-    
+
     /**
      * 根据用户id获取所拥有的权限
+     * 
      * @param upmsUserId
      * @return
      */
@@ -125,11 +129,14 @@ public class UpmsApiServiceImpl implements UpmsApiService {
 
     /**
      * 根据用户id获取菜单
+     * 
      * @param upmsUserId
      * @return
      */
     @Override
-    public List<UpmsPermission> selectMenuByUpmsUserIdAndSystemId(Integer systemId, Integer upmsUserId){
+    @Transactional
+    @DataSource(name = DataSourceEnum.SLAVE)
+    public List<UpmsPermission> selectMenuByUpmsUserIdAndSystemId(Integer systemId, Integer upmsUserId) {
         UpmsUser upmsUser = upmsUserMapper.selectByPrimaryKey(upmsUserId);
         if (null == upmsUser || UserLocked.LOCKED == upmsUser.getLocked()) {
             _log.info("selectUpmsPermissionByUpmsUserId : upmsUserId={}", upmsUserId);
@@ -138,9 +145,10 @@ public class UpmsApiServiceImpl implements UpmsApiService {
         List<UpmsPermission> upmsPermissions = upmsApiMapper.selectMenuByUpmsUserIdAndSystemId(systemId, upmsUserId);
         return upmsPermissions;
     }
-    
+
     /**
      * 根据用户id获取所属的角色
+     * 
      * @param upmsUserId
      * @return
      */

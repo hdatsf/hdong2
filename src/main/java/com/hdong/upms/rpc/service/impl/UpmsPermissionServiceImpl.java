@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hdong.common.annotation.BaseService;
 import com.hdong.common.base.BaseServiceImpl;
+import com.hdong.common.db.DataSource;
 import com.hdong.common.db.DataSourceEnum;
 import com.hdong.common.db.DynamicDataSource;
 import com.hdong.upms.dao.enums.PermissionType;
@@ -33,7 +34,6 @@ import com.hdong.upms.rpc.api.UpmsPermissionService;
 * Created by hdong on 2017/3/20.
 */
 @Service
-@Transactional
 @BaseService
 public class UpmsPermissionServiceImpl extends BaseServiceImpl<UpmsPermissionMapper, UpmsPermission, UpmsPermissionExample> implements UpmsPermissionService {
 
@@ -99,13 +99,15 @@ public class UpmsPermissionServiceImpl extends BaseServiceImpl<UpmsPermissionMap
     }
 
     @Override
+    @DataSource(name = DataSourceEnum.MASTER)
+    @Transactional
     public int deleteByPermissionIds(List<Integer> ids) {
         try {
             if (ids.isEmpty()) {
                 return 0;
             }
             //删权限数据
-            DynamicDataSource.setDataSource(DataSourceEnum.MASTER.getName());
+            DynamicDataSource.setDataSource(DataSourceEnum.MASTER);
             UpmsPermissionExample ex = new UpmsPermissionExample();
             ex.createCriteria().andPermissionIdIn(ids);
             int count = upmsPermissionMapper.deleteByExample(ex);

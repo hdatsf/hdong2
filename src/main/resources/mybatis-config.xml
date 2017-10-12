@@ -13,11 +13,11 @@
 	
 	<!-- 枚举-->
 	<typeHandlers>
-		<typeHandler handler="com.hdong.common.db.DbEnumTypeHandler" javaType="com.hdong.upms.dao.enums.SystemStatus"/>
-		<typeHandler handler="com.hdong.common.db.DbEnumTypeHandler" javaType="com.hdong.upms.dao.enums.PermissionType"/>
-		<typeHandler handler="com.hdong.common.db.DbEnumTypeHandler" javaType="com.hdong.upms.dao.enums.UserLocked"/>
-		<typeHandler handler="com.hdong.common.db.DbEnumTypeHandler" javaType="com.hdong.upms.dao.enums.UserSex"/>
-		<typeHandler handler="com.hdong.common.db.DbEnumTypeHandler" javaType="com.hdong.upms.dao.enums.UserPermissionType"/>
+		<typeHandler handler="com.hdong.common.db.BaseEnumTypeHandler" javaType="com.hdong.upms.dao.enums.SystemStatus"/>
+		<typeHandler handler="com.hdong.common.db.BaseEnumTypeHandler" javaType="com.hdong.upms.dao.enums.PermissionType"/>
+		<typeHandler handler="com.hdong.common.db.BaseEnumTypeHandler" javaType="com.hdong.upms.dao.enums.UserLocked"/>
+		<typeHandler handler="com.hdong.common.db.BaseEnumTypeHandler" javaType="com.hdong.upms.dao.enums.UserSex"/>
+		<typeHandler handler="com.hdong.common.db.BaseEnumTypeHandler" javaType="com.hdong.upms.dao.enums.UserPermissionType"/>
 	</typeHandlers>
 
 	<!-- 插件-->

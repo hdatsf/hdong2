@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hdong.common.annotation.BaseService;
 import com.hdong.common.base.BaseServiceImpl;
+import com.hdong.common.db.DataSource;
+import com.hdong.common.db.DataSourceEnum;
 import com.hdong.common.util.SequenceUtil;
 import com.hdong.upms.dao.mapper.UpmsOrganizationMapper;
 import com.hdong.upms.dao.mapper.UpmsPermissionMapper;
@@ -30,7 +32,6 @@ import com.hdong.upms.rpc.api.UpmsUserService;
  * UpmsUserService实现 Created by hdong on 2017/8/15.
  */
 @Service
-@Transactional
 @BaseService
 public class UpmsUserServiceImpl extends BaseServiceImpl<UpmsUserMapper, UpmsUser, UpmsUserExample> implements UpmsUserService {
 
@@ -63,6 +64,8 @@ public class UpmsUserServiceImpl extends BaseServiceImpl<UpmsUserMapper, UpmsUse
     }
 
     @Override
+    @DataSource(name = DataSourceEnum.MASTER)
+    @Transactional
     public UpmsUser createUser(UpmsUser upmsUser, Integer organizationId) {
         UpmsUserExample upmsUserExample = new UpmsUserExample();
         upmsUserExample.createCriteria().andUsernameEqualTo(upmsUser.getUsername());
@@ -83,6 +86,8 @@ public class UpmsUserServiceImpl extends BaseServiceImpl<UpmsUserMapper, UpmsUse
     }
 
     @Override
+    @DataSource(name = DataSourceEnum.MASTER)
+    @Transactional
     public int deleteUser(List<Integer> ids) {
         //删用户
         UpmsUserExample ex = new UpmsUserExample();

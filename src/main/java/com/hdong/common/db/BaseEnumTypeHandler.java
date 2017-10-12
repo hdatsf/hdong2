@@ -14,11 +14,11 @@ import org.apache.ibatis.type.JdbcType;
  * @param <E>
  */
 @SuppressWarnings("rawtypes")
-public class DbEnumTypeHandler<E extends Enum<?> & BaseEnum> extends BaseTypeHandler<BaseEnum> {
+public class BaseEnumTypeHandler<E extends Enum<?> & BaseEnum> extends BaseTypeHandler<BaseEnum> {
 
     private Class<E> type;
 
-    public DbEnumTypeHandler(Class<E> type) {
+    public BaseEnumTypeHandler(Class<E> type) {
         if (type == null) {
             throw new IllegalArgumentException("Type argument cannot be null");
         }

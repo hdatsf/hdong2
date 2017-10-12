@@ -2,6 +2,8 @@ package com.hdong.upms.rpc.service.impl;
 
 import com.hdong.common.annotation.BaseService;
 import com.hdong.common.base.BaseServiceImpl;
+import com.hdong.common.db.DataSource;
+import com.hdong.common.db.DataSourceEnum;
 import com.hdong.common.util.SequenceUtil;
 import com.hdong.upms.dao.mapper.UpmsUserRoleMapper;
 import com.hdong.upms.dao.model.UpmsUserRole;
@@ -19,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
  * UpmsUserRoleService实现 Created by hdong on 2017/3/20.
  */
 @Service
-@Transactional
 @BaseService
 public class UpmsUserRoleServiceImpl extends BaseServiceImpl<UpmsUserRoleMapper, UpmsUserRole, UpmsUserRoleExample> implements UpmsUserRoleService {
 
@@ -34,6 +35,8 @@ public class UpmsUserRoleServiceImpl extends BaseServiceImpl<UpmsUserRoleMapper,
     }
 
     @Override
+    @DataSource(name = DataSourceEnum.MASTER)
+    @Transactional
     public int role(String[] roleIds, int id) {
         int result = 0;
         // 删除旧记录

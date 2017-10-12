@@ -121,7 +121,7 @@ public class UpmsSessionDao extends CachingSessionDAO {
         long total = jedis.llen(SERVER_SESSION_IDS);
         // 获取当前页会话详情
         List<String> ids = jedis.lrange(SERVER_SESSION_IDS, offset, (offset + limit - 1));
-        List<Session> rows = new ArrayList<>();
+        List<Session> rows = new ArrayList<Session>();
         for (String id : ids) {
             String session = RedisUtil.get(SHIRO_SESSION_ID + "_" + id);
             // 过滤redis过期session

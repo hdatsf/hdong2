@@ -4,6 +4,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hdong.common.annotation.BaseService;
 import com.hdong.common.base.BaseServiceImpl;
+import com.hdong.common.db.DataSource;
+import com.hdong.common.db.DataSourceEnum;
 import com.hdong.common.util.SequenceUtil;
 import com.hdong.upms.dao.enums.PermissionType;
 import com.hdong.upms.dao.enums.SystemStatus;
@@ -33,7 +35,6 @@ import java.util.Set;
 * Created by hdong on 2017/3/20.
 */
 @Service
-@Transactional
 @BaseService
 public class UpmsRolePermissionServiceImpl extends BaseServiceImpl<UpmsRolePermissionMapper, UpmsRolePermission, UpmsRolePermissionExample> implements UpmsRolePermissionService {
 
@@ -54,8 +55,10 @@ public class UpmsRolePermissionServiceImpl extends BaseServiceImpl<UpmsRolePermi
     }
     
     @Override
+    @DataSource(name = DataSourceEnum.MASTER)
+    @Transactional
     public int rolePermissionSave(JSONArray datas, int id) {
-        List<Integer> deleteIds = new ArrayList<>();
+        List<Integer> deleteIds = new ArrayList<Integer>();
         for (int i = 0; i < datas.size(); i ++) {
             JSONObject json = datas.getJSONObject(i);
             if (!json.getBoolean("checked")) {

@@ -15,6 +15,8 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.hdong.common.annotation.BaseService;
 import com.hdong.common.base.BaseServiceImpl;
+import com.hdong.common.db.DataSource;
+import com.hdong.common.db.DataSourceEnum;
 import com.hdong.common.util.SequenceUtil;
 import com.hdong.upms.dao.enums.PermissionType;
 import com.hdong.upms.dao.enums.SystemStatus;
@@ -34,7 +36,6 @@ import com.hdong.upms.rpc.api.UpmsUserPermissionService;
  * UpmsUserPermissionService实现 Created by hdong on 2017/3/20.
  */
 @Service
-@Transactional
 @BaseService
 public class UpmsUserPermissionServiceImpl extends BaseServiceImpl<UpmsUserPermissionMapper, UpmsUserPermission, UpmsUserPermissionExample>
         implements UpmsUserPermissionService {
@@ -108,8 +109,10 @@ public class UpmsUserPermissionServiceImpl extends BaseServiceImpl<UpmsUserPermi
     }
 
     @Override
+    @DataSource(name = DataSourceEnum.MASTER)
+    @Transactional
     public int userPermissionSave(JSONArray datas, int id, UserPermissionType type) {
-        List<Integer> deleteIds = new ArrayList<>();
+        List<Integer> deleteIds = new ArrayList<Integer>();
         for (int i = 0; i < datas.size(); i++) {
             JSONObject json = datas.getJSONObject(i);
             if (!json.getBoolean("checked")) {

@@ -23,7 +23,7 @@ public class MybatisGeneratorUtil {
 		String generatorConfig_xml = MybatisGeneratorUtil.class.getResource("/").getPath()+"com/hdong/upms/dao/generator/generatorConfig.xml";
 		
 		System.out.println("========== 开始运行MybatisGenerator ==========");
-		List<String> warnings = new ArrayList<>();
+		List<String> warnings = new ArrayList<String>();
 		File configFile = new File(generatorConfig_xml);
 		ConfigurationParser cp = new ConfigurationParser(warnings);
 		Configuration config = cp.parseConfiguration(configFile);

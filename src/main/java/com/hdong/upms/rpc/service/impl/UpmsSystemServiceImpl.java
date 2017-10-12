@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.hdong.common.annotation.BaseService;
 import com.hdong.common.base.BaseServiceImpl;
@@ -19,7 +18,6 @@ import com.hdong.upms.rpc.api.UpmsSystemService;
 */
 @Service
 @BaseService
-@Transactional
 public class UpmsSystemServiceImpl extends BaseServiceImpl<UpmsSystemMapper, UpmsSystem, UpmsSystemExample> implements UpmsSystemService {
 
     private static Logger _log = LoggerFactory.getLogger(UpmsSystemServiceImpl.class);

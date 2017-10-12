@@ -12,7 +12,7 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 
 	private final static Logger _log = LoggerFactory.getLogger(DynamicDataSource.class);
 
-	private static final ThreadLocal<String> contextHolder = new ThreadLocal<>();
+	private static final ThreadLocal<String> contextHolder = new ThreadLocal<String>();
 
 	@Override
 	protected Object determineCurrentLookupKey() {
@@ -25,8 +25,8 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 	 * 设置数据源
 	 * @param dataSource
 	 */
-	public static void setDataSource(String dataSource) {
-		contextHolder.set(dataSource);
+	public static void setDataSource(DataSourceEnum dataSource) {
+		contextHolder.set(dataSource.getName());
 	}
 
 	/**

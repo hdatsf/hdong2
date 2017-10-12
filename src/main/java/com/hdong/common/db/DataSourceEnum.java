@@ -9,7 +9,7 @@ public enum DataSourceEnum {
 	// 主库
 	MASTER("masterDataSource", true),
 	// 从库
-	SLAVE("slaveDataSource", false),;
+	SLAVE("slaveDataSource", false);
 
 	// 数据源名称
 	private String name;
@@ -37,17 +37,13 @@ public enum DataSourceEnum {
 		this.master = master;
 	}
 
-	public String getDefault() {
-		String defaultDataSource = "";
+	public DataSourceEnum getDefault() {
 		for (DataSourceEnum dataSourceEnum : DataSourceEnum.values()) {
-			if (!"".equals(defaultDataSource)) {
-				break;
-			}
 			if (dataSourceEnum.master) {
-				defaultDataSource = dataSourceEnum.getName();
+				return dataSourceEnum;
 			}
 		}
-		return defaultDataSource;
+		return null;
 	}
 
 }
