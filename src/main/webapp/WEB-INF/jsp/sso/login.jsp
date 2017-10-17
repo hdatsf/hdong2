@@ -39,7 +39,7 @@
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
-			<p class="login-box-msg">测试用户 test/123456</p>
+			<p class="login-box-msg"></p>
 			<form action="" method="post" id="signInForm">
 				<div class="form-group has-feedback">
 					<input type="text" class="form-control" placeholder="请输入登录邮箱/登录名" id="username" maxlength="20" required> <span
@@ -87,6 +87,10 @@
 </html>
 <script>
     $(function() {
+    	var forceLogout = '${forceLogout}';
+    	if(forceLogout == '1'){
+    		$(".login-box-msg").text('您已经被系统管理员强退！')
+    	}
     	$("#signInForm").validate();
 		$('input').iCheck({
 		    checkboxClass : 'icheckbox_square-blue',

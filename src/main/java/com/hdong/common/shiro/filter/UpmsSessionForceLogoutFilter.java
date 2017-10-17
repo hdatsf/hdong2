@@ -4,6 +4,8 @@ import org.apache.shiro.session.Session;
 import org.apache.shiro.web.filter.AccessControlFilter;
 import org.apache.shiro.web.util.WebUtils;
 
+import com.hdong.upms.common.constant.UpmsConstant;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
@@ -19,7 +21,7 @@ public class UpmsSessionForceLogoutFilter extends AccessControlFilter {
         if(session == null) {
             return true;
         }
-        boolean forceout = session.getAttribute("FORCE_LOGOUT") == null;
+        boolean forceout = session.getAttribute(UpmsConstant.FORCE_LOGOUT) == null;
         return  forceout;
     }
 

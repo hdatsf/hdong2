@@ -14,32 +14,25 @@ import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hdong.common.util.MD5Util;
-import com.hdong.common.util.PropertiesFileUtil;
+import com.hdong.common.util.SpringContextUtil;
+import com.hdong.upms.common.constant.UpmsConstant;
 import com.hdong.upms.dao.enums.UserLocked;
 import com.hdong.upms.dao.model.UpmsUser;
-import com.hdong.upms.dao.model.UpmsUserExample;
 import com.hdong.upms.rpc.api.UpmsApiService;
-import com.hdong.upms.rpc.api.UpmsUserService;
 
 /**
  * 用户认证和授权
+ * 此处不能用autoWired
+ * 因为此处的bean加载一般注解更早，和shiro有关
  * Created by hdong on 2017/1/20.
  */
 public class UpmsRealm extends AuthorizingRealm {
 
     //private static Logger _log = LoggerFactory.getLogger(UpmsRealm.class);
-
-    @Autowired
-    private UpmsApiService upmsApiService;
     
-    @Autowired
-    private UpmsUserService upmsUserService;
     
-    private static final String SYSTEM_NAME = PropertiesFileUtil.getInstance().get("system.name");
-
     /**
      * 授权：验证权限时调用
      * @param principalCollection
@@ -48,7 +41,8 @@ public class UpmsRealm extends AuthorizingRealm {
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String username = (String) principalCollection.getPrimaryPrincipal();
-        List<Set<String>> setList = upmsApiService.selectRolesPermissionsByNameByCache(username, SYSTEM_NAME);
+        UpmsApiService upmsApiService = SpringContextUtil.getBean(UpmsApiService.class);
+        List<Set<String>> setList = upmsApiService.selectRolesPermissionsByNameByCache(username, UpmsConstant.SYSTEM_NAME);
         
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         if(setList !=null && setList.size()==2) {
@@ -69,11 +63,9 @@ public class UpmsRealm extends AuthorizingRealm {
         String username = (String) authenticationToken.getPrincipal();
         String password = new String((char[]) authenticationToken.getCredentials());
         // client无密认证
-        String upmsType = PropertiesFileUtil.getInstance().get("hdong.upms.type");
         // 查询用户信息
-        UpmsUserExample userExample = new UpmsUserExample();
-        userExample.createCriteria().andUsernameEqualTo(username);
-        UpmsUser upmsUser = upmsUserService.selectFirstByExample(userExample);
+        UpmsApiService upmsApiService = SpringContextUtil.getBean(UpmsApiService.class);
+        UpmsUser upmsUser = upmsApiService.selectUserByUsername(username);
 
         if (null == upmsUser) {
             throw new UnknownAccountException();
@@ -81,7 +73,7 @@ public class UpmsRealm extends AuthorizingRealm {
         if (upmsUser.getLocked() == UserLocked.LOCKED) {
             throw new LockedAccountException();
         }
-        if ("client".equals(upmsType)) {
+        if ("client".equals(UpmsConstant.UPMS_TYPE)) {
             return new SimpleAuthenticationInfo(username, password, getName());
         }
         if (!upmsUser.getPassword().equals(MD5Util.MD5(password + upmsUser.getSalt()))) {

@@ -31,6 +31,8 @@ public class UpmsSession extends SimpleSession {
 
     // 在线状态
     private OnlineStatus status = OnlineStatus.off_line;
+    
+    private String username;
 
     public String getUserAgent() {
         return userAgent;
@@ -47,5 +49,14 @@ public class UpmsSession extends SimpleSession {
     public void setStatus(OnlineStatus status) {
         this.status = status;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+    
 
 }

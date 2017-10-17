@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.hdong.common.db.DataSource;
 import com.hdong.common.db.DataSourceEnum;
+import com.hdong.upms.dao.enums.SystemStatus;
 import com.hdong.upms.dao.enums.UserLocked;
 import com.hdong.upms.dao.mapper.UpmsApiMapper;
 import com.hdong.upms.dao.mapper.UpmsRolePermissionMapper;
@@ -29,7 +30,8 @@ import com.hdong.upms.dao.model.UpmsUserExample;
 import com.hdong.upms.rpc.api.UpmsApiService;
 
 /**
- * UpmsApiService实现 Created by hdong on 2016/01/19.
+ * UpmsApiService实现 
+ * Created by hdong on 2016/01/19.
  */
 @Service
 public class UpmsApiServiceImpl implements UpmsApiService {
@@ -56,8 +58,8 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      * @return
      */
     @Override
-    @Transactional
     @DataSource(name = DataSourceEnum.SLAVE)
+    @Transactional
     public List<Set<String>> selectRolesPermissionsByName(String username, String systemName) {
         UpmsUserExample userExample = new UpmsUserExample();
         userExample.createCriteria().andUsernameEqualTo(username);
@@ -100,12 +102,13 @@ public class UpmsApiServiceImpl implements UpmsApiService {
 
     /**
      * 根据username、systemName获取用户角色和权限集合，并缓存
+     * 
      * @param username
      * @param systemName
      * @return
      */
     @Override
-    @Cacheable(value = "market-ehcache", key = "'selectRolesPermissionsByName'+ #username + '_SystemName_' + #systemName")
+    @Cacheable(value = "market-ehcache", key = "'selectRolesPermissionsByName:username_'+ #username + '_systemName_' + #systemName")
     public List<Set<String>> selectRolesPermissionsByNameByCache(String username, String systemName) {
         return selectRolesPermissionsByName(username, systemName);
     }
@@ -116,6 +119,8 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      * @param upmsUserId
      * @return
      */
+    @Transactional
+    @DataSource(name = DataSourceEnum.SLAVE)
     private List<UpmsPermission> selectUpmsPermissionByUpmsUserIdAndSystemId(Integer systemId, Integer upmsUserId) {
         // 用户不存在或锁定状态
         UpmsUser upmsUser = upmsUserMapper.selectByPrimaryKey(upmsUserId);
@@ -136,13 +141,29 @@ public class UpmsApiServiceImpl implements UpmsApiService {
     @Override
     @Transactional
     @DataSource(name = DataSourceEnum.SLAVE)
-    public List<UpmsPermission> selectMenuByUpmsUserIdAndSystemId(Integer systemId, Integer upmsUserId) {
-        UpmsUser upmsUser = upmsUserMapper.selectByPrimaryKey(upmsUserId);
-        if (null == upmsUser || UserLocked.LOCKED == upmsUser.getLocked()) {
-            _log.info("selectUpmsPermissionByUpmsUserId : upmsUserId={}", upmsUserId);
+    public List<UpmsPermission> selectMenuByUpmsUserNameAndSystemName(String username, String systemName) {
+        UpmsUserExample userExample = new UpmsUserExample();
+        userExample.createCriteria().andUsernameEqualTo(username);
+        List<UpmsUser> userList = upmsUserMapper.selectByExample(userExample);
+        if (userList.size() == 0) {
+            _log.error("Has not user with name:{1}", username);
             return null;
         }
-        List<UpmsPermission> upmsPermissions = upmsApiMapper.selectMenuByUpmsUserIdAndSystemId(systemId, upmsUserId);
+        UpmsUser upmsUser = userList.get(0);
+        if (UserLocked.LOCKED == upmsUser.getLocked()) {
+            _log.info("user is locked : username={}", username);
+            return null;
+        }
+        // 已注册系统
+        UpmsSystemExample upmsSystemExample = new UpmsSystemExample();
+        upmsSystemExample.createCriteria().andNameEqualTo(systemName).andStatusEqualTo(SystemStatus.NORMAL);
+        List<UpmsSystem> upmsSystems = upmsSystemMapper.selectByExample(upmsSystemExample);
+        if(upmsSystems.size() == 0) {
+            _log.error("Has not system with name:{1}", systemName);
+            return null;
+        }
+        UpmsSystem system = upmsSystems.get(0);
+        List<UpmsPermission> upmsPermissions = upmsApiMapper.selectMenuByUpmsUserIdAndSystemId(system.getSystemId(), upmsUser.getUserId());
         return upmsPermissions;
     }
 
@@ -152,6 +173,8 @@ public class UpmsApiServiceImpl implements UpmsApiService {
      * @param upmsUserId
      * @return
      */
+    @Transactional
+    @DataSource(name = DataSourceEnum.SLAVE)
     private List<UpmsRole> selectUpmsRoleByUpmsUserId(Integer upmsUserId) {
         // 用户不存在或锁定状态
         UpmsUser upmsUser = upmsUserMapper.selectByPrimaryKey(upmsUserId);
@@ -161,5 +184,14 @@ public class UpmsApiServiceImpl implements UpmsApiService {
         }
         List<UpmsRole> upmsRoles = upmsApiMapper.selectUpmsRoleByUpmsUserId(upmsUserId);
         return upmsRoles;
+    }
+    
+    @Transactional
+    @DataSource(name = DataSourceEnum.SLAVE)
+    public UpmsUser selectUserByUsername(String username) {
+        UpmsUserExample ex = new UpmsUserExample();
+        ex.createCriteria().andUsernameEqualTo(username);
+        List<UpmsUser> list = upmsUserMapper.selectByExample(ex);
+        return list.size() > 0 ? list.get(0) : null;
     }
 }

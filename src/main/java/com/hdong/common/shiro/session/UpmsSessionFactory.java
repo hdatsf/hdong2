@@ -1,11 +1,11 @@
 package com.hdong.common.shiro.session;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.shiro.session.Session;
 import org.apache.shiro.session.mgt.SessionContext;
 import org.apache.shiro.session.mgt.SessionFactory;
 import org.apache.shiro.web.session.mgt.WebSessionContext;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * session工厂

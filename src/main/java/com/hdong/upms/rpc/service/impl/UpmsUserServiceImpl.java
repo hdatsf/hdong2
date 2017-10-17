@@ -13,9 +13,6 @@ import com.hdong.common.base.BaseServiceImpl;
 import com.hdong.common.db.DataSource;
 import com.hdong.common.db.DataSourceEnum;
 import com.hdong.common.util.SequenceUtil;
-import com.hdong.upms.dao.mapper.UpmsOrganizationMapper;
-import com.hdong.upms.dao.mapper.UpmsPermissionMapper;
-import com.hdong.upms.dao.mapper.UpmsSystemMapper;
 import com.hdong.upms.dao.mapper.UpmsUserMapper;
 import com.hdong.upms.dao.mapper.UpmsUserOrganizationMapper;
 import com.hdong.upms.dao.mapper.UpmsUserPermissionMapper;
@@ -38,26 +35,17 @@ public class UpmsUserServiceImpl extends BaseServiceImpl<UpmsUserMapper, UpmsUse
     private static Logger _log = LoggerFactory.getLogger(UpmsUserServiceImpl.class);
 
     @Autowired
-    UpmsUserMapper upmsUserMapper;
+    private UpmsUserMapper upmsUserMapper;
 
     @Autowired
-    UpmsUserOrganizationMapper upmsUserOrganizationMapper;
+    private UpmsUserOrganizationMapper upmsUserOrganizationMapper;
     
     @Autowired
-    UpmsUserRoleMapper upmsUserRoleMapper;
+    private UpmsUserRoleMapper upmsUserRoleMapper;
     
     @Autowired
-    UpmsUserPermissionMapper upmsUserPermissionMapper;
+    private UpmsUserPermissionMapper upmsUserPermissionMapper;
     
-    @Autowired
-    UpmsOrganizationMapper upmsOrganizationMapper;
-    
-    @Autowired
-    UpmsSystemMapper upmsSystemMapper;
-    
-    @Autowired
-    UpmsPermissionMapper upmsPermissionMapper;
-
     @Override
     public Logger getLogger() {
         return _log;
@@ -101,7 +89,6 @@ public class UpmsUserServiceImpl extends BaseServiceImpl<UpmsUserMapper, UpmsUse
         UpmsUserRoleExample ex3 = new UpmsUserRoleExample();
         ex3.createCriteria().andUserIdIn(ids);
         upmsUserRoleMapper.deleteByExample(ex3);
-        
         //删用户角色
         UpmsUserPermissionExample ex4 = new UpmsUserPermissionExample();
         ex4.createCriteria().andUserIdIn(ids);

@@ -49,16 +49,6 @@ public class LogAspect {
 	@Before("execution(* *..controller..*.*(..))")
 	public void doBeforeInServiceLayer(JoinPoint joinPoint) {
 		startTime = System.currentTimeMillis();
-		// 获取request
-        HttpServletRequest request = ServletUtil.getRequest();
-        String paramStr ;
-        if (request.getMethod().equalsIgnoreCase("GET")) {
-            paramStr = request.getQueryString();
-        } else {
-            paramStr = ObjectUtils.toString(request.getParameterMap());
-        }
-        _log.info("request>>> from:{} uri:{} method:{} param:{}",RequestUtil.getIpAddr(request),request.getRequestURI(),request.getMethod(),paramStr);
-        
 	}
 
 //	@After("execution(* *..controller..*.*(..))")

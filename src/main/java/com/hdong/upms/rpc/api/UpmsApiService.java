@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.hdong.upms.dao.model.UpmsPermission;
+import com.hdong.upms.dao.model.UpmsUser;
 
 /**
  * upms系统接口
@@ -32,6 +33,13 @@ public interface UpmsApiService {
      * @param upmsUserId
      * @return
      */
-    List<UpmsPermission> selectMenuByUpmsUserIdAndSystemId(Integer systemId, Integer upmsUserId);
+    List<UpmsPermission> selectMenuByUpmsUserNameAndSystemName(String username, String systemName);
+    
+    /**
+     * 根据用户名称获取用户信息
+     * @param username
+     * @return
+     */
+    UpmsUser selectUserByUsername(String username);
     
 }

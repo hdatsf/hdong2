@@ -17,7 +17,6 @@ import com.hdong.common.db.DataSource;
 import com.hdong.common.db.DataSourceEnum;
 import com.hdong.common.util.SequenceUtil;
 import com.hdong.upms.dao.mapper.UpmsUserOrganizationMapper;
-import com.hdong.upms.dao.mapper.UpmsUserPermissionMapper;
 import com.hdong.upms.dao.model.UpmsUserOrganization;
 import com.hdong.upms.dao.model.UpmsUserOrganizationExample;
 import com.hdong.upms.rpc.api.UpmsUserOrganizationService;
@@ -33,10 +32,7 @@ public class UpmsUserOrganizationServiceImpl extends BaseServiceImpl<UpmsUserOrg
     private static Logger _log = LoggerFactory.getLogger(UpmsUserOrganizationServiceImpl.class);
 
     @Autowired
-    UpmsUserOrganizationMapper upmsUserOrganizationMapper;
-    
-    @Autowired
-    UpmsUserPermissionMapper upmsUserPermissionMapper;
+    private UpmsUserOrganizationMapper upmsUserOrganizationMapper;
 
     @Override
     public Logger getLogger() {

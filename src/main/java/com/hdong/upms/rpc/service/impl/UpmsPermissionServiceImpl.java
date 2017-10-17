@@ -14,7 +14,6 @@ import com.hdong.common.annotation.BaseService;
 import com.hdong.common.base.BaseServiceImpl;
 import com.hdong.common.db.DataSource;
 import com.hdong.common.db.DataSourceEnum;
-import com.hdong.common.db.DynamicDataSource;
 import com.hdong.upms.dao.enums.PermissionType;
 import com.hdong.upms.dao.enums.SystemStatus;
 import com.hdong.upms.dao.mapper.UpmsPermissionMapper;
@@ -102,30 +101,22 @@ public class UpmsPermissionServiceImpl extends BaseServiceImpl<UpmsPermissionMap
     @DataSource(name = DataSourceEnum.MASTER)
     @Transactional
     public int deleteByPermissionIds(List<Integer> ids) {
-        try {
-            if (ids.isEmpty()) {
-                return 0;
-            }
-            //删权限数据
-            DynamicDataSource.setDataSource(DataSourceEnum.MASTER);
-            UpmsPermissionExample ex = new UpmsPermissionExample();
-            ex.createCriteria().andPermissionIdIn(ids);
-            int count = upmsPermissionMapper.deleteByExample(ex);
-            //删用户权限
-            UpmsUserPermissionExample ex2 = new UpmsUserPermissionExample();
-            ex2.createCriteria().andPermissionIdIn(ids);
-            upmsUserPermissionMapper.deleteByExample(ex2);
-            //删角色权限
-            UpmsRolePermissionExample ex3 = new UpmsRolePermissionExample();
-            ex3.createCriteria().andPermissionIdIn(ids);
-            upmsRolePermissionMapper.deleteByExample(ex3);
-            return count;
-        } catch (Exception e) {
-            getLogger().error("deleteByPrimaryKeys error:", e);
-        } finally{
-            DynamicDataSource.clearDataSource();
+        if (ids.isEmpty()) {
+            return 0;
         }
-        return 0;
+        //删权限数据
+        UpmsPermissionExample ex = new UpmsPermissionExample();
+        ex.createCriteria().andPermissionIdIn(ids);
+        int count = upmsPermissionMapper.deleteByExample(ex);
+        //删用户权限
+        UpmsUserPermissionExample ex2 = new UpmsUserPermissionExample();
+        ex2.createCriteria().andPermissionIdIn(ids);
+        upmsUserPermissionMapper.deleteByExample(ex2);
+        //删角色权限
+        UpmsRolePermissionExample ex3 = new UpmsRolePermissionExample();
+        ex3.createCriteria().andPermissionIdIn(ids);
+        upmsRolePermissionMapper.deleteByExample(ex3);
+        return count;
     }
 
 }

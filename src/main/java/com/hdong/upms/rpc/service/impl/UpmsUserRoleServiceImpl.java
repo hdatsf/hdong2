@@ -1,5 +1,13 @@
 package com.hdong.upms.rpc.service.impl;
 
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.hdong.common.annotation.BaseService;
 import com.hdong.common.base.BaseServiceImpl;
 import com.hdong.common.db.DataSource;
@@ -9,13 +17,6 @@ import com.hdong.upms.dao.mapper.UpmsUserRoleMapper;
 import com.hdong.upms.dao.model.UpmsUserRole;
 import com.hdong.upms.dao.model.UpmsUserRoleExample;
 import com.hdong.upms.rpc.api.UpmsUserRoleService;
-import org.apache.commons.lang.StringUtils;
-import org.apache.commons.lang.math.NumberUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
  * UpmsUserRoleService实现 Created by hdong on 2017/3/20.
@@ -27,7 +28,7 @@ public class UpmsUserRoleServiceImpl extends BaseServiceImpl<UpmsUserRoleMapper,
     private static Logger _log = LoggerFactory.getLogger(UpmsUserRoleServiceImpl.class);
 
     @Autowired
-    UpmsUserRoleMapper upmsUserRoleMapper;
+    private UpmsUserRoleMapper upmsUserRoleMapper;
 
     @Override
     public Logger getLogger() {
