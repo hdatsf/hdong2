@@ -22,8 +22,14 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label for="avatar" class="col-md-3 control-label">头像</label>
+			<div class="col-md-7">
+				<input id="avatar" type="text" class="form-control icon-picker" name="avatar" required readonly>
+			</div>
+		</div>
+		<div class="form-group">
 			<label for="organizationName" class="col-md-3 control-label">所属机构</label>
-			<div class="col-md-9">
+			<div class="col-md-7">
 				<div class="input-group">
 					<input id="organizationName" type="text" class="form-control" name="organizationName" value="${organizationName}" readonly> 
 					<a id="btn_choose" type="button" role="button" class="btn btn-primary input-group-addon">选择</a>
@@ -40,7 +46,7 @@
 		<div class="form-group">
 			<label for="email" class="col-md-3 control-label">邮箱</label>
 			<div class="col-md-9">
-				<input id="email" type="text" class="form-control" name="email" maxlength="20">
+				<input id="email" type="text" class="form-control" name="email" maxlength="50">
 			</div>
 		</div>
 		<div class="form-group">
@@ -70,6 +76,8 @@
 
 <script>
 	$(function() {
+		$("#avatar").iconPicker(null,"${basePath}/resources/icon-picker/img/");
+		
 		HdDict.initSelect("UPMS","USER_SEX",$("#createDialog #sex"),"MALE");
 		HdDict.initSelect("UPMS","USER_LOCKED",$("#createDialog #locked"),"NORMAL");
 		$('#createDialog #sex').multiselect();

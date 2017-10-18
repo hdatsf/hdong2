@@ -59,7 +59,7 @@
 					<!-- /.col -->
 					<div class="col-xs-6">
 						<div class="checkbox pull-right">
-							<a href="#">忘记密码</a> <span>&nbsp;/&nbsp;</span> <a href="#" class="text-center">注册</a>
+							<a href="#">忘记密码</a> <span>&nbsp;/&nbsp;</span> <a href="#" id="register" class="text-center">注册</a>
 						</div>
 					</div>
 					<!-- /.col -->
@@ -123,6 +123,14 @@
 				    console.log(error);
 				}
 		    });
+		});
+		$("#register").click(function(){
+			$.hdConfirm({
+				content: "不开放注册，请联系管理原开通用户！",
+				buttons: {
+					confirm: {text: '确认'}
+				}
+			});
 		});
     });
 </script>

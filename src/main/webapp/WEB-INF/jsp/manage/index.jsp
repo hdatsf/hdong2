@@ -28,6 +28,8 @@
 <link href="${basePath}/resources/common/base.css" rel="stylesheet"/>
 <!-- ztree -->
 <link href="${basePath}/resources/ztree/css/ztree_bootstrap.css" rel="stylesheet"/>
+<!-- img-picket -->
+<link href="${basePath}/resources/icon-picker/css/icon-picker.css" rel="stylesheet"/>
 
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -65,7 +67,7 @@
 									<ul class="menu">
 										<li><a href="#">
 												<div class="pull-left">
-													<img src="${basePath}/resources/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+													<img src="${basePath}/resources/icon-picker/img/user2.jpg" class="img-circle" alt="User Image">
 												</div>
 												<h4>
 													CMRS系统 <small><i class="fa fa-clock-o"></i> 5 mins</small>
@@ -115,19 +117,19 @@
 								<li class="footer"><a href="#">查看全部</a></li>
 							</ul></li>
 						<!-- User Account: style can be found in dropdown.less -->
-						<li class="dropdown user user-menu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="${basePath}/${upmsUser.avatar}"
+						<li class="dropdown user user-menu"><a href="#" class="dropdown-toggle" data-toggle="dropdown"> <img src="${basePath}/resources/icon-picker/img/${upmsUser.avatar}"
 								class="user-image" alt="User Image"> <span class="hidden-xs">${upmsUser.realname}</span>
 						</a>
 							<ul class="dropdown-menu">
 								<!-- User image -->
-								<li class="user-header"><img src="${basePath}/${upmsUser.avatar}" class="img-circle" alt="User Image">
+								<li class="user-header"><img src="${basePath}/resources/icon-picker/img/${upmsUser.avatar}" class="img-circle" alt="User Image">
 									<p>
 										${upmsUser.realname} <small>${upmsUser.phone}</small><small>${upmsUser.email}</small>
 									</p></li>
 								<!-- Menu Footer-->
 								<li class="user-footer">
 									<div class="pull-left">
-										<a href="#" class="btn btn-default btn-flat">信息修改</a>
+										<a href="#" id="self-info" class="btn btn-default btn-flat">信息修改</a>
 									</div>
 									<div class="pull-right">
 										<a href="${basePath}/sso/logout" class="btn btn-default btn-flat">退出</a>
@@ -146,7 +148,7 @@
 				<!-- Sidebar user panel -->
 				<div class="user-panel">
 					<div class="pull-left image">
-						<img src="${basePath}/${upmsUser.avatar}" class="img-circle" alt="User Image">
+						<img src="${basePath}/resources/icon-picker/img/${upmsUser.avatar}" class="img-circle" alt="User Image">
 					</div>
 					<div class="pull-left info">
 						<p>${upmsUser.realname}</p>
@@ -237,6 +239,8 @@
 	<script src="${basePath}/resources/adminlte/js/adminlte.min.js"></script>
 	<script src="${basePath}/resources/common/base.js"></script>
 	<script src="${basePath}/resources/ztree/js/jquery.ztree.all.min.js"></script>
+	<!-- img-picket -->
+	<script src="${basePath}/resources/icon-picker/js/icon-picker.js"></script>
 </body>
 </html>
 <script>
@@ -255,6 +259,17 @@ $(function(){
 	HD_CONTENT.padding = 30;
 	HD_CONTENT.height = HD_CONTENT.fullHeight - HD_CONTENT.title - HD_CONTENT.padding -4;
 	HD_CONTENT.treeHeight = HD_CONTENT.height -10;
+	
+	
+	$("#self-info").click(function(){
+		$.hdDialog({
+			 title:'用户信息修改',
+			 columnClass:'col-md-offset-2 col-md-8',
+			 content:'url:${basePath}/manage/user/updateSelf',
+			 onClose: function(){
+			 }
+		});
+	});
 });
 
 </script>

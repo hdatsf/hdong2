@@ -10,6 +10,12 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label for="password" class="col-md-3 control-label">密码</label>
+			<div class="col-md-9">
+				<input id="password" type="text" class="form-control" name="password" maxlength="32" required>
+			</div>
+		</div>
+		<div class="form-group">
 			<label for="realname" class="col-md-3 control-label">姓名</label>
 			<div class="col-md-9">
 				<input id="realname" type="text" class="form-control" name="realname" maxlength="20" value="${user.realname}" required>
@@ -41,13 +47,6 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="locked" class="col-md-3 control-label">状态</label>
-			<div class="col-md-9">
-				<select id="locked" name="locked" class="form-control">
-				</select>
-			</div>
-		</div>
-		<div class="form-group">
 			<div class="col-md-2 col-md-offset-4">
 				<button id="btn_save" type="button" class="btn btn-primary">保存</button>
 			</div>
@@ -63,9 +62,7 @@
 		$("#avatar").iconPicker(null,"${basePath}/resources/icon-picker/img/");
 		
 		HdDict.initSelect("UPMS","USER_SEX",$("#updateDialog #sex"),"${user.sex}");
-		HdDict.initSelect("UPMS","USER_LOCKED",$("#updateDialog #locked"),"${user.locked}");
 		$('#updateDialog #sex').multiselect();
-		$('#updateDialog #locked').multiselect();
 		
 		$('#updateForm').validate();
 		$("#updateDialog #btn_save").click(function() {
@@ -74,7 +71,7 @@
 			}
 			$.ajax({
 				type : 'post',
-				url : '${basePath}/manage/user/update/${user.userId}',
+				url : '${basePath}/manage/user/updateSelf',
 				data : $('#updateForm').serialize(),
 				success : function(result) {
 					if (result.code == 1) {

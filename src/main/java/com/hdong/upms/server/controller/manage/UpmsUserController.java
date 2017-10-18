@@ -9,7 +9,9 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -280,9 +282,49 @@ public class UpmsUserController extends BaseController {
     @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
     @ResponseBody
     public Object update(@PathVariable("id") int id, UpmsUser upmsUser) {
+        upmsUser.setUserId(id);
+        String validStr = ValidatorUtil.validateWithHtml(upmsUser);
+        if (StringUtils.isNotBlank(validStr)) {
+            return new UpmsResult(UpmsResultConstant.PARAM_VALID_ERROR, validStr);
+        }
         // 不允许直接改密码
         upmsUser.setPassword(null);
-        upmsUser.setUserId(id);
+        int count = upmsUserService.updateByPrimaryKeySelective(upmsUser);
+        return new UpmsResult(count == 1);
+    }
+    
+    @ApiOperation(value = "修改自身信息")
+    @RequestMapping(value = "/updateSelf", method = RequestMethod.GET)
+    public String updateSelf(ModelMap modelMap) {
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        UpmsUserExample ex = new UpmsUserExample();
+        ex.createCriteria().andUsernameEqualTo(username);
+        UpmsUser user = upmsUserService.selectFirstByExample(ex);
+        modelMap.put("user", user);
+        return "/manage/user/userUpdateSelf.jsp";
+    }
+
+    @ApiOperation(value = "修改自身信息")
+    @RequestMapping(value = "/updateSelf", method = RequestMethod.POST)
+    @ResponseBody
+    public Object updateSelf(UpmsUser upmsUser) {
+        Subject subject = SecurityUtils.getSubject();
+        String username = (String) subject.getPrincipal();
+        UpmsUserExample ex = new UpmsUserExample();
+        ex.createCriteria().andUsernameEqualTo(username);
+        UpmsUser user = upmsUserService.selectFirstByExample(ex);
+        if(user == null) {
+            return new UpmsResult(UpmsResultConstant.USER_NOEXIST);
+        }
+        String salt = UUID.randomUUID().toString().replaceAll("-", "");
+        upmsUser.setSalt(salt);
+        upmsUser.setPassword(MD5Util.MD5(upmsUser.getPassword() + upmsUser.getSalt()));
+        upmsUser.setUserId(user.getUserId());
+        String validStr = ValidatorUtil.validateWithHtml(upmsUser);
+        if (StringUtils.isNotBlank(validStr)) {
+            return new UpmsResult(UpmsResultConstant.PARAM_VALID_ERROR, validStr);
+        }
         int count = upmsUserService.updateByPrimaryKeySelective(upmsUser);
         return new UpmsResult(count == 1);
     }

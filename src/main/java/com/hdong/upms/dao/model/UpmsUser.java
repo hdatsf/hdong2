@@ -4,12 +4,17 @@ import com.hdong.upms.dao.enums.UserLocked;
 import com.hdong.upms.dao.enums.UserSex;
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+
 public class UpmsUser implements Serializable {
     /**
      * 编号
      *
      * @mbg.generated
      */
+    @NotNull(message="用户编号不能为空")
     private Integer userId;
 
     /**
@@ -17,6 +22,8 @@ public class UpmsUser implements Serializable {
      *
      * @mbg.generated
      */
+    @NotNull(message="账号不能为空")
+    @Length(max=20, message="账号长度不能超过20")
     private String username;
 
     /**
@@ -24,6 +31,7 @@ public class UpmsUser implements Serializable {
      *
      * @mbg.generated
      */
+    @Length(max=32, message="密码长度不能超过32")
     private String password;
 
     /**
@@ -38,6 +46,7 @@ public class UpmsUser implements Serializable {
      *
      * @mbg.generated
      */
+    @Length(max=20, message="姓名长度不能超过20")
     private String realname;
 
     /**
@@ -45,6 +54,7 @@ public class UpmsUser implements Serializable {
      *
      * @mbg.generated
      */
+    @NotNull(message="头像不能为空")
     private String avatar;
 
     /**
@@ -52,6 +62,7 @@ public class UpmsUser implements Serializable {
      *
      * @mbg.generated
      */
+    @Length(max=20, message="电话长度不能超过20")
     private String phone;
 
     /**
@@ -59,6 +70,7 @@ public class UpmsUser implements Serializable {
      *
      * @mbg.generated
      */
+    @Length(max=50, message="邮箱长度不能超过20")
     private String email;
 
     /**

@@ -13,7 +13,8 @@ public enum UpmsResultConstant {
     EMPTY_PASSWORD(10102, "密码不能为空"),
     INVALID_USERNAME(10103, "账号不存在"),
     INVALID_PASSWORD(10104, "密码错误"),
-    INVALID_ACCOUNT(10105, "账号被锁");
+    INVALID_ACCOUNT(10105, "账号被锁"),
+    USER_NOEXIST(10106, "账号被锁");
     
 
     private int code;
