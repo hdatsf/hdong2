@@ -23,13 +23,14 @@
 <link href="${basePath}/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 <link href="${basePath}/resources/bootstrap/css/bootstrap-table.min.css" rel="stylesheet" />
 <link href="${basePath}/resources/bootstrap/css/bootstrap-multiselect.css" rel="stylesheet" />
+<link href="${basePath}/resources/bootstrap/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
 <!-- jquery confirm -->
 <link href="${basePath}/resources/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
 <link href="${basePath}/resources/common/base.css" rel="stylesheet"/>
 <!-- ztree -->
 <link href="${basePath}/resources/ztree/css/ztree_bootstrap.css" rel="stylesheet"/>
 <!-- img-picket -->
-<link href="${basePath}/resources/icon-picker/css/icon-picker.css" rel="stylesheet"/>
+<link href="${basePath}/resources/icon-picker/css/icon-picker.min.css" rel="stylesheet"/>
 
 
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -67,7 +68,7 @@
 									<ul class="menu">
 										<li><a href="#">
 												<div class="pull-left">
-													<img src="${basePath}/resources/icon-picker/img/user2.jpg" class="img-circle" alt="User Image">
+													<img src="${basePath}/resources/icon-picker/img/${upmsUser.avatar}" class="img-circle" alt="User Image">
 												</div>
 												<h4>
 													CMRS系统 <small><i class="fa fa-clock-o"></i> 5 mins</small>
@@ -235,12 +236,14 @@
 	<script src="${basePath}/resources/bootstrap/js/bootstrap-table.js"></script>
 	<script src="${basePath}/resources/bootstrap/js/bootstrap-multiselect.js"></script>
 	<script src="${basePath}/resources/bootstrap/js/bootstrap-table-zh-CN.min.js"></script>
+	<script src="${basePath}/resources/bootstrap/js/bootstrap-datetimepicker.js"></script>
+	<script src="${basePath}/resources/bootstrap/js/bootstrap-datetimepicker.zh-CN.js"></script>
 	<!-- AdminLTE App -->
 	<script src="${basePath}/resources/adminlte/js/adminlte.min.js"></script>
 	<script src="${basePath}/resources/common/base.js"></script>
 	<script src="${basePath}/resources/ztree/js/jquery.ztree.all.min.js"></script>
 	<!-- img-picket -->
-	<script src="${basePath}/resources/icon-picker/js/icon-picker.js"></script>
+	<script src="${basePath}/resources/icon-picker/js/icon-picker.min.js"></script>
 </body>
 </html>
 <script>

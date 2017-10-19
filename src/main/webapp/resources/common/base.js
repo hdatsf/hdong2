@@ -148,15 +148,18 @@ var HdConfirm = new __HdConfirm();
 
 $.hdErrorConfirm = function(result){
 	if(result.code!=undefined){
+		//页面
 		$.hdConfirm({
 			type: 'red',
+			columnClass:'col-md-offset-2 col-md-8',
 			content: result.msg,
 			buttons: {confirm: {text: '确认'}}
 		});
 	}else{
+		//信息
 		$.hdConfirm({
 			type: 'red',
-			columnClass:'col-md-offset-2 col-md-8',
+			columnClass:'col-md-offset-4 col-md-4',
 			content: result,
 			buttons: {confirm: {text: '确认'}}
 		});
@@ -260,3 +263,83 @@ jQuery.validator.addMethod("minNumber", function(value, element, param){
 	}
 	return returnVal;
 }, "小数点后最多为{0}位");
+
+
+Date.prototype.format = function(format) {
+    var date = {
+           "M+": this.getMonth() + 1,
+           "d+": this.getDate(),
+           "h+": this.getHours(),
+           "m+": this.getMinutes(),
+           "s+": this.getSeconds(),
+           "q+": Math.floor((this.getMonth() + 3) / 3),
+           "S+": this.getMilliseconds()
+    };
+    if (/(y+)/i.test(format)) {
+           format = format.replace(RegExp.$1, (this.getFullYear() + '').substr(4 - RegExp.$1.length));
+    }
+    for (var k in date) {
+           if (new RegExp("(" + k + ")").test(format)) {
+                  format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                         ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+           }
+    }
+    return format;
+};
+
+
+
+/*
+0 or 'hour' for the hour view
+1 or 'day' for the day view
+2 or 'month' for month view (the default)
+3 or 'year' for the 12-month overview
+4 or 'decade' for the 10-year overview.
+*/
+$.fn.hdDatetimePicker=function (options, option2) {
+	var defaultOpt={
+		language:  'zh-CN',
+		weekStart: 1,
+		todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		forceParse: 0,
+		showMeridian: 1,
+		format: 'yyyy-mm-dd hh:ii:ss'
+	};
+	options = $.extend({},defaultOpt,options);
+	this.datetimepicker(options);
+}
+$.fn.hdDatePicker=function (options, option2) {
+	var defaultOpt={
+		language:  'zh-CN',
+		weekStart: 1,
+		todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView:2,
+		forceParse: 0,
+		showMeridian: 1,
+		format: 'yyyy-mm-dd'
+	};
+	options = $.extend({},defaultOpt,options);
+	this.datetimepicker(options);
+}
+$.fn.hdTimePicker=function (options, option2) {
+	var defaultOpt={
+		language:  'zh-CN',
+		weekStart: 1,
+		todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 0,
+		maxView:0,
+		forceParse: 0,
+		showMeridian: 1,
+		format: 'hh:ii:ss'
+	};
+	options = $.extend({},defaultOpt,options);
+	this.datetimepicker(options);
+}

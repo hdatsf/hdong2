@@ -1,9 +1,9 @@
 <%@ page contentType="text/html; charset=utf-8"%>
 <style>
-body {color: #333; background: #fff; padding: 0; margin: 0; position: relative; min-width: 700px; font-family: arial; font-size: 12px }
-p, form, ol, ul, li, dl, dt, dd, h3 {margin: 0; padding: 0; list-style: none }
-#content_left {margin-bottom: 14px; padding-bottom: 5px; border-bottom: 1px solid #f3f3f3 }
-#content_left {width: 540px; padding-left: 121px; padding-top: 5px }
+#wrapper_wrapper {color: #333; background: #fff; padding: 0; margin: 0; position: relative; min-width: 700px; font-family: arial; font-size: 12px }
+#wrapper_wrapper p, form, ol, ul, li, dl, dt, dd, h3 {margin: 0; padding: 0; list-style: none }
+#wrapper_wrapper #content_left {margin-bottom: 14px; padding-bottom: 5px; border-bottom: 1px solid #f3f3f3 }
+#wrapper_wrapper #content_left {width: 540px; padding-left: 12px; padding-top: 5px }
 .norsSuggest {display: inline-block; color: #333; font-family: arial; font-size: 13px; position: relative; } 
 .norsTitle {font-size: 22px; font-family: Microsoft Yahei; font-weight: normal; color: #333; margin: 35px 0 25px 0; }
 .norsTitle2 {font-family: arial; font-size: 13px; color: #666; }

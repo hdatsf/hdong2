@@ -32,7 +32,7 @@ public class UpmsSessionDao extends CachingSessionDAO {
         Serializable sessionId = generateSessionId(session);
         assignSessionId(session, sessionId);
         RedisUtil.set(UpmsConstant.SHIRO_SESSION_ID + "_" + sessionId, SerializableUtil.serialize(session), (int) session.getTimeout() / 1000);
-        _log.info("doCreate >>>>> sessionId={}", sessionId);
+        _log.debug("doCreate >>>>> sessionId={}", sessionId);
         RequestThreadLocalFilter.setLocalSession((UpmsSession)session);
         return sessionId;
     }
@@ -46,7 +46,7 @@ public class UpmsSessionDao extends CachingSessionDAO {
             //_log.debug("use local session >>>>> sessionId={}", sessionId);
             return RequestThreadLocalFilter.getLocalSession();
         }
-        _log.info("use redis session >>>>> sessionId={}", sessionId);
+        _log.debug("use redis session >>>>> sessionId={}", sessionId);
         String sessionStr = RedisUtil.get(UpmsConstant.SHIRO_SESSION_ID + "_" + sessionId);
         UpmsSession session = (UpmsSession) SerializableUtil.deserialize(sessionStr);
         RequestThreadLocalFilter.setLocalSession(session);
@@ -64,7 +64,7 @@ public class UpmsSessionDao extends CachingSessionDAO {
             }
             RedisUtil.set(UpmsConstant.SHIRO_SESSION_ID + "_" + session.getId(), SerializableUtil.serialize(session), (int) session.getTimeout() / 1000);
             // 更新HDONG_UPMS_SERVER_SESSION_ID、HDONG_UPMS_SERVER_CODE过期时间
-            _log.info("doUpdateSessionByRedis >>>>> sessionId={}", session.getId());
+            _log.debug("doUpdateSessionByRedis >>>>> sessionId={}", session.getId());
         }
     }
 
@@ -110,12 +110,12 @@ public class UpmsSessionDao extends CachingSessionDAO {
      * @param limit
      * @return
      */
-    public BasePageResult<Session> getActiveSessions(int offset, int limit) {
+    public BasePageResult<Session> getActiveSessions(String username, int offset, int limit) {
         Jedis jedis = RedisUtil.getJedis();
         // 获取在线会话总数
         int total = new Long(jedis.llen(UpmsConstant.SERVER_SESSION_IDS)).intValue();
         // 获取当前页会话详情
-        List<String> ids = jedis.lrange(UpmsConstant.SERVER_SESSION_IDS, offset, (offset + limit - 1));
+        List<String> ids = jedis.lrange(UpmsConstant.SERVER_SESSION_IDS, 0, total);
         List<Session> rows = new ArrayList<Session>();
         for (String id : ids) {
             String session = RedisUtil.get(UpmsConstant.SHIRO_SESSION_ID + "_" + id);
@@ -128,11 +128,15 @@ public class UpmsSessionDao extends CachingSessionDAO {
             UpmsSession upmsSession = (UpmsSession) SerializableUtil.deserialize(session);
             // 过滤未登录用户
             if (StringUtils.isNotBlank(upmsSession.getUsername())) {
-                rows.add(upmsSession);
+                if(StringUtils.isBlank(username) || upmsSession.getUsername().contains(username)) {
+                    rows.add(upmsSession);
+                }
             }
         }
         jedis.close();
-        return new BasePageResult<Session>(total, rows);
+        int start = offset>rows.size()?rows.size():offset;
+        int end = (offset+limit)>rows.size()?rows.size():(offset+limit);
+        return new BasePageResult<Session>(rows.size(), rows.subList(start, end));
     }
 
     /**

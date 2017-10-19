@@ -7,9 +7,9 @@
 	<div class="panel-body" style="padding-left:0px;padding-right:15px">
 		<form id="formSearch" class="form-horizontal">
 			<div class="form-group form-group-sm">
-				<label class="control-label col-sm-1" for="txt_system_name">用户标识</label>
+				<label class="control-label col-sm-1" for="txt_user_name">用户标识</label>
 				<div class="col-sm-3">
-					<input type="text" class="form-control" id="txt_system_name">
+					<input type="text" class="form-control" id="txt_user_name">
 				</div>
 			</div>
 		</form>
@@ -59,15 +59,15 @@ $(function () {
             return {
                 limit: params.limit,   //页面大小
                 offset: params.offset,  //页码
-                systemName: $("#txt_system_name").val()
+                username: $("#txt_user_name").val()
             };
         },
         columns: [
         	{field: 'ck', checkbox: true},
 			{field: 'id', title: '编号', sortable: true, align: 'center'},
 			{field: 'username', title: '用户名称', align: 'center'},
-			{field: 'startTimestamp', title: '创建时间', sortable: true, align: 'center'},
-			{field: 'lastAccessTime', title: '最后访问时间'},
+			{field: 'startTimestamp', title: '创建时间', sortable: true, align: 'center',formatter:function(value,row,index){return new Date(value).format('yyyy-MM-dd hh:mm:ss');}},
+			{field: 'lastAccessTime', title: '最后访问时间',sortable: true, align: 'center',formatter:function(value,row,index){return new Date(value).format('yyyy-MM-dd hh:mm:ss');}},
 			{field: 'expired', title: '是否过期', align: 'center'},
 			{field: 'host', title: '访问者IP', align: 'center'},
 			{field: 'status', title: '状态', align: 'center', formatter:function(value, row, index) {
