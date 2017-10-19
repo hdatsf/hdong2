@@ -5,7 +5,7 @@
 	<groupId>com.hdong</groupId>
 	<artifactId>market</artifactId>
 	<name>market</name>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<url>http://maven.apache.org</url>
 	<packaging>war</packaging>
 	<properties>
@@ -126,7 +126,6 @@
 			<groupId>org.mybatis.generator</groupId>
 			<artifactId>mybatis-generator-core</artifactId>
 			<version>${mybatis-generator.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<!-- 缓存 -->
 		<dependency>
@@ -215,6 +214,7 @@
 			<groupId>javax.el</groupId>
 			<artifactId>javax.el-api</artifactId>
 			<version>3.0.0</version>
+			<scope>provided</scope>
 		</dependency>
 		<!-- json -->
 		<dependency>
