@@ -32,7 +32,7 @@ public class UpmsSystem implements Serializable {
      * @mbg.generated
      */
     @NotNull(message="主题不能为空")
-    @Length(max=7, message="主题长度不能超过7")
+    @Length(max=20, message="主题长度不能超过20")
     private String theme;
 
     /**
@@ -57,7 +57,7 @@ public class UpmsSystem implements Serializable {
      * @mbg.generated
      */
     @NotNull(message="系统名称不能为空")
-    @Length(max=20, message="系统名称长度不能超过20")
+    @Length(max=10, message="系统名称长度不能超过10")
     private String name;
 
     /**
@@ -74,7 +74,7 @@ public class UpmsSystem implements Serializable {
      *
      * @mbg.generated
      */
-    @Length(max=300, message="系统描述长度不能超过300")
+    @Length(max=2000, message="系统描述长度不能超过2000")
     private String description;
 
     /**

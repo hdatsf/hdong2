@@ -36,12 +36,11 @@
 	</sql>
 
 	<!-- 根据用户获取所拥有的权限 -->
-	<select id="selectUpmsPermissionByUpmsUserIdBySystemId" parameterType="map" resultMap="UpmsPermissionResultMap">
+	<select id="selectUpmsPermissionByUpmsUserId" parameterType="map" resultMap="UpmsPermissionResultMap">
 		select
 			<include refid="UpmsPermission_Column_List" />
 		from upms_permission up 
-		where up.system_id=#{systemId,jdbcType=INTEGER} 
-		  and up.permission_id in (
+		where up.permission_id in (
 			select permission_id from upms_role_permission urp where urp.role_id in (
 				select uur.role_id role_id from upms_user_role uur where uur.user_id=#{upmsUserId,jdbcType=INTEGER}
 			)
@@ -53,13 +52,49 @@
 		) order by up.orders asc
 	</select>
 	
+	 <resultMap id="UpmsSystemResultMap" type="com.hdong.upms.dao.model.UpmsSystem">
+	    <id column="system_id" jdbcType="INTEGER" property="systemId" />
+	    <result column="icon" jdbcType="VARCHAR" property="icon" />
+	    <result column="theme" jdbcType="VARCHAR" property="theme" />
+	    <result column="basepath" jdbcType="VARCHAR" property="basepath" />
+	    <result column="status" jdbcType="TINYINT" property="status" />
+	    <result column="name" jdbcType="VARCHAR" property="name" />
+	    <result column="title" jdbcType="VARCHAR" property="title" />
+	    <result column="description" jdbcType="VARCHAR" property="description" />
+	    <result column="ctime" jdbcType="BIGINT" property="ctime" />
+	    <result column="orders" jdbcType="BIGINT" property="orders" />
+	  </resultMap>
+	<sql id="System_Column_List">
+	    system_id, icon, theme, basepath, status, name, title, ctime, orders
+	  </sql>
+	<!-- 获取用户有权限的系统集合 -->
+	<select id="selectSystemsByUserId" parameterType="map" resultMap="UpmsSystemResultMap">
+		select 
+		<include refid="System_Column_List" />
+		from upms_system 
+		where system_id in(
+			select distinct system_id
+			from upms_permission up 
+			where up.permission_id in (
+				select permission_id from upms_role_permission urp where urp.role_id in (
+					select uur.role_id role_id from upms_user_role uur where uur.user_id=#{upmsUserId,jdbcType=INTEGER}
+				)
+				union
+				select permission_id from upms_user_permission uup1 where uup1.user_id=#{upmsUserId,jdbcType=INTEGER} and uup1.type=1
+			)
+			and up.permission_id not in (
+				select permission_id from upms_user_permission uup2 where uup2.user_id=#{upmsUserId,jdbcType=INTEGER} and uup2.type=-1
+			) 
+		)
+		order by orders desc
+	</select>
+	
 	<!-- 根据用户获取所拥有的权限 -->
-	<select id="selectMenuByUpmsUserIdAndSystemId" parameterType="map" resultMap="UpmsPermissionResultMap">
+	<select id="selectMenuByUpmsUserId" parameterType="map" resultMap="UpmsPermissionResultMap">
 		select
 			<include refid="UpmsPermission_Column_List" />
 		from upms_permission up 
-		where up.system_id=#{systemId,jdbcType=INTEGER} 
-		  and up.type in (1, 2)
+		where up.type in (1, 2)
 		  and up.permission_id in (
 			select permission_id from upms_role_permission urp where urp.role_id in (
 				select uur.role_id role_id from upms_user_role uur where uur.user_id=#{upmsUserId,jdbcType=INTEGER}

@@ -40,6 +40,20 @@
 
 <script>
 $(function () {
+	var themeMap = {};
+	themeMap["skin-black"] = '白暗';
+	themeMap["skin-black-light"] = '白亮';
+	themeMap["skin-blue"] = '蓝暗';
+	themeMap["skin-blue-light"] = '蓝亮';
+	themeMap["skin-green"] = '绿暗';
+	themeMap["skin-green-light"] = '绿亮';
+	themeMap["skin-red"] = '红暗';
+	themeMap["skin-red-light"] = '红亮';
+	themeMap["skin-yellow"] = '黄暗';
+	themeMap["skin-yellow-light"] = '黄亮';
+	themeMap["skin-purple"] = '紫暗';
+	themeMap["skin-purple-light"] = '紫亮';
+	
 	$('#tb_departments').bootstrapTable({
         url: '${basePath}/manage/system/list',         //请求后台的URL（*）
         method: 'get',                      //请求方式（*）
@@ -75,9 +89,12 @@ $(function () {
         columns: [
 			{field: 'ck', checkbox: true},
 			{field: 'systemId', title: '编号', sortable: true, align: 'center'},
-			{field: 'icon', title: '图标', sortable: true, align: 'center'},
-	    	{field: 'title', title: '系统标题'},
+			{field: 'icon', title: '图标', sortable: true, align: 'center', formatter: function(name){
+				return '<i class="glyphicon glyphicon-' + name + '"></i>';
+			}},
+			{field: 'theme', title: '主题色', sortable: true, align: 'center',formatter:function(name){return themeMap[name];}},
 			{field: 'name', title: '系统名称'},
+	    	{field: 'title', title: '系统标题'},
 			{field: 'basepath', title: '根目录'},
 			{field: 'status', title: '状态', sortable: true, align: 'center',formatter:function(name){return HdDict.getDictDesc('UPMS','SYSTEM_STATUS',name);}}
 		],

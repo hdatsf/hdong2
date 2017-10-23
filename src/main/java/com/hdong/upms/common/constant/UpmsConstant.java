@@ -9,7 +9,7 @@ import com.hdong.common.util.PropertiesFileUtil;
  */
 public class UpmsConstant extends BaseConstants {
     
-    public static final String SYSTEM_NAME = PropertiesFileUtil.getInstance().get("system.name");
+    private static final String SYSTEM_NAME = PropertiesFileUtil.getInstance().get("system.name");
 
     public static final String UPMS_TYPE = PropertiesFileUtil.getInstance().get("hdong.upms.type");
     

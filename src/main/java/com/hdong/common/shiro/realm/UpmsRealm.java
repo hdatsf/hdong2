@@ -42,7 +42,7 @@ public class UpmsRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         String username = (String) principalCollection.getPrimaryPrincipal();
         UpmsApiService upmsApiService = SpringContextUtil.getBean(UpmsApiService.class);
-        List<Set<String>> setList = upmsApiService.selectRolesPermissionsByNameByCache(username, UpmsConstant.SYSTEM_NAME);
+        List<Set<String>> setList = upmsApiService.selectRolesPermissionsByNameByCache(username);
         
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         if(setList !=null && setList.size()==2) {

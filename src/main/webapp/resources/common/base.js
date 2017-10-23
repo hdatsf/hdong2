@@ -151,7 +151,7 @@ $.hdErrorConfirm = function(result){
 		//页面
 		$.hdConfirm({
 			type: 'red',
-			columnClass:'col-md-offset-2 col-md-8',
+			columnClass:'col-md-offset-3 col-md-6',
 			content: result.msg,
 			buttons: {confirm: {text: '确认'}}
 		});
@@ -159,7 +159,7 @@ $.hdErrorConfirm = function(result){
 		//信息
 		$.hdConfirm({
 			type: 'red',
-			columnClass:'col-md-offset-4 col-md-4',
+			columnClass:'col-md-offset-2 col-md-8',
 			content: result,
 			buttons: {confirm: {text: '确认'}}
 		});

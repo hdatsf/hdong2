@@ -88,6 +88,14 @@ left: 7px;
 	border: 1px dotted #eee;
 }
 
+.icon-list ul li a{
+	display: block;
+	text-decoration: none;
+	color:#373737;
+	padding: 6px 10px;
+}
+.icon-list ul li a:hover{color:#000;}
+
 .icon-list ul li img{
 	display: block;
 	text-decoration: none;

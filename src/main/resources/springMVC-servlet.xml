@@ -18,7 +18,7 @@
         http://www.springframework.org/schema/task/spring-task.xsd">
 
     <!-- 根目录'/'对应页面 -->
-    <mvc:view-controller path="/" view-name="/manage/redirect_index.jsp"/>
+    <mvc:view-controller path="/" view-name="/manage/index.jsp"/>
 
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="order" value="1"/>

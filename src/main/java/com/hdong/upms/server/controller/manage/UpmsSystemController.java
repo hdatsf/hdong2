@@ -89,6 +89,12 @@ public class UpmsSystemController extends BaseController {
         if(StringUtils.isNotBlank(validStr)) {
             return new UpmsResult(UpmsResultConstant.PARAM_VALID_ERROR, validStr);
         }
+        UpmsSystemExample ex = new UpmsSystemExample();
+        ex.createCriteria().andNameEqualTo(upmsSystem.getName());
+        int num =upmsSystemService.countByExample(ex);
+        if(num!=0) {
+            return new UpmsResult(UpmsResultConstant.FAILED, "该名称已经被使用！");
+        }
         int count = upmsSystemService.insertSelective(upmsSystem);
         return new UpmsResult(count==1);
     }
@@ -127,6 +133,12 @@ public class UpmsSystemController extends BaseController {
         String validStr = ValidatorUtil.validateWithHtml(upmsSystem);
         if(StringUtils.isNotBlank(validStr)) {
             return new UpmsResult(UpmsResultConstant.PARAM_VALID_ERROR, validStr);
+        }
+        UpmsSystemExample ex = new UpmsSystemExample();
+        ex.createCriteria().andNameEqualTo(upmsSystem.getName()).andSystemIdNotEqualTo(id);
+        int num =upmsSystemService.countByExample(ex);
+        if(num!=0) {
+            return new UpmsResult(UpmsResultConstant.FAILED, "该名称已经被使用！");
         }
         int count = upmsSystemService.updateByPrimaryKeySelective(upmsSystem);
         return new UpmsResult(count==1);

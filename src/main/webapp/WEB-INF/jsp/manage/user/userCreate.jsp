@@ -12,7 +12,7 @@
 		<div class="form-group">
 			<label for="password" class="col-md-3 control-label">密码</label>
 			<div class="col-md-9">
-				<input id="password" type="text" class="form-control" name="password" maxlength="32" required>
+				<input id="password" type="password" class="form-control" name="password" maxlength="32" required>
 			</div>
 		</div>
 		<div class="form-group">
@@ -76,7 +76,7 @@
 
 <script>
 	$(function() {
-		$("#avatar").iconPicker(null,"${basePath}/resources/icon-picker/img/");
+		$("#avatar").imgPicker(null,"${basePath}/resources/icon-picker/img/");
 		
 		HdDict.initSelect("UPMS","USER_SEX",$("#createDialog #sex"),"MALE");
 		HdDict.initSelect("UPMS","USER_LOCKED",$("#createDialog #locked"),"NORMAL");

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>盯市系统</title>
+<title><c:if test="${title == ''}">管理平台</c:if><c:if test="${title != ''}">${title}</c:if></title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
@@ -35,7 +35,7 @@
 <body class="hold-transition login-page">
 	<div class="login-box">
 		<div class="login-logo">
-			<b>盯市系统</b> 登录
+			<b><c:if test="${title != ''}">${title}</c:if></b> 登录
 		</div>
 		<!-- /.login-logo -->
 		<div class="login-box-body">
@@ -77,6 +77,7 @@
 	</div>
 	<!-- /.login-box -->
 	<script src="${basePath}/resources/jquery/jquery.min.js"></script>
+	<script src="${basePath}/resources/jquery/jquery.cookie.js"></script>
 	<script src="${basePath}/resources/bootstrap/js/bootstrap.min.js"></script>
 	<script src="${basePath}/resources/adminlte/plugins/iCheck/icheck.min.js"></script>
 	<script src="${basePath}/resources/jquery-validate/jquery.validate.min.js"></script>
@@ -88,6 +89,11 @@
 <script>
     $(function() {
     	var forceLogout = '${forceLogout}';
+    	var systemname = '${systemname}';
+    	var loginUrl = "${basePath}/sso/login";
+    	if(systemname=='' && $.cookie('hdong-systemname')){
+    		loginUrl=loginUrl+"/"+$.cookie('hdong-systemname');
+    	}
     	if(forceLogout == '1'){
     		$(".login-box-msg").text('您已经被系统管理员强退！')
     	}
@@ -100,7 +106,7 @@
 		$('#signIn').click(function() {
 			if(!$("#signInForm").valid())return;
 		    $.ajax({
-				url : '${basePath}/sso/login',
+				url : loginUrl,
 				type : 'POST',
 				data : {
 				    username : $('#username').val(),
@@ -109,7 +115,7 @@
 				},
 				success : function(result) {
 				    if (result.code == 1) {
-						location.href = '${basePath}/manage/index';
+						location.href = '${basePath}'+result.msg;
 				    } else {
 				    	$.hdConfirm({
 							content: result.msg,

@@ -248,7 +248,7 @@ public class UpmsUserController extends BaseController {
         }
         upmsUser = upmsUserService.createUser(upmsUser, organizationId);
         if (null == upmsUser) {
-            return new UpmsResult(UpmsResultConstant.FAILED, "帐号名已存在！");
+            return new UpmsResult(UpmsResultConstant.FAILED, "帐号已存在！");
         }
         _log.info("新增用户，主键：userId={}", upmsUser.getUserId());
         return new UpmsResult(UpmsResultConstant.SUCCESS, 1);

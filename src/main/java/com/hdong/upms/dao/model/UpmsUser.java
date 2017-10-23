@@ -70,7 +70,7 @@ public class UpmsUser implements Serializable {
      *
      * @mbg.generated
      */
-    @Length(max=50, message="邮箱长度不能超过20")
+    @Length(max=50, message="邮箱长度不能超过50")
     private String email;
 
     /**

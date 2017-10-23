@@ -25,9 +25,11 @@
         <property name="unauthorizedUrl" value="${hdong.upms.unauthorizedUrl}"/>
         <property name="filterChainDefinitions">
             <value>
+            	/favicon.ico = anon
+            	/resources/** = anon
                 /manage/** = upmsSessionForceLogout,user
                 /druid/** = user
-                /** = anon
+                /swagger/** = user
             </value>
         </property>
     </bean>

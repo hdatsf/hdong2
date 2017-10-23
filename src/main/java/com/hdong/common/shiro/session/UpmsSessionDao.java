@@ -13,7 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hdong.common.base.BasePageResult;
-import com.hdong.common.shiro.filter.RequestThreadLocalFilter;
+import com.hdong.common.shiro.filter.ShiroFilter;
 import com.hdong.common.util.RedisUtil;
 import com.hdong.common.util.SerializableUtil;
 import com.hdong.upms.common.constant.UpmsConstant;
@@ -33,39 +33,34 @@ public class UpmsSessionDao extends CachingSessionDAO {
         assignSessionId(session, sessionId);
         RedisUtil.set(UpmsConstant.SHIRO_SESSION_ID + "_" + sessionId, SerializableUtil.serialize(session), (int) session.getTimeout() / 1000);
         _log.debug("doCreate >>>>> sessionId={}", sessionId);
-        RequestThreadLocalFilter.setLocalSession((UpmsSession)session);
+        ShiroFilter.setLocalSession((UpmsSession)session);
         return sessionId;
     }
 
     @Override
     protected Session doReadSession(Serializable sessionId) {
-        if(!RequestThreadLocalFilter.isControllerReq()) {
-            return null;
-        }
-        if(RequestThreadLocalFilter.isLocalSession()) {
+        if(ShiroFilter.isLocalSession()) {
             //_log.debug("use local session >>>>> sessionId={}", sessionId);
-            return RequestThreadLocalFilter.getLocalSession();
+            return ShiroFilter.getLocalSession();
         }
         _log.debug("use redis session >>>>> sessionId={}", sessionId);
         String sessionStr = RedisUtil.get(UpmsConstant.SHIRO_SESSION_ID + "_" + sessionId);
         UpmsSession session = (UpmsSession) SerializableUtil.deserialize(sessionStr);
-        RequestThreadLocalFilter.setLocalSession(session);
+        ShiroFilter.setLocalSession(session);
         return session;
     }
 
     @Override
     protected void doUpdate(Session session) {
-        if(RequestThreadLocalFilter.isControllerReq()) {
-            UpmsSession upmsSession = (UpmsSession) session;
-            UpmsSession cacheUpmsSession = (UpmsSession) doReadSession(session.getId());
-            if (null != cacheUpmsSession) {
-                upmsSession.setStatus(cacheUpmsSession.getStatus());
-                upmsSession.setAttribute(UpmsConstant.FORCE_LOGOUT, cacheUpmsSession.getAttribute(UpmsConstant.FORCE_LOGOUT));
-            }
-            RedisUtil.set(UpmsConstant.SHIRO_SESSION_ID + "_" + session.getId(), SerializableUtil.serialize(session), (int) session.getTimeout() / 1000);
-            // 更新HDONG_UPMS_SERVER_SESSION_ID、HDONG_UPMS_SERVER_CODE过期时间
-            _log.debug("doUpdateSessionByRedis >>>>> sessionId={}", session.getId());
+        UpmsSession upmsSession = (UpmsSession) session;
+        UpmsSession cacheUpmsSession = (UpmsSession) doReadSession(session.getId());
+        if (null != cacheUpmsSession) {
+            upmsSession.setStatus(cacheUpmsSession.getStatus());
+            upmsSession.setAttribute(UpmsConstant.FORCE_LOGOUT, cacheUpmsSession.getAttribute(UpmsConstant.FORCE_LOGOUT));
         }
+        RedisUtil.set(UpmsConstant.SHIRO_SESSION_ID + "_" + session.getId(), SerializableUtil.serialize(session), (int) session.getTimeout() / 1000);
+        // 更新HDONG_UPMS_SERVER_SESSION_ID、HDONG_UPMS_SERVER_CODE过期时间
+        _log.debug("doUpdateSessionByRedis >>>>> sessionId={}", session.getId());
     }
 
     @Override

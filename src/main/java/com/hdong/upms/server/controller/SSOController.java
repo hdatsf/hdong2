@@ -1,17 +1,10 @@
 package com.hdong.upms.server.controller;
 
-import com.hdong.common.base.BaseController;
-import com.hdong.common.shiro.session.UpmsSession;
-import com.hdong.common.shiro.session.UpmsSessionDao;
-import com.hdong.common.util.RedisUtil;
-import com.hdong.upms.common.constant.UpmsConstant;
-import com.hdong.upms.common.constant.UpmsResult;
-import com.hdong.upms.common.constant.UpmsResultConstant;
-import com.hdong.upms.dao.model.UpmsSystemExample;
-import com.hdong.upms.rpc.api.UpmsSystemService;
-import com.hdong.upms.rpc.api.UpmsUserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -21,19 +14,28 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.net.URLEncoder;
-import java.util.UUID;
+import com.hdong.common.base.BaseController;
+import com.hdong.common.shiro.session.UpmsSession;
+import com.hdong.common.shiro.session.UpmsSessionDao;
+import com.hdong.common.util.RedisUtil;
+import com.hdong.upms.common.constant.UpmsConstant;
+import com.hdong.upms.common.constant.UpmsResult;
+import com.hdong.upms.common.constant.UpmsResultConstant;
+import com.hdong.upms.dao.model.UpmsSystem;
+import com.hdong.upms.dao.model.UpmsSystemExample;
+import com.hdong.upms.rpc.api.UpmsSystemService;
+import com.hdong.upms.rpc.api.UpmsUserService;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 /**
  * 单点登录管理 Created by hdong on 2016/12/10.
@@ -43,7 +45,7 @@ import java.util.UUID;
 @Api(value = "单点登录管理", description = "单点登录管理")
 public class SSOController extends BaseController {
 
-    private final static Logger _log = LoggerFactory.getLogger(SSOController.class);
+    // private final static Logger _log = LoggerFactory.getLogger(SSOController.class);
     @Autowired
     UpmsSystemService upmsSystemService;
 
@@ -53,27 +55,20 @@ public class SSOController extends BaseController {
     @Autowired
     UpmsSessionDao upmsSessionDao;
 
-    @ApiOperation(value = "认证中心首页")
-    @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public String index(HttpServletRequest request) throws Exception {
-        String appid = request.getParameter("appid");
-        String backurl = request.getParameter("backurl");
-        if (StringUtils.isBlank(appid)) {
-            throw new RuntimeException("无效访问！");
-        }
-        // 判断请求认证系统是否注册
-        UpmsSystemExample upmsSystemExample = new UpmsSystemExample();
-        upmsSystemExample.createCriteria().andNameEqualTo(appid);
-        int count = upmsSystemService.countByExample(upmsSystemExample);
-        if (0 == count) {
-            throw new RuntimeException(String.format("未注册的系统:%s", appid));
-        }
-        return "redirect:/sso/login?backurl=" + URLEncoder.encode(backurl, "utf-8");
+    @ApiOperation(value = "登录1")
+    @RequestMapping(value = "/login/{systemname}", method = RequestMethod.GET)
+    public String login(@PathVariable("systemname") String systemname, HttpServletRequest request, ModelMap modelMap) throws Exception {
+        return loginMain(request, modelMap, systemname);
     }
 
-    @ApiOperation(value = "登录")
+    @ApiOperation(value = "登录2")
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String login(HttpServletRequest request, ModelMap modelMap) {
+        String systemname = request.getParameter("systemname");
+        return loginMain(request, modelMap, systemname);
+    }
+
+    private String loginMain(HttpServletRequest request, ModelMap modelMap, String systemname) {
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
         String serverSessionId = session.getId().toString();
@@ -81,25 +76,24 @@ public class SSOController extends BaseController {
         String code = RedisUtil.get(UpmsConstant.SERVER_SESSION_ID + "_" + serverSessionId);
         // code校验值
         if (StringUtils.isNotBlank(code)) {
-            // 回跳
-            String backurl = request.getParameter("backurl");
-            String username = (String) subject.getPrincipal();
-            if (StringUtils.isBlank(backurl)) {
-                backurl = "/";
+            if (StringUtils.isBlank(systemname)) {
+                return "redirect:/manage/index";
             } else {
-                if (backurl.contains("?")) {
-                    backurl += "&upms_code=" + code + "&upms_username=" + username;
-                } else {
-                    backurl += "?upms_code=" + code + "&upms_username=" + username;
-                }
+                return "redirect:/manage/index/" + systemname;
             }
-            _log.debug("认证中心帐号通过，带code回跳：{}", backurl);
-            return "redirect:" + backurl;
         }
         String forceLogout = request.getParameter("forceLogout");
-        if(!StringUtils.isBlank(forceLogout)) {
+        if (!StringUtils.isBlank(forceLogout)) {
             modelMap.put("forceLogout", forceLogout);
         }
+        UpmsSystem system = null;
+        if (StringUtils.isNotBlank(systemname)) {
+            UpmsSystemExample ex = new UpmsSystemExample();
+            ex.createCriteria().andNameEqualTo(systemname);
+            system = upmsSystemService.selectFirstByExample(ex);
+        }
+        modelMap.put("systemname", system==null?"":system.getName());
+        modelMap.put("title", system==null?"":system.getTitle());
         return "/sso/login.jsp";
     }
 
@@ -151,12 +145,8 @@ public class SSOController extends BaseController {
             RedisUtil.set(UpmsConstant.SERVER_CODE + "_" + code, code, (int) subject.getSession().getTimeout() / 1000);
         }
         // 回跳登录前地址
-        String backurl = request.getParameter("backurl");
-        if (StringUtils.isBlank(backurl)) {
-            return new UpmsResult(UpmsResultConstant.SUCCESS, "/");
-        } else {
-            return new UpmsResult(UpmsResultConstant.SUCCESS, backurl);
-        }
+        String systemname = request.getParameter("systemname");
+        return new UpmsResult(UpmsResultConstant.SUCCESS, "/manage/index"+(StringUtils.isNotBlank(systemname)?("/"+systemname):""));
     }
 
     @ApiOperation(value = "校验code")
@@ -173,10 +163,14 @@ public class SSOController extends BaseController {
 
     @ApiOperation(value = "退出登录")
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logout(HttpServletRequest request) {
+    public String logout(String systemname) {
         // shiro退出登录
         SecurityUtils.getSubject().logout();
-        return "redirect:/";
+        if(StringUtils.isNotBlank(systemname)) {
+            return "redirect:/sso/login/"+systemname;
+        }else {
+            return "redirect:/sso/login";
+        }
     }
 
 }

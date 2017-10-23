@@ -6,13 +6,32 @@
 		<div class="form-group">
 			<label for="theme" class="col-md-3 control-label">主题色</label>
 			<div class="col-md-9">
-				<input id="theme" type="color" class="form-control" name="theme" maxlength="7" required>
+				<select id="theme" class="form-control" name="theme" required>
+					<option value="skin-black">白暗</option>
+					<option value="skin-black-light">白亮</option>
+					<option value="skin-blue">蓝暗</option>
+					<option value="skin-blue-light">蓝亮</option>
+					<option value="skin-green">绿暗</option>
+					<option value="skin-green-light">绿亮</option>
+					<option value="skin-red">红暗</option>
+					<option value="skin-red-light">红亮</option>
+					<option value="skin-yellow">黄暗</option>
+					<option value="skin-yellow-light">黄亮</option>
+					<option value="skin-purple">紫暗</option>
+					<option value="skin-purple-light">紫亮</option>
+				</select>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="icon" class="col-md-3 control-label">图标</label>
+			<div class="col-md-7">
+				<input id="icon" type="text" class="form-control" name="icon" maxlength="20" readonly required>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="name" class="col-md-3 control-label">名称</label>
 			<div class="col-md-9">
-				<input id="icon" type="text" class="form-control" name="icon" maxlength="20" required>
+				<input id="name" type="text" class="form-control" name="name" maxlength="10" required>
 			</div>
 		</div>
 		<div class="form-group">
@@ -22,21 +41,15 @@
 			</div>
 		</div>
 		<div class="form-group">
-			<label for="name" class="col-md-3 control-label">名称</label>
+			<label for="basepath" class="col-md-3 control-label">根目录</label>
 			<div class="col-md-9">
-				<input id="name" type="text" class="form-control" name="name" maxlength="20" required>
+				<input id="basepath" type="text" class="form-control" name="basepath" maxlength="100">
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="description" class="col-md-3 control-label">描述</label>
 			<div class="col-md-9">
-				<input id="description" type="text" class="form-control" name="description" maxlength="300">
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="basepath" class="col-md-3 control-label">根目录</label>
-			<div class="col-md-9">
-				<input id="basepath" type="text" class="form-control" name="basepath" maxlength="100">
+				<textarea id="description" type="text" class="form-control" name="description" maxlength="2000" rows="8"></textarea>
 			</div>
 		</div>
 		<div class="form-group">
@@ -62,6 +75,8 @@
 </div>
 <script>
 $(function () {
+	$("#createDialog #icon").iconPicker();
+	$('#createDialog #theme').multiselect();
 	$("#createForm").validate();
 	$("#btn_save").click(function(){
 		if(!$("#createForm").valid())return;

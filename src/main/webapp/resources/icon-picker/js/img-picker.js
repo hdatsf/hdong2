@@ -16,22 +16,24 @@
 
 (function($) {
 
-    $.fn.iconPicker = function( options ) {
+    $.fn.imgPicker = function( options, imgBasePath ) {
         
         var mouseOver=false;
         var $popup=null;
         var __iconExist = true;
-        var icons=new Array("adjust","alert","align-center","align-justify","align-left","align-right","apple","arrow-down","arrow-left","arrow-right","arrow-up","asterisk","baby-formula","backward","ban-circle","barcode","bed","bell","bishop","bitcoin","blackboard","bold","book","bookmark","briefcase","btc","bullhorn","calendar","camera","cd","certificate","check","chevron-down","chevron-left","chevron-right","chevron-up","circle-arrow-down","circle-arrow-left","circle-arrow-right","circle-arrow-up","cloud","cloud-download","cloud-upload","cog","collapse-down","collapse-up","comment","compressed","console","copy","copyright-mark","credit-card","cutlery","dashboard","download","download-alt","duplicate","earphone","edit","education","eject","envelope","equalizer","erase","eur","euro","exclamation-sign","expand","export","eye-close","eye-open","facetime-video","fast-backward","fast-forward","file","film","filter","fire","flag","flash","floppy-disk","floppy-open","floppy-remove","floppy-save","floppy-saved","folder-close","folder-open","font","forward","fullscreen","gbp","gift","glass","globe","grain","hand-down","hand-left","hand-right","hand-up","hd-video","hdd","header","headphones","heart","heart-empty","home","hourglass","ice-lolly","ice-lolly-tasted","import","inbox","indent-left","indent-right","info-sign","italic","jpy","king","knight","lamp","leaf","level-up","link","list","list-alt","lock","log-in","log-out","magnet","map-marker","menu-down","menu-hamburger","menu-left","menu-right","menu-up","minus","minus-sign","modal-window","move","music","new-window","object-align-bottom","object-align-horizontal","object-align-left","object-align-right","object-align-top","object-align-vertical","off","oil","ok","ok-circle","ok-sign","open","open-file","option-horizontal","option-vertical","paperclip","paste","pause","pawn","pencil","phone","phone-alt","picture","piggy-bank","plane","play","play-circle","plus","plus-sign","print","pushpin","qrcode","queen","question-sign","random","record","refresh","registration-mark","remove","remove-circle","remove-sign","repeat","resize-full","resize-horizontal","resize-small","resize-vertical","retweet","road","rub","ruble","save","save-file","saved","scale","scissors","screenshot","sd-video","search","send","share","share-alt","shopping-cart","signal","sort","sort-by-alphabet","sort-by-alphabet-alt","sort-by-attributes","sort-by-attributes-alt","sort-by-order","sort-by-order-alt","sound-5-1","sound-6-1","sound-7-1","sound-dolby","sound-stereo","star","star-empty","stats","step-backward","step-forward","stop","subscript","subtitles","sunglasses","superscript","tag","tags","tasks","tent","text-background","text-color","text-height","text-size","text-width","th","th-large","th-list","thumbs-down","thumbs-up","time","tint","tower","transfer","trash","tree-conifer","tree-deciduous","triangle-bottom","triangle-left","triangle-right","triangle-top","unchecked","upload","usd","user","volume-down","volume-off","volume-up","warning-sign","wrench","xbt","yen","zoom-in","zoom-out");
+        var basePath = imgBasePath?imgBasePath:"";
+        var icons=new Array("userB_1.jpg","userB_2.jpg","userB_3.jpg","userB_4.jpg","userB_5.jpg","userB_6.jpg","userB_7.jpg","userB_8.jpg","userB_9.jpg","userB_10.jpg","userB_11.jpg","userB_12.jpg","userB_13.jpg","userB_14.jpg","userB_15.jpg","userB_16.jpg","userB_17.jpg","userB_18.jpg","userB_19.jpg","userB_20.jpg","userB_21.jpg","userB_22.jpg","userB_23.jpg","userB_24.jpg","userG_1.jpg","userG_2.jpg","userG_3.jpg","userG_4.jpg","userG_5.jpg","userG_6.jpg","userG_7.jpg","userG_8.jpg","userG_9.jpg","userG_10.jpg","userG_11.jpg","userG_12.jpg","userG_13.jpg","userG_14.jpg","userG_15.jpg","userG_16.jpg","userG_17.jpg","userG_18.jpg","userG_19.jpg","userG_20.jpg","userG_21.jpg","userG_22.jpg","userG_23.jpg","userG_24.jpg","userR_1.jpg","userR_2.jpg","userR_3.jpg","userR_4.jpg","userR_5.jpg","userR_6.jpg","userR_7.jpg","userR_8.jpg","userR_9.jpg","userR_10.jpg","userR_11.jpg","userR_12.jpg","userR_13.jpg","userR_14.jpg","userR_15.jpg","userR_16.jpg","userR_17.jpg","userR_18.jpg","userR_19.jpg","userR_20.jpg","userR_21.jpg","userR_22.jpg","userR_23.jpg","userR_24.jpg","userY_1.jpg","userY_2.jpg","userY_3.jpg","userY_4.jpg","userY_5.jpg","userY_6.jpg","userY_7.jpg","userY_8.jpg","userY_9.jpg","userY_10.jpg","userY_11.jpg","userY_12.jpg","userY_13.jpg","userY_14.jpg","userY_15.jpg","userY_16.jpg","userY_17.jpg","userY_18.jpg","userY_19.jpg","userY_20.jpg","userY_21.jpg","userY_22.jpg","userY_23.jpg","userY_24.jpg");
         var settings = $.extend({
+        	
         }, options);
         return this.each( function() {
         	element=this;
-            if(!settings.buttonOnly && $(this).data("iconPicker")==undefined ){
+            if(!settings.buttonOnly && $(this).data("imgPicker")==undefined ){
             	$this=$(this).addClass("form-control");
             	$wraper=$("<div/>",{class:"input-group"});
             	$this.wrap($wraper);
 
-            	$button=$("<span class=\"input-group-addon pointer\"><i class=\"glyphicon  glyphicon-picture\"></i></span>");
+            	$button=$("<span class=\"input-group-addon pointer\">选择</span>");
             	$this.after($button);
             	(function(ele){
 	            	$button.click(function(){
@@ -41,7 +43,7 @@
 	            	});
 	            })($this);
 
-            	$(this).data("iconPicker",{attached:true});
+            	$(this).data("imgPicker",{attached:true});
             }
         
 	        function createUI($element){
@@ -106,6 +108,7 @@
 				        removeInstance();
 				    }
 				});
+
 	        }
 	        function removeInstance(){
 	        	$(".icon-popup").remove();
@@ -113,13 +116,12 @@
 	        }
 	        function showList($element,arrLis){
 	        	$ul=$("<ul>");
-	        	
+				
 	        	for (var i in arrLis) {
-	        		$ul.append("<li><a href=\"#\" title="+arrLis[i]+"><span class=\"glyphicon  glyphicon-"+arrLis[i]+"\"></span></a></li>");
+	        		$ul.append("<li><img class=\"pointer\" title=\""+arrLis[i]+"\" src=\""+basePath+arrLis[i]+"\"/></li>");
 	        	};
-
 	        	$(".icon-list",$popup).html($ul);
-	        	$(".icon-list li a",$popup).click(function(e){
+	        	$(".icon-list li img",$popup).click(function(e){
 	        		e.preventDefault();
 	        		var title=$(this).attr("title");
 	        		$element.val(title);

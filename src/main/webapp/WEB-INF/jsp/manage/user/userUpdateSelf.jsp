@@ -59,7 +59,7 @@
 
 <script>
 	$(function() {
-		$("#avatar").iconPicker(null,"${basePath}/resources/icon-picker/img/");
+		$("#avatar").imgPicker(null,"${basePath}/resources/icon-picker/img/");
 		
 		HdDict.initSelect("UPMS","USER_SEX",$("#updateDialog #sex"),"${user.sex}");
 		$('#updateDialog #sex').multiselect();

@@ -34,7 +34,8 @@ public class ServletUtil {
     public static boolean isStaticFile(ServletRequest request) {
         if (request != null && request instanceof HttpServletRequest) {
             String uri = ((HttpServletRequest) request).getRequestURI();
-            return uri.indexOf("resources") > 0 ? true : false;
+            String rootPath = ((HttpServletRequest) request).getContextPath();
+            return uri.indexOf(rootPath+"/resources") ==0 ? true : false;
         } else {
             return false;
         }
