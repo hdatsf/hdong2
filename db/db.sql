@@ -251,7 +251,7 @@ CREATE TABLE `upms_user` (
 
 LOCK TABLES `upms_user` WRITE;
 /*!40000 ALTER TABLE `upms_user` DISABLE KEYS */;
-INSERT INTO `upms_user` VALUES (1,'admin','2338E790936BD0E85C97FA753CEC6FDA','8eaffe6cba0247818afd5c469b3a9fcc','黄栋','userB_6.jpg','12345','403965963@qq.com',1,1,1),(2,'test','9E4AFAE70B98CFAC4DAB4C48748C81ED','ddf8dd6363e94b279b32351bb349eb5e','匿名用户','userB_1.jpg','0571-88888888','test@czbank.com',1,1,2);
+INSERT INTO `upms_user` VALUES (1,'admin','2338E790936BD0E85C97FA753CEC6FDA','8eaffe6cba0247818afd5c469b3a9fcc','黄栋','userB_6.jpg','12345','403965963@qq.com',1,1,1),(2,'test','9E4AFAE70B98CFAC4DAB4C48748C81ED','ddf8dd6363e94b279b32351bb349eb5e','匿名用户','userB_1.jpg','0571-88888888','test@163.com',1,1,2);
 /*!40000 ALTER TABLE `upms_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
